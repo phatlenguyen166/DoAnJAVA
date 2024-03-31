@@ -4,10 +4,23 @@
  */
 package BUS;
 
+import DAO.SanPhamDAO;
+import DTO.SanPhamDTO;
+        
+
+
 /**
  *
  * @author ADMIN
  */
 public class SanPhamBus {
+    private  SanPhamDAO sanPhamDAO;
     
+    public SanPhamBus(SanPhamDAO sanPhamDAO){
+        this.sanPhamDAO = sanPhamDAO;
+    }
+    
+    public boolean themSanPham(SanPhamDTO sanPham){
+        return sanPhamDAO.themSanPham(sanPham);
+    }
 }

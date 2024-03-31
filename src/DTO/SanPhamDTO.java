@@ -75,6 +75,15 @@ public class SanPhamDTO {
         return soluongton;
     }
 
+    public int getGianhap() {
+        return gianhap;
+    }
+
+    public int getGiaxuat() {
+        return giaxuat;
+    }
+
+    
     public void setMasp(int masp) {
         this.masp = masp;
     }
@@ -89,6 +98,14 @@ public class SanPhamDTO {
 
     public void setHinhanh(String hinhanh) {
         this.hinhanh = hinhanh;
+    }
+
+    public void setGianhap(int gianhap) {
+        this.gianhap = gianhap;
+    }
+
+    public void setGiaxuat(int giaxuat) {
+        this.giaxuat = giaxuat;
     }
 
     public void setXuatxu(int xuatxu) {

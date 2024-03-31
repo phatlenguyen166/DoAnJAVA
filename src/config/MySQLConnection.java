@@ -9,9 +9,9 @@ import java.sql.SQLException;
 
 public class MySQLConnection {
     // Thông tin kết nối cơ sở dữ liệu
-    private static final String URL = "jdbc:mysql://localhost:3306/ten_csdlt"; // URL của cơ sở dữ liệu
-    private static final String USER = "ten_nguoi_dung"; // Tên người dùng MySQL
-    private static final String PASSWORD = "mat_khau"; // Mật khẩu MySQL
+    private static final String URL = "jdbc:mysql://localhost:3306/quanlycuahanggiay"; // URL của cơ sở dữ liệu
+    private static final String USER = "root"; // Tên người dùng MySQL
+    private static final String PASSWORD = ""; // Mật khẩu MySQL
 
     // Phương thức để thiết lập và trả về kết nối
     public static Connection getConnection() {

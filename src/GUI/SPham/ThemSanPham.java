@@ -19,6 +19,7 @@ public class ThemSanPham extends javax.swing.JFrame {
         initComponents();
         lblTitle.setFont(new Font("Tahoma",Font.BOLD,20));
         this.setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -34,6 +35,7 @@ public class ThemSanPham extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         anhSanPham = new javax.swing.JPanel();
+        txtHinhAnh = new javax.swing.JTextField();
         lblTenSP = new javax.swing.JLabel();
         txtTenSP = new javax.swing.JTextField();
         lblKho = new javax.swing.JLabel();
@@ -82,11 +84,17 @@ public class ThemSanPham extends javax.swing.JFrame {
         anhSanPham.setLayout(anhSanPhamLayout);
         anhSanPhamLayout.setHorizontalGroup(
             anhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 335, Short.MAX_VALUE)
+            .addGroup(anhSanPhamLayout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(txtHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         anhSanPhamLayout.setVerticalGroup(
             anhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
+            .addGroup(anhSanPhamLayout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(txtHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         lblTenSP.setText("Tên sản phẩm");
@@ -279,9 +287,11 @@ public class ThemSanPham extends javax.swing.JFrame {
     private void btnLuuSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuSPActionPerformed
         // TODO add your handling code here:
         String tenSP = txtTenSP.getText();
+        String hinhAnh = txtHinhAnh.getText();
         int size = Integer.parseInt(txtSizeSP.getText());
-        System.out.println(tenSP);
-        System.out.println(size);
+        int giaNhap = Integer.parseInt(txtGiaNhap.getText());
+        int giaXuat = Integer.parseInt(txtGiaXuat.getText());
+        
     }//GEN-LAST:event_btnLuuSPActionPerformed
 
     private void cbxLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLoaiActionPerformed
@@ -349,6 +359,7 @@ public class ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JLabel lblXuatXu;
     private javax.swing.JTextField txtGiaNhap;
     private javax.swing.JTextField txtGiaXuat;
+    private javax.swing.JTextField txtHinhAnh;
     private javax.swing.JTextField txtSizeSP;
     private javax.swing.JTextField txtTenSP;
     // End of variables declaration//GEN-END:variables

@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 
@@ -55,7 +56,6 @@ public class Main extends javax.swing.JFrame {
         setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addIconTaskbar();
-        setUT();
         addHoverBtn();
     }
 //    int role;
@@ -95,12 +95,17 @@ public class Main extends javax.swing.JFrame {
         FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
+        //set size table
         UIManager.put("Table.showVerticalLines", false);
         UIManager.put("Table.showHorizontalLines", true);
         UIManager.put("TextComponent.arc", 5);
+        // set thanh trượt 
         UIManager.put("ScrollBar.thumbArc", 999);
         UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
+
         UIManager.put("PasswordField.showRevealButton", true);
+
+        // set custome table 
         UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
         UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
         UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
@@ -135,7 +140,7 @@ public class Main extends javax.swing.JFrame {
                 button.setBackground(hoverColor); // Khi di chuột vào, đổi màu nền 
 
             }
-            
+
             @Override
             public void mouseExited(MouseEvent e) {
 
@@ -164,19 +169,19 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void addHoverBtn() {
-    addHoverEffect(btnDangXuat);
-    addHoverEffect(btnKhachHang);
-    addHoverEffect(btnKhuVucKho);
-    addHoverEffect(btnNhaCungCap);
-    addHoverEffect(btnNhanVien);
-    addHoverEffect(btnPhieuNhap);
-    addHoverEffect(btnPhieuXuat);
-    addHoverEffect(btnSanPham);
-    addHoverEffect(btnTaiKhoan);
-    addHoverEffect(btnThongKe);
-    addHoverEffect(btnThuocTinh);
-    // Thêm hiệu ứng hover cho từng button
-}
+        addHoverEffect(btnDangXuat);
+        addHoverEffect(btnKhachHang);
+        addHoverEffect(btnKhuVucKho);
+        addHoverEffect(btnNhaCungCap);
+        addHoverEffect(btnNhanVien);
+        addHoverEffect(btnPhieuNhap);
+        addHoverEffect(btnPhieuXuat);
+        addHoverEffect(btnSanPham);
+        addHoverEffect(btnTaiKhoan);
+        addHoverEffect(btnThongKe);
+        addHoverEffect(btnThuocTinh);
+        // Thêm hiệu ứng hover cho từng button
+    }
 // Gọi phương thức này trong constructor hoặc bất kỳ nơi nào khác mà bạn muốn thêm hiệu ứng hover cho tất cả các button
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -578,42 +583,70 @@ public class Main extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(() -> {
+//            new Main().setVisible(true);
+//            Main main = new Main();
+//            main.setVisible(true);
+//            main.btnTrangChuActionPerformed(null);
+//        });
+//    }
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+        FlatRobotoFont.install();
+        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
+        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
+        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
+        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+        FlatIntelliJLaf.setup();
+        //set size table
+        UIManager.put("Table.showVerticalLines", false);
+        UIManager.put("Table.showHorizontalLines", true);
+        UIManager.put("TextComponent.arc", 5);
+        // set thanh trượt 
+        UIManager.put("ScrollBar.thumbArc", 999);
+        UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
 
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+        // set custome table 
+        UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
+        UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
+        UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
+        UIManager.put("TableHeader.height", 40);
+        UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
+        UIManager.put("TableHeader.background", new Color(242, 242, 242));
+        UIManager.put("TableHeader.separatorColor", new Color(242, 242, 242));
+        UIManager.put("TableHeader.bottomSeparatorColor", new Color(242, 242, 242));
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Main().setVisible(true);
-            Main main = new Main();
-            main.setVisible(true);
-            main.btnTrangChuActionPerformed(null);
-
-        });
+        Main main = new Main();
+        main.setUT();
+        main.setVisible(true);
+        main.btnTrangChuActionPerformed(null);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bar;
     private javax.swing.JLabel bar2;

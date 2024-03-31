@@ -1,4 +1,4 @@
-package GUI;
+    package GUI;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -28,33 +28,6 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
-        setUT();
-    }
-    
-    private void setUT(){
-        FlatRobotoFont.install();
-        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-        UIManager.put("Table.showVerticalLines", false);
-        UIManager.put("Table.showHorizontalLines", true);
-        UIManager.put("TextComponent.arc", 5);
-        UIManager.put("ScrollBar.thumbArc", 999);
-        UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
-        UIManager.put("Button.iconTextGap", 10);
-        UIManager.put("PasswordField.showRevealButton", true);
-        UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
-        UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
-        UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
-        UIManager.put("Table.rowHeight", 40);
-        UIManager.put("TabbedPane.selectedBackground", Color.white);
-        UIManager.put("TableHeader.height", 40);
-        UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
-        UIManager.put("TableHeader.background", new Color(242, 242, 242));
-        UIManager.put("TableHeader.separatorColor", new Color(242, 242, 242));
-        UIManager.put("TableHeader.bottomSeparatorColor", new Color(242, 242, 242));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -133,7 +106,6 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 //        txtUsername.getText().endsWith(taikhoan) &&
-        
         main = new Main();
         main.setVisible(true);
         dispose();
@@ -149,36 +121,15 @@ public class Login extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-
-            }
-        });
+        FlatRobotoFont.install();
+        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
+        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
+        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
+        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+        FlatIntelliJLaf.setup();
+        UIManager.put("PasswordField.showRevealButton", true);
+        Login login = new Login();
+        login.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
