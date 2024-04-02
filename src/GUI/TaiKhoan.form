@@ -43,59 +43,11 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[1200, 100]"/>
+          <Dimension value="[1200, 70]"/>
         </Property>
       </Properties>
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnThemTK" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnSuaTK" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnXoaTK" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnNhapExcelTK" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnXuatExcelTK" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="557" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnTimKiem" min="-2" pref="152" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnTimKiem" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnThemTK" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnSuaTK" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnXoaTK" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnNhapExcelTK" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnXuatExcelTK" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnThemTK">
           <Properties>
@@ -126,22 +78,27 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhapExcelTKActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m :"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="btnTimKiem">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimKiemActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="btnXuatExcelTK">
           <Properties>
             <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t excel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXuatExcelTKActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="btnTimKiem">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 30]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimKiemActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -156,7 +113,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane2" alignment="0" pref="694" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" alignment="0" pref="724" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

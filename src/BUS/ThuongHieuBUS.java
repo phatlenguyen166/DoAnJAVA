@@ -50,5 +50,13 @@ public class ThuongHieuBUS {
         }
         return false; // Tên thương hiệu mới không trùng với bất kỳ thương hiệu nào khác
     }
-
+    
+    public String[] getArrTenThuongHieu() {
+        int size = getAllThuongHieu().size();
+        String[] result = new String[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = getAllThuongHieu().get(i).getTenthuonghieu();
+        }
+        return result;
+    } 
 }

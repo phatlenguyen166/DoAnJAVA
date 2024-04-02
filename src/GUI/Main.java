@@ -4,8 +4,10 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,38 +51,16 @@ public class Main extends javax.swing.JFrame {
 
     private final Color defaultColor = new Color(255, 255, 255);
     private final Color hoverColor = new Color(235, 237, 240);
-
+    
     public Main() {
+        this.setPreferredSize(new Dimension(1400,800));
         initComponents();
         setLocationRelativeTo(null);
-        setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addIconTaskbar();
         addHoverBtn();
     }
-//    int role;
-//    public Main(int role) {
-//        initComponents();
-//        setLocationRelativeTo(null);
-//        setResizable(false);
-//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-////        mainContent.setBackground(MainColor);
-//        addIconTaskbar();
-//        setUT();
-//        addHoverBtn();
-//        this.role = role;
-//        handleRole(this.role);
-//    }
-//    
-//    public void handleRole(int role){
-//        if ( role == 1){
-//            btnTrangChu.setVisible(true);
-//            btnSanPham.setVisible(false);
-//            btnKhachHang.setVisible(false);
-//            btnPhieuNhap.setVisible(false);
-//            btnPhieuXuat.setVisible(false);
-//        }
-//    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -208,11 +188,9 @@ public class Main extends javax.swing.JFrame {
         btnDangXuat = new javax.swing.JButton();
         mainContent = new javax.swing.JPanel();
         mainContent2 = new javax.swing.JPanel();
-        bar2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1400, 800));
 
         menuTaskbar.setBackground(new java.awt.Color(255, 255, 255));
         menuTaskbar.setPreferredSize(new java.awt.Dimension(200, 800));
@@ -230,17 +208,17 @@ public class Main extends javax.swing.JFrame {
         infoLayout.setHorizontalGroup(
             infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(bar, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-            .addGroup(infoLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(63, 63, 63))
         );
         infoLayout.setVerticalGroup(
             infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -430,66 +408,31 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(taskBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
         );
 
+        getContentPane().add(menuTaskbar, java.awt.BorderLayout.WEST);
+
         mainContent.setBackground(new java.awt.Color(235, 235, 235));
         mainContent.setPreferredSize(new java.awt.Dimension(1200, 800));
+        mainContent.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout mainContent2Layout = new javax.swing.GroupLayout(mainContent2);
         mainContent2.setLayout(mainContent2Layout);
         mainContent2Layout.setHorizontalGroup(
             mainContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1188, Short.MAX_VALUE)
+            .addGap(0, 673, Short.MAX_VALUE)
         );
         mainContent2Layout.setVerticalGroup(
             mainContent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 741, Short.MAX_VALUE)
+            .addGap(0, 583, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout mainContentLayout = new javax.swing.GroupLayout(mainContent);
-        mainContent.setLayout(mainContentLayout);
-        mainContentLayout.setHorizontalGroup(
-            mainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainContentLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mainContent2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        mainContentLayout.setVerticalGroup(
-            mainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainContentLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mainContent2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        mainContent.add(mainContent2, java.awt.BorderLayout.CENTER);
 
-        bar2.setBackground(new java.awt.Color(0, 0, 0));
-        bar2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        bar2.setPreferredSize(new java.awt.Dimension(1, 1));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(menuTaskbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(bar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(menuTaskbar, javax.swing.GroupLayout.DEFAULT_SIZE, 812, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainContent, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
-        );
+        getContentPane().add(mainContent, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -572,10 +515,11 @@ public class Main extends javax.swing.JFrame {
 
 // hàm taskbar
     public void addTaskBar(Container mainContent, JPanel panel) {
+        mainContent.setLayout(new BorderLayout());
         panel.setSize(mainContent.getSize());
-
         mainContent.removeAll();
-        mainContent.add(panel).setVisible(true);
+        mainContent.add(panel,BorderLayout.CENTER);
+        mainContent.setVisible(true);
         mainContent.revalidate();
         mainContent.repaint();
     }
@@ -649,7 +593,6 @@ public class Main extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bar;
-    private javax.swing.JLabel bar2;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JToggleButton btnKhachHang;
     private javax.swing.JToggleButton btnKhuVucKho;

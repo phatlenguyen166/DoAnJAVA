@@ -4,7 +4,15 @@
  */
 package GUI.SPham;
 
+import BUS.LoaiBUS;
+import BUS.ThuongHieuBUS;
+import BUS.XuatXuBUS;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Font;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -19,9 +27,37 @@ public class ThemSanPham extends javax.swing.JFrame {
         initComponents();
         lblTitle.setFont(new Font("Tahoma",Font.BOLD,20));
         this.setLocationRelativeTo(null);
-        
+        this.setResizable(false);
+        loadCombobox();
+        FlatRobotoFont.install();
+        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
+        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
+        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
+        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+        FlatIntelliJLaf.setup();
     }
-
+        
+    ThuongHieuBUS thuongHieuBUS = new ThuongHieuBUS();
+    LoaiBUS loaiBUS = new LoaiBUS();
+    XuatXuBUS xuatXuBUS = new XuatXuBUS();
+    private void loadCombobox(){
+        String []arrTenThuongHieu = thuongHieuBUS.getArrTenThuongHieu();
+        selectCombobox(cbxThuongHieu,arrTenThuongHieu);
+        String []arrTenLoai = loaiBUS.getArrTenLoai();
+        selectCombobox(cbxLoai, arrTenLoai);
+        String []arrTenXuatXu = xuatXuBUS.getArrTenXuatXu();
+        selectCombobox(cbxXuatXu, arrTenXuatXu);
+    }
+    
+    
+    
+    private void selectCombobox(JComboBox comboBox,String []obj){
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        for ( String ob : obj){
+            model.addElement(ob);
+        }
+        comboBox.setModel(model);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +90,7 @@ public class ThemSanPham extends javax.swing.JFrame {
         txtGiaXuat = new javax.swing.JTextField();
         lblGiaXuat = new javax.swing.JLabel();
         btnLuuSP = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,8 +139,6 @@ public class ThemSanPham extends javax.swing.JFrame {
 
         lblSize.setText("Size");
 
-        cbxThuongHieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lblXuatXu.setText("Xuất xứ");
 
         cbxKho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -140,10 +174,10 @@ public class ThemSanPham extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Hủy bỏ");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setText("Hủy bỏ");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -201,7 +235,7 @@ public class ThemSanPham extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(68, 68, 68))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -255,7 +289,7 @@ public class ThemSanPham extends javax.swing.JFrame {
                     .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnLuuSP)
-                        .addComponent(jButton3)))
+                        .addComponent(btnCancel)))
                 .addGap(91, 91, 91))
         );
 
@@ -279,18 +313,13 @@ public class ThemSanPham extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnLuuSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuSPActionPerformed
         // TODO add your handling code here:
-        String tenSP = txtTenSP.getText();
-        String hinhAnh = txtHinhAnh.getText();
-        int size = Integer.parseInt(txtSizeSP.getText());
-        int giaNhap = Integer.parseInt(txtGiaNhap.getText());
-        int giaXuat = Integer.parseInt(txtGiaXuat.getText());
         
     }//GEN-LAST:event_btnLuuSPActionPerformed
 
@@ -306,46 +335,24 @@ public class ThemSanPham extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThemSanPham.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ThemSanPham().setVisible(true);
-            }
-        });
+        FlatRobotoFont.install();
+        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
+        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
+        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
+        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+        FlatIntelliJLaf.setup();
+        new ThemSanPham().setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel anhSanPham;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnChonAnh;
     private javax.swing.JButton btnLuuSP;
     private javax.swing.JComboBox<String> cbxKho;
     private javax.swing.JComboBox<String> cbxLoai;
     private javax.swing.JComboBox<String> cbxThuongHieu;
     private javax.swing.JComboBox<String> cbxXuatXu;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblGiaNhap;

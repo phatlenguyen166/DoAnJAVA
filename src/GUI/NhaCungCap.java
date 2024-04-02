@@ -55,11 +55,13 @@ public class NhaCungCap extends javax.swing.JPanel {
         tblNhaCC = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 800));
+        setLayout(new java.awt.BorderLayout());
 
         pnlTop.setBackground(new java.awt.Color(255, 255, 255));
-        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 100));
+        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemNhaCC.setText("Thêm");
+        pnlTop.add(btnThemNhaCC);
 
         btnSuaNhaCC.setText("Sửa");
         btnSuaNhaCC.addActionListener(new java.awt.event.ActionListener() {
@@ -67,6 +69,7 @@ public class NhaCungCap extends javax.swing.JPanel {
                 btnSuaNhaCCActionPerformed(evt);
             }
         });
+        pnlTop.add(btnSuaNhaCC);
 
         btnXoaNhaCC.setText("Xóa");
         btnXoaNhaCC.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +77,7 @@ public class NhaCungCap extends javax.swing.JPanel {
                 btnXoaNhaCCActionPerformed(evt);
             }
         });
+        pnlTop.add(btnXoaNhaCC);
 
         btnNhapExcelNCC.setText("Nhập excel");
         btnNhapExcelNCC.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +85,7 @@ public class NhaCungCap extends javax.swing.JPanel {
                 btnNhapExcelNCCActionPerformed(evt);
             }
         });
+        pnlTop.add(btnNhapExcelNCC);
 
         btnXuatExcelNCC.setText("Xuất excel");
         btnXuatExcelNCC.addActionListener(new java.awt.event.ActionListener() {
@@ -88,55 +93,23 @@ public class NhaCungCap extends javax.swing.JPanel {
                 btnXuatExcelNCCActionPerformed(evt);
             }
         });
+        pnlTop.add(btnXuatExcelNCC);
 
         jLabel1.setText("Tìm kiếm :");
+        pnlTop.add(jLabel1);
 
+        btnTimKiem.setMinimumSize(new java.awt.Dimension(200, 30));
+        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemActionPerformed(evt);
             }
         });
+        pnlTop.add(btnTimKiem);
 
-        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
-        pnlTop.setLayout(pnlTopLayout);
-        pnlTopLayout.setHorizontalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnThemNhaCC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSuaNhaCC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnXoaNhaCC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNhapExcelNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnXuatExcelNCC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 492, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        pnlTopLayout.setVerticalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopLayout.createSequentialGroup()
-                .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTopLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnThemNhaCC)
-                            .addComponent(btnSuaNhaCC)
-                            .addComponent(btnXoaNhaCC)
-                            .addComponent(btnNhapExcelNCC)
-                            .addComponent(btnXuatExcelNCC)))
-                    .addGroup(pnlTopLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
+        add(pnlTop, java.awt.BorderLayout.NORTH);
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 700));
 
         tblNhaCC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,28 +128,14 @@ public class NhaCungCap extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(asd, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(asd, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(asd, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(asd, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
+        add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaNhaCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNhaCCActionPerformed

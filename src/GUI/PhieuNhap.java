@@ -43,18 +43,21 @@ public class PhieuNhap extends javax.swing.JPanel {
         btnChiTietPN = new javax.swing.JButton();
         btnHuyPhieu = new javax.swing.JButton();
         btnXuatExcelPN = new javax.swing.JButton();
-        btnTimKiem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        pnlLoc = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        btnTimKiem = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPhieuNhap = new javax.swing.JTable();
+        pnlLoc = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+
+        setLayout(new java.awt.BorderLayout());
 
         pnlTop.setBackground(new java.awt.Color(255, 255, 255));
-        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 100));
+        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemPN.setText("Thêm");
+        pnlTop.add(btnThemPN);
 
         btnChiTietPN.setText("Chi tiết");
         btnChiTietPN.addActionListener(new java.awt.event.ActionListener() {
@@ -62,6 +65,7 @@ public class PhieuNhap extends javax.swing.JPanel {
                 btnChiTietPNActionPerformed(evt);
             }
         });
+        pnlTop.add(btnChiTietPN);
 
         btnHuyPhieu.setText("Hủy phiếu");
         btnHuyPhieu.addActionListener(new java.awt.event.ActionListener() {
@@ -69,6 +73,7 @@ public class PhieuNhap extends javax.swing.JPanel {
                 btnHuyPhieuActionPerformed(evt);
             }
         });
+        pnlTop.add(btnHuyPhieu);
 
         btnXuatExcelPN.setText("Xuất excel");
         btnXuatExcelPN.addActionListener(new java.awt.event.ActionListener() {
@@ -76,52 +81,33 @@ public class PhieuNhap extends javax.swing.JPanel {
                 btnXuatExcelPNActionPerformed(evt);
             }
         });
+        pnlTop.add(btnXuatExcelPN);
 
+        jLabel1.setText("Tìm kiếm :");
+        pnlTop.add(jLabel1);
+
+        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemActionPerformed(evt);
             }
         });
+        pnlTop.add(btnTimKiem);
 
-        jLabel1.setText("Tìm kiếm :");
+        add(pnlTop, java.awt.BorderLayout.NORTH);
 
-        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
-        pnlTop.setLayout(pnlTopLayout);
-        pnlTopLayout.setHorizontalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnThemPN)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnChiTietPN)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHuyPhieu, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnXuatExcelPN)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        pnlTopLayout.setVerticalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopLayout.createSequentialGroup()
-                .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTopLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnXuatExcelPN)
-                            .addComponent(btnHuyPhieu)
-                            .addComponent(btnChiTietPN)
-                            .addComponent(btnThemPN)))
-                    .addGroup(pnlTopLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(39, 39, 39))
-        );
+        tblPhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã xuất phiếu", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền"
+            }
+        ));
+        jScrollPane1.setViewportView(tblPhieuNhap);
 
         pnlLoc.setBackground(new java.awt.Color(153, 153, 255));
         pnlLoc.setPreferredSize(new java.awt.Dimension(270, 201));
@@ -145,50 +131,28 @@ public class PhieuNhap extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tblPhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Mã xuất phiếu", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền"
-            }
-        ));
-        jScrollPane1.setViewportView(tblPhieuNhap);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 935, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, 1211, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
+        add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnChiTietPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietPNActionPerformed
@@ -216,9 +180,7 @@ public class PhieuNhap extends javax.swing.JPanel {
     private javax.swing.JButton btnXuatExcelPN;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlLoc;
     private javax.swing.JPanel pnlTop;

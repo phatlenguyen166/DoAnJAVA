@@ -47,9 +47,9 @@ public class TaiKhoan extends javax.swing.JPanel {
         btnSuaTK = new javax.swing.JButton();
         btnXoaTK = new javax.swing.JButton();
         btnNhapExcelTK = new javax.swing.JButton();
+        btnXuatExcelTK = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnTimKiem = new javax.swing.JTextField();
-        btnXuatExcelTK = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTaiKhoan = new javax.swing.JTable();
@@ -58,9 +58,10 @@ public class TaiKhoan extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 100));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemTK.setText("Thêm");
+        jPanel1.add(btnThemTK);
 
         btnSuaTK.setText("Sửa");
         btnSuaTK.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +69,7 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnSuaTKActionPerformed(evt);
             }
         });
+        jPanel1.add(btnSuaTK);
 
         btnXoaTK.setText("Xóa");
         btnXoaTK.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +77,7 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnXoaTKActionPerformed(evt);
             }
         });
+        jPanel1.add(btnXoaTK);
 
         btnNhapExcelTK.setText("Nhập excel");
         btnNhapExcelTK.addActionListener(new java.awt.event.ActionListener() {
@@ -82,14 +85,7 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnNhapExcelTKActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Tìm kiếm :");
-
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
+        jPanel1.add(btnNhapExcelTK);
 
         btnXuatExcelTK.setText("Xuất excel");
         btnXuatExcelTK.addActionListener(new java.awt.event.ActionListener() {
@@ -97,47 +93,18 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnXuatExcelTKActionPerformed(evt);
             }
         });
+        jPanel1.add(btnXuatExcelTK);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnThemTK)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSuaTK)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnXoaTK)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNhapExcelTK)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnXuatExcelTK)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 557, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnThemTK)
-                            .addComponent(btnSuaTK)
-                            .addComponent(btnXoaTK)
-                            .addComponent(btnNhapExcelTK)
-                            .addComponent(btnXuatExcelTK))))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
+        jLabel1.setText("Tìm kiếm :");
+        jPanel1.add(jLabel1);
+
+        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnTimKiem);
 
         tblTaiKhoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -196,7 +163,7 @@ public class TaiKhoan extends javax.swing.JPanel {
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

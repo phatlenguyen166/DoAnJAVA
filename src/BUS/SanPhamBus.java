@@ -20,7 +20,4 @@ public class SanPhamBus {
         this.sanPhamDAO = sanPhamDAO;
     }
     
-    public boolean themSanPham(SanPhamDTO sanPham){
-        return sanPhamDAO.themSanPham(sanPham);
-    }
 }
