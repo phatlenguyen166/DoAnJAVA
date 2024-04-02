@@ -54,7 +54,14 @@ public class LoaiBUS {
         return false; // Tên thương hiệu mới không trùng với bất kỳ thương hiệu nào khác
     }
     
-    
+    public String[] getArrTenLoai() {
+        int size = getAllLoai().size();
+        String[] result = new String[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = getAllLoai().get(i).getTenloai();
+        }
+        return result;
+    } 
 }
 
 

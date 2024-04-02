@@ -50,5 +50,13 @@ public class XuatXuBUS {
         }
         return false; // Tên xuất xứ mới không trùng với bất kỳ xuất xứ nào khác
     }
-
+    
+    public String[] getArrTenXuatXu() {
+        int size = getAllXuatXu().size();
+        String[] result = new String[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = getAllXuatXu().get(i).getTenxuatxu();
+        }
+        return result;
+    } 
 }

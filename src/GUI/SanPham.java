@@ -3,7 +3,10 @@ package GUI;
 import GUI.SPham.ThemSanPham;
 import GUI.SanPham;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import static java.awt.AWTEventMulticaster.add;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -33,7 +36,6 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
     public SanPham() throws IOException {
         initComponents();
-        setSize(1200, 800);
         addIcon();
         tblSanPham.setFocusable(false);
         tblSanPham.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
@@ -58,6 +60,11 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
         btnThemSP.addActionListener(this);
         btnSuaSP.addActionListener(this);
+        
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(1200,800));
+        this.add(pnlTop,BorderLayout.NORTH);
+        this.add(pnlCenter,BorderLayout.CENTER);
     }
 
 
@@ -83,18 +90,19 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         btnThemSP = new javax.swing.JButton();
         btnSuaSP = new javax.swing.JButton();
         btnXoaSP = new javax.swing.JButton();
-        btnXuatExcelSP = new javax.swing.JButton();
-        btnTimKiem = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         btnChiTietSP = new javax.swing.JButton();
+        btnXuatExcelSP = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnTimKiem = new javax.swing.JTextField();
         pnlCenter = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 800));
+        setLayout(new java.awt.BorderLayout());
 
         pnlTop.setBackground(new java.awt.Color(255, 255, 255));
-        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 100));
+        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemSP.setText("Thêm");
         btnThemSP.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -113,6 +121,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
                 btnThemSPActionPerformed(evt);
             }
         });
+        pnlTop.add(btnThemSP);
 
         btnSuaSP.setText("Sửa");
         btnSuaSP.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +129,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
                 btnSuaSPActionPerformed(evt);
             }
         });
+        pnlTop.add(btnSuaSP);
 
         btnXoaSP.setText("Xóa");
         btnXoaSP.addActionListener(new java.awt.event.ActionListener() {
@@ -127,22 +137,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
                 btnXoaSPActionPerformed(evt);
             }
         });
-
-        btnXuatExcelSP.setText("Xuất excel");
-        btnXuatExcelSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXuatExcelSPActionPerformed(evt);
-            }
-        });
-
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setLabelFor(btnTimKiem);
-        jLabel1.setText("Tìm kiếm :");
+        pnlTop.add(btnXoaSP);
 
         btnChiTietSP.setText("Chi tiết");
         btnChiTietSP.addActionListener(new java.awt.event.ActionListener() {
@@ -150,47 +145,31 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
                 btnChiTietSPActionPerformed(evt);
             }
         });
+        pnlTop.add(btnChiTietSP);
 
-        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
-        pnlTop.setLayout(pnlTopLayout);
-        pnlTopLayout.setHorizontalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnThemSP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSuaSP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnXoaSP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnChiTietSP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnXuatExcelSP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        pnlTopLayout.setVerticalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopLayout.createSequentialGroup()
-                .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTopLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnThemSP)
-                            .addComponent(btnSuaSP)
-                            .addComponent(btnXoaSP)
-                            .addComponent(btnXuatExcelSP)
-                            .addComponent(btnChiTietSP)))
-                    .addGroup(pnlTopLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
+        btnXuatExcelSP.setText("Xuất excel");
+        btnXuatExcelSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatExcelSPActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnXuatExcelSP);
+
+        jLabel1.setLabelFor(btnTimKiem);
+        jLabel1.setText("Tìm kiếm :");
+        pnlTop.add(jLabel1);
+
+        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnTimKiem);
+
+        add(pnlTop, java.awt.BorderLayout.NORTH);
+
+        pnlCenter.setPreferredSize(new java.awt.Dimension(1200, 700));
 
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,29 +189,10 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
