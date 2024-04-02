@@ -6,6 +6,7 @@ package GUI.ThuocTinhSP;
 
 import BUS.ThuongHieuBUS;
 import DTO.ThuongHieuDTO;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -26,7 +27,7 @@ public class ThuongHieu extends javax.swing.JPanel {
 
     public ThuongHieu() {
         initComponents();
-        lblLoai.setFont(new Font("Tahoma", Font.BOLD, 20));
+        lblThuongHieu.setFont(new Font("Tahoma", Font.BOLD, 20));
         hienThiListThuongHieu();
         tblThuongHieu.setFocusable(false);
         tblThuongHieu.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
@@ -35,8 +36,11 @@ public class ThuongHieu extends javax.swing.JPanel {
             chonDongTrongBang();
         });
             
+        btnThemThuongHieu.setIcon(new FlatSVGIcon("./icon/add.svg"));
+        btnSuaThuongHieu.setIcon(new FlatSVGIcon("./icon/edit.svg"));
+        btnXoaThuongHieu.setIcon(new FlatSVGIcon("./icon/delete.svg"));
     }
-
+    
     private void chonDongTrongBang() {
         int selectedRow = tblThuongHieu.getSelectedRow();
         if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
@@ -128,16 +132,72 @@ public class ThuongHieu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnThemThuongHieu = new javax.swing.JButton();
-        btnSuaThuongHieu = new javax.swing.JButton();
-        btnXoaThuongHieu = new javax.swing.JButton();
         scrollThuongHieu = new javax.swing.JScrollPane();
         tblThuongHieu = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JPanel();
-        lblLoai = new javax.swing.JLabel();
+        lblThuongHieu = new javax.swing.JLabel();
         tenThuongHieu = new javax.swing.JPanel();
         lblTenThuongHieu = new javax.swing.JLabel();
         txtTenThuongHieu = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        btnThemThuongHieu = new javax.swing.JButton();
+        btnSuaThuongHieu = new javax.swing.JButton();
+        btnXoaThuongHieu = new javax.swing.JButton();
+
+        setLayout(new java.awt.BorderLayout());
+
+        tblThuongHieu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Mã thương hiệu", "Tên thương hiệu"
+            }
+        ));
+        scrollThuongHieu.setViewportView(tblThuongHieu);
+
+        add(scrollThuongHieu, java.awt.BorderLayout.CENTER);
+
+        title.setBackground(new java.awt.Color(0, 102, 255));
+        title.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblThuongHieu.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        lblThuongHieu.setForeground(new java.awt.Color(255, 255, 255));
+        lblThuongHieu.setText("THƯƠNG HIỆU SẢN PHẨM");
+        title.add(lblThuongHieu);
+
+        tenThuongHieu.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblTenThuongHieu.setText("Tên thương hiệu :");
+        tenThuongHieu.add(lblTenThuongHieu);
+
+        txtTenThuongHieu.setMinimumSize(new java.awt.Dimension(150, 30));
+        txtTenThuongHieu.setPreferredSize(new java.awt.Dimension(150, 30));
+        tenThuongHieu.add(txtTenThuongHieu);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+
+        add(jPanel1, java.awt.BorderLayout.NORTH);
+
+        jPanel2.setPreferredSize(new java.awt.Dimension(130, 580));
 
         btnThemThuongHieu.setText("Thêm");
         btnThemThuongHieu.addActionListener(new java.awt.event.ActionListener() {
@@ -160,99 +220,27 @@ public class ThuongHieu extends javax.swing.JPanel {
             }
         });
 
-        tblThuongHieu.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Mã thương hiệu", "Tên thương hiệu"
-            }
-        ));
-        scrollThuongHieu.setViewportView(tblThuongHieu);
-
-        title.setBackground(new java.awt.Color(0, 102, 255));
-        title.setForeground(new java.awt.Color(255, 255, 255));
-
-        lblLoai.setForeground(new java.awt.Color(255, 255, 255));
-        lblLoai.setText("THƯƠNG HIỆU SẢN PHẨM");
-
-        javax.swing.GroupLayout titleLayout = new javax.swing.GroupLayout(title);
-        title.setLayout(titleLayout);
-        titleLayout.setHorizontalGroup(
-            titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(titleLayout.createSequentialGroup()
-                .addGap(408, 408, 408)
-                .addComponent(lblLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnThemThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+            .addComponent(btnSuaThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnXoaThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        titleLayout.setVerticalGroup(
-            titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, titleLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(lblLoai)
-                .addGap(24, 24, 24))
-        );
-
-        tenThuongHieu.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblTenThuongHieu.setText("Tên thương hiệu :");
-
-        javax.swing.GroupLayout tenThuongHieuLayout = new javax.swing.GroupLayout(tenThuongHieu);
-        tenThuongHieu.setLayout(tenThuongHieuLayout);
-        tenThuongHieuLayout.setHorizontalGroup(
-            tenThuongHieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tenThuongHieuLayout.createSequentialGroup()
-                .addGap(304, 304, 304)
-                .addComponent(lblTenThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTenThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        tenThuongHieuLayout.setVerticalGroup(
-            tenThuongHieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tenThuongHieuLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(tenThuongHieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTenThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThemThuongHieu)
-                    .addComponent(btnXoaThuongHieu)
-                    .addComponent(btnSuaThuongHieu))
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(btnThemThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(scrollThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 984, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSuaThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnXoaThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(382, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tenThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(btnThemThuongHieu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSuaThuongHieu)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXoaThuongHieu)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
+
+        add(jPanel2, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaThuongHieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaThuongHieuActionPerformed
@@ -279,8 +267,10 @@ public class ThuongHieu extends javax.swing.JPanel {
     private javax.swing.JButton btnSuaThuongHieu;
     private javax.swing.JButton btnThemThuongHieu;
     private javax.swing.JButton btnXoaThuongHieu;
-    private javax.swing.JLabel lblLoai;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblTenThuongHieu;
+    private javax.swing.JLabel lblThuongHieu;
     private javax.swing.JScrollPane scrollThuongHieu;
     private javax.swing.JTable tblThuongHieu;
     private javax.swing.JPanel tenThuongHieu;

@@ -42,69 +42,58 @@ public class ThuocTinh extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        contentCenter = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         btnThuongHieu = new javax.swing.JButton();
         btnLoai = new javax.swing.JButton();
         btnXuatXu = new javax.swing.JButton();
-        contentCenter = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1200, 800));
-
-        btnThuongHieu.setText("Thương Hiệu");
-        btnThuongHieu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThuongHieuActionPerformed(evt);
-            }
-        });
-
-        btnLoai.setText("Loại");
-        btnLoai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoaiActionPerformed(evt);
-            }
-        });
-
-        btnXuatXu.setText("Xuất xứ");
-        btnXuatXu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXuatXuActionPerformed(evt);
-            }
-        });
+        setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout contentCenterLayout = new javax.swing.GroupLayout(contentCenter);
         contentCenter.setLayout(contentCenterLayout);
         contentCenterLayout.setHorizontalGroup(
             contentCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1051, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         contentCenterLayout.setVerticalGroup(
             contentCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnLoai, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                    .addComponent(btnXuatXu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
-                .addComponent(contentCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(btnLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(btnXuatXu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(476, Short.MAX_VALUE))
-            .addComponent(contentCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        add(contentCenter, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnThuongHieu.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        btnThuongHieu.setText("Thương Hiệu");
+        btnThuongHieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThuongHieuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnThuongHieu);
+
+        btnLoai.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        btnLoai.setText("Loại");
+        btnLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoaiActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnLoai);
+
+        btnXuatXu.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        btnXuatXu.setText("Xuất xứ");
+        btnXuatXu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatXuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnXuatXu);
+
+        add(jPanel2, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThuongHieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuongHieuActionPerformed
@@ -137,5 +126,6 @@ public class ThuocTinh extends javax.swing.JPanel {
     private javax.swing.JButton btnThuongHieu;
     private javax.swing.JButton btnXuatXu;
     private javax.swing.JPanel contentCenter;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
