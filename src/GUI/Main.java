@@ -50,7 +50,7 @@ public class Main extends javax.swing.JFrame {
     Login login;
 
     private final Color defaultColor = new Color(255, 255, 255);
-    private final Color hoverColor = new Color(235, 237, 240);
+    private final Color hoverColor = new Color(187, 222, 251);
     
     public Main() {
         this.setPreferredSize(new Dimension(1400,800));
