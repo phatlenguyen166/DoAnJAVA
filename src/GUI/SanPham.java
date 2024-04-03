@@ -1,7 +1,10 @@
 package GUI;
 
 import BUS.SanPhamBus;
+import DAO.KhuVucKhoDAO;
+import DAO.LoaiDAO;
 import DAO.ThuongHieuDAO;
+import DAO.XuatXuDAO;
 import DTO.SanPhamDTO;
 import GUI.SPham.ThemSanPham;
 import GUI.SanPham;
@@ -76,8 +79,17 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
     }
     
     SanPhamBus sanPhamBus ;
+    ThuongHieuDAO thuongHieuDAO;
+    LoaiDAO loaiDAO;
+    XuatXuDAO xuatXuDAO;
+    KhuVucKhoDAO khuVucKhoDAO;
+    
    private void hienThiListSanPham() {
     sanPhamBus = new SanPhamBus();
+    thuongHieuDAO = new ThuongHieuDAO();
+    loaiDAO = new LoaiDAO();
+    xuatXuDAO = new XuatXuDAO();
+    khuVucKhoDAO = new KhuVucKhoDAO();
     ArrayList<SanPhamDTO> listSanPham = sanPhamBus.getAllSanPham();
     DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
     model.setRowCount(0);
@@ -85,12 +97,12 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         Object[] row = {
             sanPham.getMasp(), 
             sanPham.getTensp(), 
-            sanPham.getSize(), 
-            "0", // Giá trị ở giữa thứ 4
             sanPham.getSoluongton(), 
-            ThuongHieuDAO.getInstance().selectById(sanPham.getThuonghieu()).getTenthuonghieu(),
-            "0", // Giá trị ở giữa thứ 7
-            "0"  // Giá trị ở giữa thứ 8
+            sanPham.getSize(), 
+            loaiDAO.selectById(sanPham.getLoai()).getTenloai(),
+            thuongHieuDAO.selectById(sanPham.getThuonghieu()).getTenthuonghieu(),
+            xuatXuDAO.selectById(sanPham.getXuatxu()).getTenxuatxu(), // Giá trị ở giữa thứ 7
+            khuVucKhoDAO.selectById(sanPham.getKhuvuckho()).getTenkhuvuc(),
         };
         model.addRow(row);
     }

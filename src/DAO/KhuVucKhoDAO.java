@@ -45,5 +45,24 @@ public class KhuVucKhoDAO {
         return listKho;
     }
     
+    public KhuVucKhoDTO selectById(int t) {
+        KhuVucKhoDTO result = null;
+        try {
+            connection = (Connection) MySQLConnection.getConnection();
+            String sql = "SELECT * FROM khuvuckho WHERE makhuvuc=?";
+            pst = (PreparedStatement) connection.prepareStatement(sql);
+            pst.setInt(1, t);
+            ResultSet rs = (ResultSet) pst.executeQuery();
+            while (rs.next()) {
+                int makhuvuc = rs.getInt("makhuvuc");
+                String tenkhuvuc = rs.getString("tenkhuvuc");
+                String ghiChu = rs.getString("ghichu");
+                result = new KhuVucKhoDTO(makhuvuc, tenkhuvuc,ghiChu);
+            }
+            MySQLConnection.closeConnection(connection);
+        } catch (Exception e) {
+        }
+        return result;
+    }
     
 }

@@ -116,6 +116,23 @@ public boolean themXuatXu(XuatXuDTO xuatXuDTO){
     }
     return thanhCong;
 }
-
-
+    
+    public XuatXuDTO selectById(int t) {
+        XuatXuDTO result = null;
+        try {
+            connection = (Connection) MySQLConnection.getConnection();
+            String sql = "SELECT * FROM xuatxu WHERE maxuatxu=?";
+            pst = (PreparedStatement) connection.prepareStatement(sql);
+            pst.setInt(1, t);
+            ResultSet rs = (ResultSet) pst.executeQuery();
+            while (rs.next()) {
+                int maxuatxu = rs.getInt("maxuatxu");
+                String tenxuatxu = rs.getString("tenxuatxu");
+                result = new XuatXuDTO(maxuatxu, tenxuatxu);
+            }
+            MySQLConnection.closeConnection(connection);
+        } catch (Exception e) {
+        }
+        return result;
+    }
 }

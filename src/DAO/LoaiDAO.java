@@ -123,4 +123,23 @@ public class LoaiDAO {
         }
         return thanhCong;
     }
+    
+    public LoaiDTO selectById(int t) {
+        LoaiDTO result = null;
+        try {
+            connection = (Connection) MySQLConnection.getConnection();
+            String sql = "SELECT * FROM loai WHERE maloai=?";
+            pst = (PreparedStatement) connection.prepareStatement(sql);
+            pst.setInt(1, t);
+            ResultSet rs = (ResultSet) pst.executeQuery();
+            while (rs.next()) {
+                int maloai = rs.getInt("maloai");
+                String tenloai = rs.getString("tenloai");
+                result = new LoaiDTO(maloai, tenloai);
+            }
+            MySQLConnection.closeConnection(connection);
+        } catch (Exception e) {
+        }
+        return result;
+    }
 }

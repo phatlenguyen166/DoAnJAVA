@@ -23,10 +23,8 @@ public class ThuongHieuDAO {
     private Connection connection;
     private PreparedStatement pst;
 
-    public static ThuongHieuDAO getInstance(){
-        return new ThuongHieuDAO();
-    }
-    
+  
+
     public ThuongHieuDAO() {
 
     }
@@ -127,7 +125,7 @@ public class ThuongHieuDAO {
         return thanhCong;
     }
 
-   public ThuongHieuDTO selectById(int t) {
+    public ThuongHieuDTO selectById(int t) {
         ThuongHieuDTO result = null;
         try {
             connection = (Connection) MySQLConnection.getConnection();
@@ -135,7 +133,7 @@ public class ThuongHieuDAO {
             pst = (PreparedStatement) connection.prepareStatement(sql);
             pst.setInt(1, t);
             ResultSet rs = (ResultSet) pst.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int mathuonghieu = rs.getInt("mathuonghieu");
                 String tenthuonghieu = rs.getString("tenthuonghieu");
                 result = new ThuongHieuDTO(mathuonghieu, tenthuonghieu);
