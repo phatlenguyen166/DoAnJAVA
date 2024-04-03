@@ -1,5 +1,8 @@
 package GUI;
 
+import BUS.SanPhamBus;
+import DAO.ThuongHieuDAO;
+import DTO.SanPhamDTO;
 import GUI.SPham.ThemSanPham;
 import GUI.SanPham;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -12,9 +15,11 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -65,9 +70,42 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         setPreferredSize(new Dimension(1200,800));
         this.add(pnlTop,BorderLayout.NORTH);
         this.add(pnlCenter,BorderLayout.CENTER);
+        
+        
+        hienThiListSanPham();
+    }
+    
+    SanPhamBus sanPhamBus ;
+   private void hienThiListSanPham() {
+    sanPhamBus = new SanPhamBus();
+    ArrayList<SanPhamDTO> listSanPham = sanPhamBus.getAllSanPham();
+    DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+    model.setRowCount(0);
+    for (SanPhamDTO sanPham : listSanPham) {
+        Object[] row = {
+            sanPham.getMasp(), 
+            sanPham.getTensp(), 
+            sanPham.getSize(), 
+            "0", // Giá trị ở giữa thứ 4
+            sanPham.getSoluongton(), 
+            ThuongHieuDAO.getInstance().selectById(sanPham.getThuonghieu()).getTenthuonghieu(),
+            "0", // Giá trị ở giữa thứ 7
+            "0"  // Giá trị ở giữa thứ 8
+        };
+        model.addRow(row);
     }
 
+    // Tạo renderer để hiển thị nội dung ở giữa ô
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
+    // Áp dụng renderer cho từng cột trong bảng
+    for (int i = 0; i < tblSanPham.getColumnCount(); i++) {
+        tblSanPham.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+    }
+}
+    
+    
     private void addIcon() {
         btnThemSP.setIcon(new FlatSVGIcon("./icon/add.svg"));
         btnSuaSP.setIcon(new FlatSVGIcon("./icon/edit.svg"));

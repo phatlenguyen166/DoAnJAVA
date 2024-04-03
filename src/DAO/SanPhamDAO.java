@@ -28,14 +28,14 @@ public class SanPhamDAO {
                 sanPhamDTO.setMasp(rs.getInt("masp"));
                 sanPhamDTO.setTensp(rs.getString("tensp"));
                 sanPhamDTO.setSize(rs.getInt("size"));
-                sanPhamDTO.setTensp(rs.getString("hinhanh"));
-                sanPhamDTO.setMasp(rs.getInt("xuatxu"));
-                sanPhamDTO.setMasp(rs.getInt("loai"));
-                sanPhamDTO.setMasp(rs.getInt("thuonghieu"));
-                sanPhamDTO.setMasp(rs.getInt("khuvuckho"));
-                sanPhamDTO.setMasp(rs.getInt("soluongton"));
-                sanPhamDTO.setMasp(rs.getInt("gianhap"));
-                sanPhamDTO.setMasp(rs.getInt("giaxuat"));
+                sanPhamDTO.setHinhanh(rs.getString("hinhanh"));
+                sanPhamDTO.setXuatxu(rs.getInt("xuatxu"));
+                sanPhamDTO.setLoai(rs.getInt("loai"));
+                sanPhamDTO.setThuonghieu(rs.getInt("thuonghieu"));
+                sanPhamDTO.setKhuvuckho(rs.getInt("khuvuckho"));
+                sanPhamDTO.setSoluongton(rs.getInt("soluongton"));
+                sanPhamDTO.setGianhap(rs.getInt("gianhap"));
+                sanPhamDTO.setGiaxuat(rs.getInt("giaxuat"));
                 listSanPham.add(sanPhamDTO);
             }
         } catch (SQLException e) {

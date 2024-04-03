@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.SanPhamDAO;
 import DTO.SanPhamDTO;
+import java.util.ArrayList;
         
 
 
@@ -14,10 +15,14 @@ import DTO.SanPhamDTO;
  * @author ADMIN
  */
 public class SanPhamBus {
-    private  SanPhamDAO sanPhamDAO;
-    
-    public SanPhamBus(SanPhamDAO sanPhamDAO){
-        this.sanPhamDAO = sanPhamDAO;
+    SanPhamDAO sanPhamDAO = new SanPhamDAO();
+    SanPhamDTO sanPhamDTO;
+    public SanPhamBus() {
     }
+    
+    public ArrayList<SanPhamDTO> getAllSanPham(){
+        return sanPhamDAO.getAllSanPham();
+    }
+    
     
 }

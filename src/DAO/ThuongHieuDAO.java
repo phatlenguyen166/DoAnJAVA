@@ -22,6 +22,11 @@ public class ThuongHieuDAO {
 
     private Connection connection;
     private PreparedStatement pst;
+
+    public static ThuongHieuDAO getInstance(){
+        return new ThuongHieuDAO();
+    }
+    
     public ThuongHieuDAO() {
 
     }
@@ -73,8 +78,8 @@ public class ThuongHieuDAO {
         }
         return thanhCong;
     }
-    
-    public boolean suaThuongHieu(ThuongHieuDTO thuongHieu){
+
+    public boolean suaThuongHieu(ThuongHieuDTO thuongHieu) {
         boolean thanhCong = false;
         String query = "UPDATE thuonghieu set tenthuonghieu = ? WHERE mathuonghieu = ?";
         try {
@@ -83,43 +88,62 @@ public class ThuongHieuDAO {
             pst.setString(1, thuongHieu.getTenthuonghieu());
             pst.setInt(2, thuongHieu.getMathuonghieu());
             int rowAff = pst.executeUpdate();
-            if ( rowAff > 0){
+            if (rowAff > 0) {
                 thanhCong = true;
-            }     
+            }
         } catch (SQLException e) {
-             JOptionPane.showMessageDialog(null, "Lỗi khi sửa thông tin thương hiệu");
-        } 
-    return thanhCong;
-    }
-    
-    public boolean themThuongHieu(ThuongHieuDTO thuongHieuDTO){
-    boolean thanhCong = false;
-    String query = "INSERT INTO thuonghieu (tenthuonghieu) VALUES (?)"; // Sửa cú pháp câu lệnh SQL
-    try {
-        connection = MySQLConnection.getConnection();
-        pst = connection.prepareStatement(query);
-        pst.setString(1, thuongHieuDTO.getTenthuonghieu());
-        int rowAff = pst.executeUpdate();
-        if (rowAff > 0) {
-            thanhCong = true;
+            JOptionPane.showMessageDialog(null, "Lỗi khi sửa thông tin thương hiệu");
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Lỗi khi thêm thương hiệu: " + e.getMessage());
-        e.printStackTrace(); // In ra lỗi chi tiết để debug
-    } finally {
-        // Đóng các tài nguyên kết nối
+        return thanhCong;
+    }
+
+    public boolean themThuongHieu(ThuongHieuDTO thuongHieuDTO) {
+        boolean thanhCong = false;
+        String query = "INSERT INTO thuonghieu (tenthuonghieu) VALUES (?)"; // Sửa cú pháp câu lệnh SQL
         try {
-            if (pst != null) {
-                pst.close();
+            connection = MySQLConnection.getConnection();
+            pst = connection.prepareStatement(query);
+            pst.setString(1, thuongHieuDTO.getTenthuonghieu());
+            int rowAff = pst.executeUpdate();
+            if (rowAff > 0) {
+                thanhCong = true;
             }
-            if (connection != null) {
-                connection.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi thêm thương hiệu: " + e.getMessage());
+            e.printStackTrace(); // In ra lỗi chi tiết để debug
+        } finally {
+            // Đóng các tài nguyên kết nối
+            try {
+                if (pst != null) {
+                    pst.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(); // In ra lỗi nếu có lỗi khi đóng kết nối
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace(); // In ra lỗi nếu có lỗi khi đóng kết nối
         }
+        return thanhCong;
     }
-    return thanhCong;
-}
+
+   public ThuongHieuDTO selectById(int t) {
+        ThuongHieuDTO result = null;
+        try {
+            connection = (Connection) MySQLConnection.getConnection();
+            String sql = "SELECT * FROM thuonghieu WHERE mathuonghieu=?";
+            pst = (PreparedStatement) connection.prepareStatement(sql);
+            pst.setInt(1, t);
+            ResultSet rs = (ResultSet) pst.executeQuery();
+            while(rs.next()){
+                int mathuonghieu = rs.getInt("mathuonghieu");
+                String tenthuonghieu = rs.getString("tenthuonghieu");
+                result = new ThuongHieuDTO(mathuonghieu, tenthuonghieu);
+            }
+            MySQLConnection.closeConnection(connection);
+        } catch (Exception e) {
+        }
+        return result;
+    }
 
 }
