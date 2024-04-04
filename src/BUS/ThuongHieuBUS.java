@@ -59,4 +59,8 @@ public class ThuongHieuBUS {
         }
         return result;
     } 
+    
+    public ThuongHieuDTO getSelectByID(int mathuonghieu){
+        return thuongHieuDAO.selectById(mathuonghieu);
+    }
 }

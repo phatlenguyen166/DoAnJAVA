@@ -27,6 +27,34 @@ public class SanPhamDTO {
     public SanPhamDTO() {
     }
 
+    public SanPhamDTO(String tensp, int size, String hinhanh, int xuatxu, int loai, int thuonghieu, int khuvuckho, int gianhap, int giaxuat) {
+        this.tensp = tensp;
+        this.size = size;
+        this.hinhanh = hinhanh;
+        this.xuatxu = xuatxu;
+        this.loai = loai;
+        this.thuonghieu = thuonghieu;
+        this.khuvuckho = khuvuckho;
+        this.gianhap = gianhap;
+        this.giaxuat = giaxuat;
+    }
+
+    public SanPhamDTO(int masp, String tensp, int size, String hinhanh, int xuatxu, int loai, int thuonghieu, int khuvuckho, int gianhap, int giaxuat, int soluongton) {
+        this.masp = masp;
+        this.tensp = tensp;
+        this.size = size;
+        this.hinhanh = hinhanh;
+        this.xuatxu = xuatxu;
+        this.loai = loai;
+        this.thuonghieu = thuonghieu;
+        this.khuvuckho = khuvuckho;
+        this.gianhap = gianhap;
+        this.giaxuat = giaxuat;
+        this.soluongton = soluongton;
+    }
+
+
+
     public SanPhamDTO(int masp, String tensp, int size, String hinhanh, int xuatxu, int loai, int thuonghieu, int khuvuckho, int soluongton) {
         this.masp = masp;
         this.tensp = tensp;
@@ -37,6 +65,19 @@ public class SanPhamDTO {
         this.thuonghieu = thuonghieu;
         this.khuvuckho = khuvuckho;
         this.soluongton = soluongton;
+    }
+
+    public SanPhamDTO(int masp, String tensp, int size, String hinhanh, int xuatxu, int loai, int thuonghieu, int khuvuckho, int gianhap, int giaxuat) {
+        this.masp = masp;
+        this.tensp = tensp;
+        this.size = size;
+        this.hinhanh = hinhanh;
+        this.xuatxu = xuatxu;
+        this.loai = loai;
+        this.thuonghieu = thuonghieu;
+        this.khuvuckho = khuvuckho;
+        this.gianhap = gianhap;
+        this.giaxuat = giaxuat;
     }
 
     public int getMasp() {

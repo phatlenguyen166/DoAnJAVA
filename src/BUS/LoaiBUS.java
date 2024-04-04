@@ -62,6 +62,10 @@ public class LoaiBUS {
         }
         return result;
     } 
+    
+    public LoaiDTO selectByID(int maxuatxu){
+        return loaiDAO.selectById(maxuatxu);
+    }
 }
 
 

@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.KhuVucKhoDAO;
 import DTO.KhuVucKhoDTO;
+import DTO.LoaiDTO;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +33,9 @@ public class KhuVucKhoBUS {
         return result;
     } 
     
-    
+    public KhuVucKhoDTO selectByID(int makhuvuc){
+        return khuVucKhoDAO.selectById(makhuvuc);
+    }
 }
 
 

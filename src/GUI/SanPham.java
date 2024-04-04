@@ -1,11 +1,12 @@
 package GUI;
 
-import BUS.SanPhamBus;
+import BUS.SanPhamBUS;
 import DAO.KhuVucKhoDAO;
 import DAO.LoaiDAO;
 import DAO.ThuongHieuDAO;
 import DAO.XuatXuDAO;
 import DTO.SanPhamDTO;
+import GUI.SPham.SuaSanPham;
 import GUI.SPham.ThemSanPham;
 import GUI.SanPham;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +37,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author ADMIN
  */
-public class SanPham extends javax.swing.JPanel implements ActionListener{
+public class SanPham extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form SanPham
@@ -50,74 +52,56 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblSanPham.setFocusable(false);
         tblSanPham.setAutoCreateRowSorter(true);
-//        tblModel = new DefaultTableModel();
-//        String[] header = new String[]{"Mã SP", "Tên sản phẩm", "Số lượng tồn","Thương hiệu", "Hệ điều hành", "Kích thước màn","Chip xử lý","Dung lượng pin","Xuất xứ", "Khu vực kho"};
-//        tblModel.setColumnIdentifiers(header);
-//        tblSanPham.setModel(tblModel);
-//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-//        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-//        TableColumnModel columnModel = tblSanPham.getColumnModel();
-
-//        for (int i = 0; i < 10; i++) {
-//            if (i != 1) {
-//                columnModel.getColumn(i).setCellRenderer(centerRenderer);
-//            }
-//        }
-//        int a = 1;
-//        tblSanPham.getModel().setValueAt(a, 1, 1);
 
         btnThemSP.addActionListener(this);
         btnSuaSP.addActionListener(this);
-        
+        btnXoaSP.addActionListener(this);
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(1200,800));
-        this.add(pnlTop,BorderLayout.NORTH);
-        this.add(pnlCenter,BorderLayout.CENTER);
-        
-        
+        setPreferredSize(new Dimension(1200, 800));
+        this.add(pnlTop, BorderLayout.NORTH);
+        this.add(pnlCenter, BorderLayout.CENTER);
+
         hienThiListSanPham();
     }
-    
-    SanPhamBus sanPhamBus ;
+
+    SanPhamBUS sanPhamBus;
     ThuongHieuDAO thuongHieuDAO;
     LoaiDAO loaiDAO;
     XuatXuDAO xuatXuDAO;
     KhuVucKhoDAO khuVucKhoDAO;
-    
-   private void hienThiListSanPham() {
-    sanPhamBus = new SanPhamBus();
-    thuongHieuDAO = new ThuongHieuDAO();
-    loaiDAO = new LoaiDAO();
-    xuatXuDAO = new XuatXuDAO();
-    khuVucKhoDAO = new KhuVucKhoDAO();
-    ArrayList<SanPhamDTO> listSanPham = sanPhamBus.getAllSanPham();
-    DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
-    model.setRowCount(0);
-    for (SanPhamDTO sanPham : listSanPham) {
-        Object[] row = {
-            sanPham.getMasp(), 
-            sanPham.getTensp(), 
-            sanPham.getSoluongton(), 
-            sanPham.getSize(), 
-            loaiDAO.selectById(sanPham.getLoai()).getTenloai(),
-            thuongHieuDAO.selectById(sanPham.getThuonghieu()).getTenthuonghieu(),
-            xuatXuDAO.selectById(sanPham.getXuatxu()).getTenxuatxu(), // Giá trị ở giữa thứ 7
-            khuVucKhoDAO.selectById(sanPham.getKhuvuckho()).getTenkhuvuc(),
-        };
-        model.addRow(row);
+
+    private void hienThiListSanPham() {
+        sanPhamBus = new SanPhamBUS();
+        thuongHieuDAO = new ThuongHieuDAO();
+        loaiDAO = new LoaiDAO();
+        xuatXuDAO = new XuatXuDAO();
+        khuVucKhoDAO = new KhuVucKhoDAO();
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBus.getAllSanPham();
+        DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (SanPhamDTO sanPham : listSanPham) {
+            Object[] row = {
+                sanPham.getMasp(),
+                sanPham.getTensp(),
+                sanPham.getSoluongton(),
+                sanPham.getSize(),
+                loaiDAO.selectById(sanPham.getLoai()).getTenloai(),
+                thuongHieuDAO.selectById(sanPham.getThuonghieu()).getTenthuonghieu(),
+                xuatXuDAO.selectById(sanPham.getXuatxu()).getTenxuatxu(), // Giá trị ở giữa thứ 7
+                khuVucKhoDAO.selectById(sanPham.getKhuvuckho()).getTenkhuvuc(),};
+            model.addRow(row);
+        }
+
+        // Tạo renderer để hiển thị nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblSanPham.getColumnCount(); i++) {
+            tblSanPham.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
 
-    // Tạo renderer để hiển thị nội dung ở giữa ô
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-    // Áp dụng renderer cho từng cột trong bảng
-    for (int i = 0; i < tblSanPham.getColumnCount(); i++) {
-        tblSanPham.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-    }
-}
-    
-    
     private void addIcon() {
         btnThemSP.setIcon(new FlatSVGIcon("./icon/add.svg"));
         btnSuaSP.setIcon(new FlatSVGIcon("./icon/edit.svg"));
@@ -144,6 +128,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         btnXuatExcelSP = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnTimKiem = new javax.swing.JTextField();
+        btnLamMoi = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
@@ -166,43 +151,18 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
                 btnThemSPMouseExited(evt);
             }
         });
-        btnThemSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemSPActionPerformed(evt);
-            }
-        });
         pnlTop.add(btnThemSP);
 
         btnSuaSP.setText("Sửa");
-        btnSuaSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaSPActionPerformed(evt);
-            }
-        });
         pnlTop.add(btnSuaSP);
 
         btnXoaSP.setText("Xóa");
-        btnXoaSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaSPActionPerformed(evt);
-            }
-        });
         pnlTop.add(btnXoaSP);
 
         btnChiTietSP.setText("Chi tiết");
-        btnChiTietSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChiTietSPActionPerformed(evt);
-            }
-        });
         pnlTop.add(btnChiTietSP);
 
         btnXuatExcelSP.setText("Xuất excel");
-        btnXuatExcelSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXuatExcelSPActionPerformed(evt);
-            }
-        });
         pnlTop.add(btnXuatExcelSP);
 
         jLabel1.setLabelFor(btnTimKiem);
@@ -210,12 +170,16 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         pnlTop.add(jLabel1);
 
         btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        pnlTop.add(btnTimKiem);
+
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(100, 60));
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
-        pnlTop.add(btnTimKiem);
+        pnlTop.add(btnLamMoi);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
 
@@ -235,7 +199,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1287, Short.MAX_VALUE)
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,30 +208,6 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
         add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSuaSPActionPerformed
-
-    private void btnXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoaSPActionPerformed
-
-    private void btnXuatExcelSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelSPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXuatExcelSPActionPerformed
-
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void btnChiTietSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietSPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnChiTietSPActionPerformed
-
-    private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemSPActionPerformed
 
     private void btnThemSPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemSPMouseEntered
         // TODO add your handling code here:
@@ -281,24 +221,71 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
     private void btnThemSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemSPMouseClicked
         // TODO add your handling code here:
-        if ( !btnThemSP.isSelected()){
-         btnThemSP.setBackground(Color.WHITE);
+        if (!btnThemSP.isSelected()) {
+            btnThemSP.setBackground(Color.WHITE);
         } else {
             btnThemSP.setBackground(Color.BLUE);
         }
     }//GEN-LAST:event_btnThemSPMouseClicked
-    ThemSanPham themSanPham;
 
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        hienThiListSanPham();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+    ThemSanPham themSanPham;
+    SuaSanPham suaSanPham;
+    private void xoaSanPham() {
+        int selectedRow = tblSanPham.getSelectedRow();
+        if (selectedRow != -1) {
+            int maSP = (int) tblSanPham.getValueAt(selectedRow, 0);
+            String anhCanXoa = sanPhamBus.selectAnhByMaSP(maSP);
+            sanPhamBus = new SanPhamBUS();
+            boolean thanhCong = sanPhamBus.xoaSanPham(maSP);
+            if (thanhCong) {
+                
+                JOptionPane.showMessageDialog(null, "Xóa sản phẩm thành công");
+                hienThiListSanPham();
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa sản phẩm lỗi");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phảm để xóa");
+        }
+    }
+    
+    private SanPhamDTO selectSanPham(){
+        int selectedRow = tblSanPham.getSelectedRow();
+        SanPhamDTO result = null ;
+        if ( selectedRow != -1 ){
+            int mathuonghieu = (int) tblSanPham.getValueAt(selectedRow, 0);
+            sanPhamBus = new SanPhamBUS();
+            result = sanPhamBus.selectByID(mathuonghieu);
+        }
+        return result;
+    }
+    
+    
     @Override
-    public void actionPerformed(ActionEvent e){
-        if ( e.getSource() == btnThemSP){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnThemSP) {
             themSanPham = new ThemSanPham();
             themSanPham.setLocationRelativeTo(null);
             themSanPham.setVisible(true);
-        } 
+        } else if (e.getSource() == btnXoaSP) {
+            xoaSanPham();
+        } else if ( e.getSource() == btnSuaSP){
+            if ( selectSanPham() != null){
+                suaSanPham = new SuaSanPham(selectSanPham());
+            suaSanPham.setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
+            }
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTietSP;
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnSuaSP;
     private javax.swing.JButton btnThemSP;
     private javax.swing.JTextField btnTimKiem;

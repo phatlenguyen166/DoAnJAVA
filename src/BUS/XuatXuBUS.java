@@ -59,4 +59,7 @@ public class XuatXuBUS {
         }
         return result;
     } 
+    public XuatXuDTO selectByID(int maxuatxu){
+        return xuatXuDAO.selectById(maxuatxu);
+    }
 }
