@@ -6,51 +6,26 @@ package GUI.SPham;
 
 import BUS.KhuVucKhoBUS;
 import BUS.LoaiBUS;
-import BUS.SanPhamBUS;
 import BUS.ThuongHieuBUS;
 import BUS.XuatXuBUS;
-import DAO.SanPhamDAO;
 import DTO.SanPhamDTO;
-import GUI.SanPham;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 
 public class ChiTietSanPham extends javax.swing.JFrame {
 
-    private File selectedFile;
-    private Random randomGenerator = new Random();
     ThuongHieuBUS thuongHieuBUS = new ThuongHieuBUS();
     LoaiBUS loaiBUS = new LoaiBUS();
     XuatXuBUS xuatXuBUS = new XuatXuBUS();
     KhuVucKhoBUS khuVucKhoBUS = new KhuVucKhoBUS();
-    SanPhamDAO sanPhamDAO;
-    SanPhamDTO sanPhamDTO;
-    SanPhamBUS sanPhamBUS;
-    int masp;
     String hinhAnh;
-    String img;
 
     public ChiTietSanPham() {
         initComponents();
@@ -95,7 +70,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         loadCombobox();
         LoadDuLieu(sanPhamDTO);
 
-        masp = sanPhamDTO.getMasp();
+        sanPhamDTO.getMasp();
         hinhAnh = sanPhamDTO.getHinhanh();
         System.out.println(hinhAnh);
     }
@@ -151,94 +126,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         }
         comboBox.setModel(model);
     }
-
-    private void addAnh() {
-        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        int result = fileChooser.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = fileChooser.getSelectedFile();
-            img = (String) selectedFile.getPath();
-            try {
-                BufferedImage img = ImageIO.read(selectedFile);
-
-                if (img != null) {
-                    ImageIcon icon = new ImageIcon(img.getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH));
-                    lblAnhSanPham.removeAll();
-                    lblAnhSanPham.setIcon(icon);
-                    lblAnhSanPham.repaint();
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Selected file is not a valid image.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Error reading image file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    private String copyImageToProductDirectory(String sourceImagePath) {
-        File sourceImageFile = new File(sourceImagePath);
-        String destinationDirectory = "./src/img_product/";
-        File destFolder = new File(destinationDirectory);
-
-        if (!destFolder.exists()) {
-            destFolder.mkdirs();
-        }
-
-        // Lấy tên của ảnh từ đường dẫn của nó
-        String imageName = sourceImageFile.getName();
-
-        // Thêm số ngẫu nhiên vào tên file ảnh để tránh trùng lặp
-        int randomNumber = randomGenerator.nextInt(1000);
-        String[] parts = imageName.split("\\.");
-        String newImageName = parts[0] + "_" + randomNumber + "." + parts[1];
-
-        Path destinationPath = Paths.get(destinationDirectory, newImageName);
-        try {
-            Files.copy(sourceImageFile.toPath(), destinationPath);
-        } catch (IOException ex) {
-            Logger.getLogger(ThemSanPham.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        System.out.println("Image copied successfully to " + destinationPath);
-        return newImageName;
-    }
-
-    private SanPhamDTO getInfoSanPhamMoi() {
-        String hinhanh = img;
-        String tenSanPham = txtTenSP.getText();
-        int sizeSanPham = Integer.parseInt(txtSizeSP.getText());
-        int maLoaiSanPham = loaiBUS.getAllLoai().get(this.cbxLoai.getSelectedIndex()).getMaloai();
-        int maThuongHieuSanPham = thuongHieuBUS.getAllThuongHieu().get(this.cbxThuongHieu.getSelectedIndex()).getMathuonghieu();
-        int maXuatXuSanPham = xuatXuBUS.getAllXuatXu().get(this.cbxXuatXu.getSelectedIndex()).getMaxuatxu();
-        int maKhuVucKhoSanPham = khuVucKhoBUS.getAllKho().get(this.cbxKho.getSelectedIndex()).getMakhuvuc();
-        int giaNhapSanPham = parseVND(txtGiaNhap.getText());
-        int giaXuatSanPham = parseVND(txtGiaXuat.getText());
-        sanPhamDTO = new SanPhamDTO(tenSanPham, sizeSanPham, hinhanh, maXuatXuSanPham, maLoaiSanPham, maThuongHieuSanPham, maKhuVucKhoSanPham, giaNhapSanPham, giaXuatSanPham);
-        return sanPhamDTO;
-    }
-
-    private void SuaSanPham() throws IOException {
-        // Nhận thông tin sản phẩm từ giao diện
-        SanPhamDTO spNew = getInfoSanPhamMoi();
-        spNew.setMasp(masp);
-        if (spNew.getHinhanh() == null) {
-            spNew.setHinhanh(hinhAnh);
-        } else {
-            String tenHinhAnh = copyImageToProductDirectory(spNew.getHinhanh());
-            spNew.setHinhanh(tenHinhAnh);
-        }
-        sanPhamBUS = new SanPhamBUS();
-        boolean thanhCong = sanPhamBUS.suaSanPham(spNew);
-        if (thanhCong) {
-            JOptionPane.showMessageDialog(null, "Sửa sản phẩm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Sửa sản phẩm thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
+    
     public static int parseVND(String vnd) {
         // Remove commas and currency symbol
         String cleanString = vnd.replaceAll("[^\\d]", ""); // Remove all non-digit characters
@@ -246,14 +134,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         return Integer.parseInt(cleanString);
     }
 
-    private boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -330,42 +210,22 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblXuatXu.setText("Xuất xứ");
 
         cbxKho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxKho.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxKhoActionPerformed(evt);
-            }
-        });
 
         lblLoai.setText("Loại");
 
         cbxXuatXu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cbxLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxLoai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxLoaiActionPerformed(evt);
-            }
-        });
 
         lblThuongHieu.setText("Thương hiệu");
 
         btnChonAnh.setText("Chọn hình ảnh");
-        btnChonAnh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChonAnhActionPerformed(evt);
-            }
-        });
 
         lblGiaNhap.setText("Giá nhập");
 
         lblGiaXuat.setText("Giá xuất");
 
         btnLuuSP.setText("Lưu");
-        btnLuuSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuuSPActionPerformed(evt);
-            }
-        });
 
         btnCancel.setText("Quay lại");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -505,40 +365,18 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnLuuSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuSPActionPerformed
-        try {
-            SuaSanPham();
-        } catch (IOException ex) {
-            Logger.getLogger(SuaSanPham.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnLuuSPActionPerformed
-
-    private void cbxLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLoaiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxLoaiActionPerformed
-
-    private void cbxKhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxKhoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxKhoActionPerformed
-
-    private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
-        addAnh();
-        String hinhanh = selectedFile.getPath();
-        System.out.println(hinhanh);
-    }//GEN-LAST:event_btnChonAnhActionPerformed
-
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        FlatRobotoFont.install();
-        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-        new ThemSanPham().setVisible(true);
-    }
+//    public static void main(String args[]) {
+//        FlatRobotoFont.install();
+//        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
+//        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
+//        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
+//        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+//        FlatIntelliJLaf.setup();
+//        new ThemSanPham().setVisible(true);
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel anhSanPham;

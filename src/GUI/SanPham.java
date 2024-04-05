@@ -288,6 +288,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             if (thanhCong) {
 
                 JOptionPane.showMessageDialog(null, "Xóa sản phẩm thành công");
+                listSanPham = sanPhamBus.getAllSanPham();
                 hienThiListSanPham(listSanPham);
             } else {
                 JOptionPane.showMessageDialog(null, "Xóa sản phẩm lỗi");

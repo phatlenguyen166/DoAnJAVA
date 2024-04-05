@@ -52,11 +52,16 @@ public class ThuongHieu extends javax.swing.JPanel {
     }
 
     private void themThuongHieu() {
+        
+        // lấy dữ liệu cần thêm
         String tenThuongHieuThem = txtTenThuongHieu.getText().trim();
+        
         if (!tenThuongHieuThem.isEmpty()) {
             thuongHieuDTO = new ThuongHieuDTO();
+            // đối tượng cần thêm
             thuongHieuDTO.setTenthuonghieu(tenThuongHieuThem);
-            thuongHieuBUS = new ThuongHieuBUS();
+            
+            thuongHieuBUS = new ThuongHieuBUS();   
             boolean thanhCong = thuongHieuBUS.themThuongHieu(thuongHieuDTO);
             if (thanhCong) {
                 JOptionPane.showMessageDialog(null, "Thêm thương hiệu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
