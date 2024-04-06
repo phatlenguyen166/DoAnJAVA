@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2024 at 11:46 AM
+-- Generation Time: Apr 06, 2024 at 07:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -46,6 +46,10 @@ CREATE TABLE `ctphieuxuat` (
   `soluong` int(11) NOT NULL DEFAULT 0,
   `dongia` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ctphieuxuat`
+--
 
 -- --------------------------------------------------------
 
@@ -178,7 +182,9 @@ CREATE TABLE `nhanvien` (
 --
 
 INSERT INTO `nhanvien` (`manv`, `hoten`, `gioitinh`, `ngaysinh`, `sdt`, `email`, `trangthai`) VALUES
-(1, 'Lê Nguyễn Hoàng Phát', 1, '2004-03-16', '0338641606', 'phat@gmail.com', 1);
+(1, 'Lê Nguyễn Hoàng Phát', 1, '2004-03-16', '0338641606', 'phat@gmail.com', 1),
+(4, 'Phạm Thiên Phúc', 1, '2004-04-17', '0932831928', 'phuc@gmail.com', 1),
+(5, 'Phạm Thanh Sự', 1, '2004-03-20', '0932831928', 'su@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -213,7 +219,7 @@ CREATE TABLE `phieunhap` (
   `maphieunhap` int(11) NOT NULL,
   `thoigian` datetime DEFAULT current_timestamp(),
   `manhacungcap` int(11) NOT NULL,
-  `manhanvien` int(11) NOT NULL,
+  `manv` int(11) NOT NULL,
   `tongtien` bigint(20) NOT NULL DEFAULT 0,
   `trangthai` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -232,6 +238,10 @@ CREATE TABLE `phieuxuat` (
   `makh` int(11) DEFAULT NULL,
   `trangthai` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `phieuxuat`
+--
 
 -- --------------------------------------------------------
 
@@ -280,7 +290,8 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`manv`, `matkhau`, `manhomquyen`, `tendangnhap`, `trangthai`) VALUES
-(1, '123', 4, 'phat', 1);
+(1, '123', 4, 'phat', 1),
+(5, '123', 4, 'phat123', 1);
 
 -- --------------------------------------------------------
 
@@ -333,13 +344,15 @@ INSERT INTO `xuatxu` (`maxuatxu`, `tenxuatxu`, `trangthai`) VALUES
 -- Indexes for table `ctphieunhap`
 --
 ALTER TABLE `ctphieunhap`
-  ADD PRIMARY KEY (`maphieunhap`,`masp`) USING BTREE;
+  ADD PRIMARY KEY (`maphieunhap`,`masp`) USING BTREE,
+  ADD KEY `FK_sanpham_ctphieunhap` (`masp`);
 
 --
 -- Indexes for table `ctphieuxuat`
 --
 ALTER TABLE `ctphieuxuat`
-  ADD PRIMARY KEY (`maphieuxuat`,`masp`) USING BTREE;
+  ADD PRIMARY KEY (`maphieuxuat`,`masp`) USING BTREE,
+  ADD KEY `FK_sanpham_ctphieuxuat` (`masp`);
 
 --
 -- Indexes for table `khachhang`
@@ -381,13 +394,15 @@ ALTER TABLE `nhomquyen`
 -- Indexes for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
+  ADD PRIMARY KEY (`maphieunhap`),
   ADD KEY `FK_ncc_phieunhap` (`manhacungcap`),
-  ADD KEY `FK_nv_phieunhap` (`manhanvien`);
+  ADD KEY `FK_nv_phieunhap` (`manv`);
 
 --
 -- Indexes for table `phieuxuat`
 --
 ALTER TABLE `phieuxuat`
+  ADD PRIMARY KEY (`maphieuxuat`),
   ADD KEY `FK_nv_phieuxuat` (`manv`),
   ADD KEY `FK_kh_phieuxuat` (`makh`);
 
@@ -406,6 +421,7 @@ ALTER TABLE `sanpham`
 --
 ALTER TABLE `taikhoan`
   ADD PRIMARY KEY (`manv`),
+  ADD UNIQUE KEY `tendangnhap` (`tendangnhap`),
   ADD KEY `FK_taikhoan_nhomquyen` (`manhomquyen`);
 
 --
@@ -434,7 +450,7 @@ ALTER TABLE `ctphieunhap`
 -- AUTO_INCREMENT for table `ctphieuxuat`
 --
 ALTER TABLE `ctphieuxuat`
-  MODIFY `maphieuxuat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `maphieuxuat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
@@ -464,13 +480,25 @@ ALTER TABLE `nhacungcap`
 -- AUTO_INCREMENT for table `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `nhomquyen`
 --
 ALTER TABLE `nhomquyen`
   MODIFY `manhomquyen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `phieunhap`
+--
+ALTER TABLE `phieunhap`
+  MODIFY `maphieunhap` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `phieuxuat`
+--
+ALTER TABLE `phieuxuat`
+  MODIFY `maphieuxuat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sanpham`
@@ -482,7 +510,7 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `thuonghieu`
@@ -501,17 +529,25 @@ ALTER TABLE `xuatxu`
 --
 
 --
--- Constraints for table `nhanvien`
+-- Constraints for table `ctphieunhap`
 --
-ALTER TABLE `nhanvien`
-  ADD CONSTRAINT `FK_nhanvien_taikhoan` FOREIGN KEY (`manv`) REFERENCES `taikhoan` (`manv`);
+ALTER TABLE `ctphieunhap`
+  ADD CONSTRAINT `FK_phieunhap_ctphieunhap` FOREIGN KEY (`maphieunhap`) REFERENCES `phieunhap` (`maphieunhap`),
+  ADD CONSTRAINT `FK_sanpham_ctphieunhap` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`masp`);
+
+--
+-- Constraints for table `ctphieuxuat`
+--
+ALTER TABLE `ctphieuxuat`
+  ADD CONSTRAINT `FK_phieuxuat_ctphieuxuat` FOREIGN KEY (`maphieuxuat`) REFERENCES `phieuxuat` (`maphieuxuat`),
+  ADD CONSTRAINT `FK_sanpham_ctphieuxuat` FOREIGN KEY (`masp`) REFERENCES `sanpham` (`masp`);
 
 --
 -- Constraints for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
   ADD CONSTRAINT `FK_ncc_phieunhap` FOREIGN KEY (`manhacungcap`) REFERENCES `nhacungcap` (`manhacungcap`),
-  ADD CONSTRAINT `FK_nv_phieunhap` FOREIGN KEY (`manhanvien`) REFERENCES `nhanvien` (`manv`);
+  ADD CONSTRAINT `FK_nv_phieunhap` FOREIGN KEY (`manv`) REFERENCES `nhanvien` (`manv`);
 
 --
 -- Constraints for table `phieuxuat`
@@ -533,6 +569,7 @@ ALTER TABLE `sanpham`
 -- Constraints for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
+  ADD CONSTRAINT `FK_taikhoan_nhanvien` FOREIGN KEY (`manv`) REFERENCES `nhanvien` (`manv`),
   ADD CONSTRAINT `FK_taikhoan_nhomquyen` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`);
 COMMIT;
 
