@@ -17,9 +17,13 @@ public class KhachHangDTO {
 
     public KhachHangDTO() {
     }
-
-    public KhachHangDTO(int maKH, String hoten, String sdt, String diachi) {
+    public KhachHangDTO(int maKH, String hoten, String diachi, String sdt) {
         this.maKH = maKH;
+        this.hoten = hoten;
+        this.diachi = diachi;
+        this.sdt = sdt;
+    }
+    public KhachHangDTO( String hoten, String sdt, String diachi) {
         this.hoten = hoten;
         this.sdt = sdt;
         this.diachi = diachi;
@@ -73,30 +77,30 @@ public class KhachHangDTO {
         this.diachi = diachi;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.maKH);
-        hash = 79 * hash + Objects.hashCode(this.hoten);
-        hash = 79 * hash + Objects.hashCode(this.sdt);
-        hash = 79 * hash + Objects.hashCode(this.diachi);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final KhachHangDTO other = (KhachHangDTO) obj;
-        return true;
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 3;
+//        hash = 79 * hash + Objects.hashCode(this.maKH);
+//        hash = 79 * hash + Objects.hashCode(this.hoten);
+//        hash = 79 * hash + Objects.hashCode(this.sdt);
+//        hash = 79 * hash + Objects.hashCode(this.diachi);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (getClass() != obj.getClass()) {
+//            return false;
+//        }
+//        final KhachHangDTO other = (KhachHangDTO) obj;
+//        return true;
+//    }
 
     @Override
     public String toString() {

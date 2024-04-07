@@ -1,6 +1,37 @@
 package GUI;
 
+import BUS.NhaCungCapBUS;
+import DAO.NhaCungCapDAO;
+import DTO.NhaCungCapDTO;
+import GUI.NCCap.ThemNCCap;
+import GUI.NCCap.SuaNCCap;
+import GUI.NCCap.ChiTietNCCap;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import javax.swing.JFileChooser;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,11 +42,15 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
  *
  * @author ADMIN
  */
-public class NhaCungCap extends javax.swing.JPanel {
+public class NhaCungCap extends javax.swing.JPanel implements ActionListener{
 
-    /**
-     * Creates new form NhaCungCap
-     */
+    DefaultTableModel tblModel;
+    NhaCungCapBUS nhaCungCapBUS = new NhaCungCapBUS();
+    NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
+    ThemNCCap themNCC;
+    SuaNCCap suaNCC;
+    ChiTietNCCap chiTietNCC;
+    ArrayList<NhaCungCapDTO> listNhaCungCap = nhaCungCapBUS.getAllNhaCungCap();
     public NhaCungCap() {
         initComponents();
         addIcon();
@@ -24,15 +59,66 @@ public class NhaCungCap extends javax.swing.JPanel {
         tblNhaCC.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblNhaCC.setFocusable(false);
         tblNhaCC.setAutoCreateRowSorter(true);
+        
+        btnThemNhaCC.addActionListener(this);
+        btnSuaNhaCC.addActionListener(this);
+        btnXoaNhaCC.addActionListener(this);
+        btnChiTietNCC.addActionListener(this);
+        btnXuatExcelNCC.addActionListener(this);
+
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(1200, 800));
+        this.add(pnlTop, BorderLayout.NORTH);
+        this.add(pnlCenter, BorderLayout.CENTER);
+
+        hienThiListNhaCungCap(listNhaCungCap);
     }
     private void addIcon(){
             btnThemNhaCC.setIcon(new FlatSVGIcon("./icon/add.svg"));
             btnSuaNhaCC.setIcon(new FlatSVGIcon("./icon/edit.svg"));
             btnXoaNhaCC.setIcon(new FlatSVGIcon("./icon/delete.svg"));
+            btnChiTietNCC.setIcon(new FlatSVGIcon("./icon/detail.svg"));
             btnNhapExcelNCC.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
             btnXuatExcelNCC.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
 
         }
+private void timKiemNhaCungCap(String keyword) {
+        ArrayList<NhaCungCapDTO> ketQuaTimKiem = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenNhaCungCap = (String) model.getValueAt(i, 1);
+            if (tenNhaCungCap.toLowerCase().contains(keyword.toLowerCase())) {
+                ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm ncc vào danh sách kết quả
+            }
+        }
+        hienThiListNhaCungCap(ketQuaTimKiem);
+    }
+
+    private void hienThiListNhaCungCap(ArrayList<NhaCungCapDTO> listNhaCungCap) {
+        nhaCungCapBUS = new NhaCungCapBUS();
+        nhaCungCapDAO = new NhaCungCapDAO();
+        DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
+        model.setRowCount(0);
+        for (NhaCungCapDTO nhaCungCap : listNhaCungCap) {
+            Object[] row = {
+                nhaCungCap.getMancc(),
+                nhaCungCap.getTenncc(),
+                nhaCungCap.getDiachi(),
+                nhaCungCap.getSdt(),
+                nhaCungCap.getEmail(),
+            };
+            model.addRow(row);
+        }
+
+//         Tạo renderer để hiển thị nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblNhaCC.getColumnCount(); i++) {
+            tblNhaCC.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,11 +132,13 @@ public class NhaCungCap extends javax.swing.JPanel {
         btnThemNhaCC = new javax.swing.JButton();
         btnSuaNhaCC = new javax.swing.JButton();
         btnXoaNhaCC = new javax.swing.JButton();
+        btnChiTietNCC = new javax.swing.JButton();
         btnNhapExcelNCC = new javax.swing.JButton();
         btnXuatExcelNCC = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnTimKiem = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        txtTimKiem = new javax.swing.JTextField();
+        btnLammoi = new javax.swing.JButton();
+        pnlCenter = new javax.swing.JPanel();
         asd = new javax.swing.JScrollPane();
         tblNhaCC = new javax.swing.JTable();
 
@@ -61,6 +149,22 @@ public class NhaCungCap extends javax.swing.JPanel {
         pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemNhaCC.setText("Thêm");
+        btnThemNhaCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThemNhaCCMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemNhaCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemNhaCCMouseExited(evt);
+            }
+        });
+        btnThemNhaCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemNhaCCActionPerformed(evt);
+            }
+        });
         pnlTop.add(btnThemNhaCC);
 
         btnSuaNhaCC.setText("Sửa");
@@ -78,6 +182,14 @@ public class NhaCungCap extends javax.swing.JPanel {
             }
         });
         pnlTop.add(btnXoaNhaCC);
+
+        btnChiTietNCC.setText("Chi tiết");
+        btnChiTietNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChiTietNCCActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnChiTietNCC);
 
         btnNhapExcelNCC.setText("Nhập excel");
         btnNhapExcelNCC.addActionListener(new java.awt.event.ActionListener() {
@@ -98,18 +210,31 @@ public class NhaCungCap extends javax.swing.JPanel {
         jLabel1.setText("Tìm kiếm :");
         pnlTop.add(jLabel1);
 
-        btnTimKiem.setMinimumSize(new java.awt.Dimension(200, 30));
-        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        txtTimKiem.setMinimumSize(new java.awt.Dimension(200, 30));
+        txtTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+                txtTimKiemActionPerformed(evt);
             }
         });
-        pnlTop.add(btnTimKiem);
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyPressed(evt);
+            }
+        });
+        pnlTop.add(txtTimKiem);
+
+        btnLammoi.setText("làm mới");
+        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLammoiActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnLammoi);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 700));
+        pnlCenter.setPreferredSize(new java.awt.Dimension(1200, 700));
 
         tblNhaCC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -124,18 +249,18 @@ public class NhaCungCap extends javax.swing.JPanel {
         ));
         asd.setViewportView(tblNhaCC);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(asd, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
+        pnlCenter.setLayout(pnlCenterLayout);
+        pnlCenterLayout.setHorizontalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(asd, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlCenterLayout.setVerticalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(asd, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
         );
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaNhaCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNhaCCActionPerformed
@@ -154,22 +279,143 @@ public class NhaCungCap extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXuatExcelNCCActionPerformed
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void btnThemNhaCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNhaCCMouseEntered
+        // TODO add your handling code here:\
+        btnThemNhaCC.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnThemNhaCCMouseEntered
 
+    private void btnThemNhaCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNhaCCMouseExited
+        // TODO add your handling code here:
+        btnThemNhaCC.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnThemNhaCCMouseExited
+
+    private void btnThemNhaCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemNhaCCMouseClicked
+        // TODO add your handling code here:
+        if (!btnThemNhaCC.isSelected()) {
+            btnThemNhaCC.setBackground(Color.WHITE);
+        } else {
+            btnThemNhaCC.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnThemNhaCCMouseClicked
+
+    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+        // TODO add your handling code here:
+        hienThiListNhaCungCap(listNhaCungCap);
+        txtTimKiem.setText("");
+    }//GEN-LAST:event_btnLammoiActionPerformed
+
+    private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String keyword = txtTimKiem.getText().trim();
+            timKiemNhaCungCap(keyword);
+        }
+    }//GEN-LAST:event_txtTimKiemKeyPressed
+
+    private void btnThemNhaCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhaCCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemNhaCCActionPerformed
+
+    private void btnChiTietNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietNCCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnChiTietNCCActionPerformed
+  
+   
+private void xoaNhaCungCap() {
+        int selectedRow = tblNhaCC.getSelectedRow();
+        if (selectedRow != -1) {
+            int mancc = (int) tblNhaCC.getValueAt(selectedRow, 0);
+            NhaCungCapDTO canXoa = nhaCungCapBUS.selectByID(mancc);
+            nhaCungCapBUS = new NhaCungCapBUS();
+            boolean thanhCong = nhaCungCapBUS.xoaNhaCungCap(mancc);
+            if (thanhCong) {
+
+                JOptionPane.showMessageDialog(null, "Xóa nhà cung cấp thành công");
+                listNhaCungCap = nhaCungCapBUS.getAllNhaCungCap();
+                hienThiListNhaCungCap(listNhaCungCap);
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa nhà cung cấp lỗi");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp để xóa");
+        }
+    }
+
+    private NhaCungCapDTO selectNhaCungCap() {
+        int selectedRow = tblNhaCC.getSelectedRow();
+        NhaCungCapDTO result = null;
+        if (selectedRow != -1) {
+            int mancc = (int) tblNhaCC.getValueAt(selectedRow, 0);
+            nhaCungCapBUS = new NhaCungCapBUS();
+            result = nhaCungCapBUS.selectByID(mancc);
+        }
+        return result;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnThemNhaCC) {
+            themNCC = new ThemNCCap();
+            themNCC.setLocationRelativeTo(null);
+            themNCC.setVisible(true);
+        } else if (e.getSource() == btnXoaNhaCC) {
+            xoaNhaCungCap();
+        } else if (e.getSource() == btnSuaNhaCC) {
+            if (selectNhaCungCap()!= null) {
+                suaNCC = new SuaNCCap(selectNhaCungCap());
+                suaNCC.setLocationRelativeTo(null);
+                suaNCC.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
+            }
+        }
+//        else if (e.getSource() == btnNhapExcelNCC) {
+//            NhapExcel nhapExcel = new NhapExcel();
+//            try {
+//                nhapExcel.importJTableFromExcel(tblNhaCC);
+//            } catch (IOException ex) {
+//                Logger.getLogger(NhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (InvalidFormatException ex) {
+//                Logger.getLogger(NhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
+//            }       catch (SQLException ex) {
+//                        Logger.getLogger(NhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//}
+        else if (e.getSource() == btnXuatExcelNCC) {
+            XuatExcel xuatExcel = new XuatExcel();
+            try {
+                xuatExcel.exportJTableToExcel(tblNhaCC);
+            } catch (IOException ex) {
+                Logger.getLogger(SanPham.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (e.getSource() == btnChiTietNCC) {
+            if (selectNhaCungCap()!= null) {
+                chiTietNCC = new ChiTietNCCap(selectNhaCungCap());
+                chiTietNCC.setLocationRelativeTo(null);
+                chiTietNCC.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp");
+            }
+            
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane asd;
+    private javax.swing.JButton btnChiTietNCC;
+    private javax.swing.JButton btnLammoi;
     private javax.swing.JButton btnNhapExcelNCC;
     private javax.swing.JButton btnSuaNhaCC;
     private javax.swing.JButton btnThemNhaCC;
-    private javax.swing.JTextField btnTimKiem;
     private javax.swing.JButton btnXoaNhaCC;
     private javax.swing.JButton btnXuatExcelNCC;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlTop;
     private javax.swing.JTable tblNhaCC;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

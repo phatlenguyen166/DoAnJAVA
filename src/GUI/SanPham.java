@@ -9,37 +9,25 @@ import DTO.SanPhamDTO;
 import GUI.SPham.ChiTietSanPham;
 import GUI.SPham.SuaSanPham;
 import GUI.SPham.ThemSanPham;
-import GUI.SanPham;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import static java.awt.AWTEventMulticaster.add;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -54,7 +42,6 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     /**
      * Creates new form SanPham
      */
-    DefaultTableModel tblModel;
     SanPhamBUS sanPhamBus = new SanPhamBUS();
     ThuongHieuDAO thuongHieuDAO;
     LoaiDAO loaiDAO;
@@ -64,6 +51,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     SuaSanPham suaSanPham;
     ChiTietSanPham chiTietSanPham;
     ArrayList<SanPhamDTO> listSanPham = sanPhamBus.getAllSanPham();
+    private final Color hoverColor = new Color(187, 222, 251);
 
     public SanPham() throws IOException {
         initComponents();
@@ -79,6 +67,8 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         btnXoaSP.addActionListener(this);
         btnChiTietSP.addActionListener(this);
         btnXuatExcelSP.addActionListener(this);
+
+        addHoverBtn();
 
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(1200, 800));
@@ -144,7 +134,34 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         btnXoaSP.setIcon(new FlatSVGIcon("./icon/delete.svg"));
         btnXuatExcelSP.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
         btnChiTietSP.setIcon(new FlatSVGIcon("./icon/detail.svg"));
+        btnLamMoi.setIcon(new FlatSVGIcon("./icon/refresh.svg"));
+    }
 
+    private void addHoverBtn() {
+        addHoverEffect(btnThemSP);
+        addHoverEffect(btnXoaSP);
+        addHoverEffect(btnChiTietSP);
+        addHoverEffect(btnLamMoi);
+        addHoverEffect(btnXuatExcelSP);
+        addHoverEffect(btnSuaSP);
+    }
+
+    private void addHoverEffect(JButton button) {
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (!button.isSelected()) {
+                    button.setBackground(hoverColor); // Khi di chuột vào, đổi màu nền 
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!button.isSelected()) {
+                    button.setBackground(Color.WHITE); // Khi di chuột ra khỏi, đổi lại màu nền mặc định
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -171,29 +188,23 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemSP.setText("Thêm");
-        btnThemSP.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThemSPMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnThemSPMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnThemSPMouseExited(evt);
-            }
-        });
+        btnThemSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlTop.add(btnThemSP);
 
         btnSuaSP.setText("Sửa");
+        btnSuaSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlTop.add(btnSuaSP);
 
         btnXoaSP.setText("Xóa");
+        btnXoaSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlTop.add(btnXoaSP);
 
         btnChiTietSP.setText("Chi tiết");
+        btnChiTietSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlTop.add(btnChiTietSP);
 
         btnXuatExcelSP.setText("Xuất excel");
+        btnXuatExcelSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlTop.add(btnXuatExcelSP);
 
         jLabel1.setLabelFor(txtTimKiem);
@@ -209,12 +220,8 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         pnlTop.add(txtTimKiem);
 
         btnLamMoi.setText("Làm mới");
-        btnLamMoi.setPreferredSize(new java.awt.Dimension(100, 60));
-        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLamMoiActionPerformed(evt);
-            }
-        });
+        btnLamMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(130, 60));
         pnlTop.add(btnLamMoi);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
@@ -229,6 +236,11 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
                 "Mã sản phẩm", "Tên sản phẩm", "Số lượng tồn", "Size", "Loại", "Thương hiệu", "Xuất xứ", "Khu vực kho", "Giá nhập", "Giá xuất"
             }
         ));
+        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblSanPham);
 
         javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
@@ -245,31 +257,6 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemSPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemSPMouseEntered
-        // TODO add your handling code here:
-        btnThemSP.setBackground(Color.GRAY);
-    }//GEN-LAST:event_btnThemSPMouseEntered
-
-    private void btnThemSPMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemSPMouseExited
-        // TODO add your handling code here:
-        btnThemSP.setBackground(Color.WHITE);
-    }//GEN-LAST:event_btnThemSPMouseExited
-
-    private void btnThemSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemSPMouseClicked
-        // TODO add your handling code here:
-        if (!btnThemSP.isSelected()) {
-            btnThemSP.setBackground(Color.WHITE);
-        } else {
-            btnThemSP.setBackground(Color.BLUE);
-        }
-    }//GEN-LAST:event_btnThemSPMouseClicked
-
-    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
-        hienThiListSanPham(listSanPham);
-        txtTimKiem.setText("");
-    }//GEN-LAST:event_btnLamMoiActionPerformed
-
     private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -277,6 +264,20 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             timKiemSanPham(keyword);
         }
     }//GEN-LAST:event_txtTimKiemKeyPressed
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) { // Kiểm tra sự kiện double-click
+            int row = tblSanPham.getSelectedRow();
+            // Lấy dữ liệu của sản phẩm từ dòng được chọn
+            int maSanPham = (int) tblSanPham.getValueAt(row, 0);
+            SanPhamDTO sanPham = sanPhamBus.selectByID(maSanPham);
+            // Hiển thị cửa sổ hoặc panel chi tiết sản phẩm với thông tin đã lấy được
+            chiTietSanPham = new ChiTietSanPham(sanPham);
+            chiTietSanPham.setLocationRelativeTo(null);
+            chiTietSanPham.setVisible(true);
+        }
+    }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void xoaSanPham() {
         int selectedRow = tblSanPham.getSelectedRow();
@@ -341,6 +342,9 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
+        } else if ( e.getSource() == btnLamMoi){
+            hienThiListSanPham(listSanPham);
+            txtTimKiem.setText("");
         }
     }
 

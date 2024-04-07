@@ -23,7 +23,12 @@ public class NhaCungCapDTO {
         this.email = email;
         this.sdt = sdt;
     }
-
+    public NhaCungCapDTO( String tenncc, String diachi, String email, String sdt) {
+        this.tenncc = tenncc;
+        this.diachi = diachi;
+        this.email = email;
+        this.sdt = sdt;
+    }
     public int getMancc() {
         return mancc;
     }
