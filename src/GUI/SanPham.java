@@ -222,6 +222,11 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         btnLamMoi.setText("Làm mới");
         btnLamMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLamMoi.setPreferredSize(new java.awt.Dimension(130, 60));
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
         pnlTop.add(btnLamMoi);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
@@ -278,6 +283,11 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             chiTietSanPham.setVisible(true);
         }
     }//GEN-LAST:event_tblSanPhamMouseClicked
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        hienThiListSanPham(listSanPham);
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void xoaSanPham() {
         int selectedRow = tblSanPham.getSelectedRow();
