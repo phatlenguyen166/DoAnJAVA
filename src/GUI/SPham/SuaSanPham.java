@@ -51,7 +51,7 @@ public class SuaSanPham extends javax.swing.JFrame {
     int masp;
     String hinhAnh;
     String img;
-
+    SanPham sp;
     public SuaSanPham() {
         initComponents();
         lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -67,8 +67,9 @@ public class SuaSanPham extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    public SuaSanPham(SanPhamDTO sanPhamDTO) {
+    public SuaSanPham(SanPhamDTO sanPhamDTO,SanPham sp) {
         initComponents();
+        this.sp = sp;
         lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -219,6 +220,7 @@ public class SuaSanPham extends javax.swing.JFrame {
         boolean thanhCong = sanPhamBUS.suaSanPham(spNew);
         if (thanhCong) {
             JOptionPane.showMessageDialog(null, "Sửa sản phẩm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            sp.hienThiListSanPham();
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sửa sản phẩm thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);

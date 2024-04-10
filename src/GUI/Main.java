@@ -60,7 +60,8 @@ public class Main extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addIconTaskbar();
         addHoverBtn();
-
+        setTitle("Hệ thống quản lý cửa hàng giày");
+        
     }
 
     /**

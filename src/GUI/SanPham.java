@@ -52,7 +52,10 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     ThemSanPham themSanPham;
     SuaSanPham suaSanPham;
     ChiTietSanPham chiTietSanPham;
-    ArrayList<SanPhamDTO> listSanPham = sanPhamBus.getAllSanPham();
+    
+     public SanPhamBUS sanPhamBUS ;
+    
+    public ArrayList<DTO.SanPhamDTO> listSanPham;
     private final Color hoverColor = new Color(187, 222, 251);
     Color BackgroundColor = new Color(240, 247, 250);
     public SanPham() throws IOException {
@@ -98,7 +101,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         
         
         
-        hienThiListSanPham(listSanPham);
+        hienThiListSanPham();
     }
 
     private void timKiemSanPham(String keyword) {
@@ -112,13 +115,46 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         }
         hienThiListSanPham(ketQuaTimKiem);
     }
-
-    private void hienThiListSanPham(ArrayList<SanPhamDTO> listSanPham) {
-        sanPhamBus = new SanPhamBUS();
+    
+    public void hienThiListSanPham(ArrayList<SanPhamDTO> a) {
         thuongHieuDAO = new ThuongHieuDAO();
         loaiDAO = new LoaiDAO();
         xuatXuDAO = new XuatXuDAO();
         khuVucKhoDAO = new KhuVucKhoDAO();
+        sanPhamBUS = new SanPhamBUS();
+        DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        for (SanPhamDTO sanPham : a) {
+            Object[] row = {
+                sanPham.getMasp(),
+                sanPham.getTensp(),
+                sanPham.getSoluongton(),
+                sanPham.getSize(),
+                loaiDAO.selectById(sanPham.getLoai()).getTenloai(),
+                thuongHieuDAO.selectById(sanPham.getThuonghieu()).getTenthuonghieu(),
+                xuatXuDAO.selectById(sanPham.getXuatxu()).getTenxuatxu(), // Giá trị ở giữa thứ 7
+                khuVucKhoDAO.selectById(sanPham.getKhuvuckho()).getTenkhuvuc(),
+                formatTien(sanPham.getGianhap()),
+                formatTien(sanPham.getGiaxuat())};
+            model.addRow(row);
+        }
+
+        // Tạo renderer để hiển thị nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblSanPham.getColumnCount(); i++) {
+            tblSanPham.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+    public void hienThiListSanPham() {
+        thuongHieuDAO = new ThuongHieuDAO();
+        loaiDAO = new LoaiDAO();
+        xuatXuDAO = new XuatXuDAO();
+        khuVucKhoDAO = new KhuVucKhoDAO();
+        sanPhamBUS = new SanPhamBUS();
+        listSanPham = sanPhamBUS.getAllSanPham();
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
         for (SanPhamDTO sanPham : listSanPham) {
@@ -309,7 +345,9 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        hienThiListSanPham(listSanPham);
+        listSanPham = sanPhamBus.getAllSanPham();
+        hienThiListSanPham();
+        txtTimKiem.setText("");
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void xoaSanPham() {
@@ -320,10 +358,9 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             sanPhamBus = new SanPhamBUS();
             boolean thanhCong = sanPhamBus.xoaSanPham(maSP);
             if (thanhCong) {
-
                 JOptionPane.showMessageDialog(null, "Xóa sản phẩm thành công");
                 listSanPham = sanPhamBus.getAllSanPham();
-                hienThiListSanPham(listSanPham);
+                hienThiListSanPham();
             } else {
                 JOptionPane.showMessageDialog(null, "Xóa sản phẩm lỗi");
             }
@@ -346,16 +383,18 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnThemSP) {
-            themSanPham = new ThemSanPham();
+            themSanPham = new ThemSanPham(this);
             themSanPham.setLocationRelativeTo(null);
             themSanPham.setVisible(true);
         } else if (e.getSource() == btnXoaSP) {
             xoaSanPham();
         } else if (e.getSource() == btnSuaSP) {
             if (selectSanPham() != null) {
-                suaSanPham = new SuaSanPham(selectSanPham());
+                suaSanPham = new SuaSanPham(selectSanPham(),this);
                 suaSanPham.setLocationRelativeTo(null);
                 suaSanPham.setVisible(true);
+                listSanPham = sanPhamBus.getAllSanPham();
+                hienThiListSanPham();
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
@@ -376,8 +415,9 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
         } else if ( e.getSource() == btnLamMoi){
-            hienThiListSanPham(listSanPham);
+            hienThiListSanPham();
             txtTimKiem.setText("");
+            System.out.println("hello");
         }
     }
 

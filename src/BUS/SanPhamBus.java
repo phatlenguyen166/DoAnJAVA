@@ -40,4 +40,13 @@ public class SanPhamBUS {
     public SanPhamDTO selectByID(int masp){
         return sanPhamDAO.selectById(masp);
     }
+    private ArrayList<SanPhamDTO> listSP = new ArrayList<>();
+    public Boolean add(SanPhamDTO lh) {
+        boolean check = sanPhamDAO.themSanPham(lh);
+        if (check) {
+
+            this.listSP.add(lh);
+        }
+        return check;
+    }
 }

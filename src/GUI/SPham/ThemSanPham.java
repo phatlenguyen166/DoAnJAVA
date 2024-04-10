@@ -9,7 +9,6 @@ import BUS.LoaiBUS;
 import BUS.SanPhamBUS;
 import BUS.ThuongHieuBUS;
 import BUS.XuatXuBUS;
-import DAO.SanPhamDAO;
 import DTO.SanPhamDTO;
 import GUI.SanPham;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -31,9 +30,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 public class ThemSanPham extends javax.swing.JFrame {
@@ -44,12 +41,12 @@ public class ThemSanPham extends javax.swing.JFrame {
     LoaiBUS loaiBUS = new LoaiBUS();
     XuatXuBUS xuatXuBUS = new XuatXuBUS();
     KhuVucKhoBUS khuVucKhoBUS = new KhuVucKhoBUS();
-    SanPhamDAO sanPhamDAO;
     SanPhamDTO sanPhamDTO;
     SanPhamBUS sanPhamBUS;
-
-    public ThemSanPham() {
+    SanPham sp;
+    public ThemSanPham(SanPham sp) {
         initComponents();
+        this.sp= sp;
         lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -175,6 +172,7 @@ public class ThemSanPham extends javax.swing.JFrame {
         sanPhamBUS = new SanPhamBUS();
         boolean thanhCong = sanPhamBUS.themSanPham(spNew);
         if (thanhCong) {
+            sp.hienThiListSanPham();
             JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             dispose();  
         } else {
@@ -458,16 +456,7 @@ public class ThemSanPham extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        FlatRobotoFont.install();
-        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-        new ThemSanPham().setVisible(true);
-    }
-
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel anhSanPham;
     private javax.swing.JButton btnCancel;
