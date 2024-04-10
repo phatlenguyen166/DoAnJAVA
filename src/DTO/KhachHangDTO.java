@@ -11,8 +11,8 @@ public class KhachHangDTO {
 
     private int maKH;
     private String hoten;
-    private String sdt;
     private String diachi;
+    private String sdt;
     private Date ngaythamgia;
 
     public KhachHangDTO() {
@@ -23,17 +23,17 @@ public class KhachHangDTO {
         this.diachi = diachi;
         this.sdt = sdt;
     }
-    public KhachHangDTO( String hoten, String sdt, String diachi) {
+    public KhachHangDTO( String hoten, String diachi, String sdt) {
         this.hoten = hoten;
-        this.sdt = sdt;
         this.diachi = diachi;
+        this.sdt = sdt;
     }
     
-    public KhachHangDTO(int maKH, String hoten, String sdt, String diachi,Date ngaythamgia) {
+    public KhachHangDTO(int maKH, String hoten, String diachi, String sdt,Date ngaythamgia) {
         this.maKH = maKH;
         this.hoten = hoten;
-        this.sdt = sdt;
         this.diachi = diachi;
+        this.sdt = sdt;
         this.ngaythamgia = ngaythamgia;
     }
 
@@ -104,7 +104,7 @@ public class KhachHangDTO {
 
     @Override
     public String toString() {
-        return "KhachHang{" + "maKH=" + maKH + ", hoten=" + hoten + ", sdt=" + sdt + ", diachi=" + diachi + '}';
+        return "KhachHang{" + "maKH=" + maKH + ", hoten=" + hoten + ", diachi=" + diachi + ", sdt=" + sdt + '}';
     }
 
 }

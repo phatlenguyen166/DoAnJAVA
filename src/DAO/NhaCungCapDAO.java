@@ -51,8 +51,8 @@ public class NhaCungCapDAO {
             pst = connection.prepareStatement(query);
             pst.setString(1, nhaCungCapDTO.getTenncc());
             pst.setString(2, nhaCungCapDTO.getDiachi());
-            pst.setString(3, nhaCungCapDTO.getEmail());
-            pst.setString(4, nhaCungCapDTO.getSdt());
+            pst.setString(3, nhaCungCapDTO.getSdt());
+            pst.setString(4, nhaCungCapDTO.getEmail());
             int rowAff = pst.executeUpdate();
             if (rowAff > 0) {
                 thanhCong = true;
@@ -101,8 +101,8 @@ public class NhaCungCapDAO {
             pst = connection.prepareStatement(query);
             pst.setString(1, nhaCungCapDTO.getTenncc());
             pst.setString(2, nhaCungCapDTO.getDiachi());
-            pst.setString(3, nhaCungCapDTO.getSdt());
-            pst.setString(4, nhaCungCapDTO.getEmail());
+            pst.setString(4, nhaCungCapDTO.getSdt());
+            pst.setString(3, nhaCungCapDTO.getEmail());
             pst.setInt(5, nhaCungCapDTO.getMancc());
             int rowAff = pst.executeUpdate();
             if (rowAff > 0) {
@@ -137,10 +137,10 @@ public class NhaCungCapDAO {
             while (rs.next()) {
                 int ma = rs.getInt("manhacungcap");
                 String ten = rs.getString("tennhacungcap");
-                String sdt = rs.getString("sdt");
                 String diachi = rs.getString("diachi");
                 String email = rs.getString("email");
-                result = new NhaCungCapDTO(ma, ten, sdt, diachi, email);
+                String sdt = rs.getString("sdt");
+                result = new NhaCungCapDTO(ma, ten, diachi, email, sdt);
             }
             MySQLConnection.closeConnection(connection);
         } catch (SQLException e) {

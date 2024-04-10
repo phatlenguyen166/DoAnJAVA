@@ -80,12 +80,47 @@ public class SuaNCCap extends javax.swing.JFrame {
         String diaChi = txtDiaChi.getText();
         String soDienThoai = txtSoDt.getText();
         String email = txtEmail.getText();
-        nhaCungCapDTO = new NhaCungCapDTO(tenNhaCungCap,diaChi,soDienThoai, email);
+        nhaCungCapDTO = new NhaCungCapDTO(tenNhaCungCap,diaChi, email,soDienThoai);
         return nhaCungCapDTO;
     }
-    
+
+//kiểm tra dữ liệu
+private boolean isValidData() {
+    String tenKhachHang = txtTenNCC.getText();
+    String diaChi = txtDiaChi.getText();
+    String soDienThoai = txtSoDt.getText();
+    String email = txtEmail.getText();
+
+    if (tenKhachHang.isEmpty() || diaChi.isEmpty() || soDienThoai.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin khách hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra định dạng số điện thoại
+    if (soDienThoai.length() != 10 || !soDienThoai.startsWith("0")) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra định dạng email
+    if (!isValidEmail(email)) {
+        JOptionPane.showMessageDialog(this, "Email không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    return true;
+}
+
+private boolean isValidEmail(String email) {
+    // Sử dụng biểu thức chính quy để kiểm tra email
+    String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    return email.matches(regex);
+}
     private void SuaNhaCungCap() throws IOException {
-        // Nhận thông tin từ giao diện
+        if (!isValidData()) {
+        return;
+        }
+// Nhận thông tin từ giao diện
         NhaCungCapDTO nccNew = getInfoNhaCungCapMoi();
         nccNew.setMancc(mancc);
         nhaCungCapBUS = new NhaCungCapBUS();
@@ -135,7 +170,9 @@ public class SuaNCCap extends javax.swing.JFrame {
         pnlTop.setLayout(pnlTopLayout);
         pnlTopLayout.setHorizontalGroup(
             pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 663, Short.MAX_VALUE)
+            .addGroup(pnlTopLayout.createSequentialGroup()
+                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 48, Short.MAX_VALUE))
         );
         pnlTopLayout.setVerticalGroup(
             pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +212,7 @@ public class SuaNCCap extends javax.swing.JFrame {
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCenterLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtEmail)
@@ -185,11 +222,11 @@ public class SuaNCCap extends javax.swing.JFrame {
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lblSoDT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtDiaChi, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblDiaChi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtSoDt, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSoDt, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtDiaChi, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55))
         );
@@ -223,7 +260,7 @@ public class SuaNCCap extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

@@ -48,7 +48,7 @@ public class KhachHangDAO {
 
     public boolean themKhachHang(KhachHangDTO khachHangDTO) {
         boolean thanhCong = false;
-        String query = "INSERT INTO khachhang (tenkhachhang, sdt, diachi) VALUES (?, ?, ?)";
+        String query = "INSERT INTO khachhang (tenkhachhang, diachi, sdt) VALUES (?, ?, ?)";
         try {
             connection = MySQLConnection.getConnection();
             pst = connection.prepareStatement(query);
@@ -99,9 +99,9 @@ public class KhachHangDAO {
         boolean thanhCong = false;
         try {
             connection = MySQLConnection.getConnection();
-            String query = "UPDATE khachhang SET tenkhachhang=?, sdt=?, diachi=? WHERE makh=?";
+            String query = "UPDATE khachhang SET tenkhachhang=?, diachi=? , sdt=? WHERE makh=?";
             pst = connection.prepareStatement(query);
-            pst.setString(1, khachHangDTO.getHoten());
+            pst.setString(1, khachHangDTO.getHoten());            
             pst.setString(2, khachHangDTO.getDiachi());
             pst.setString(3, khachHangDTO.getSdt());
             pst.setInt(4, khachHangDTO.getMaKH());
@@ -139,9 +139,9 @@ public class KhachHangDAO {
             while (rs.next()) {
                 int ma = rs.getInt("makh");
                 String ten = rs.getString("tenkhachhang");
-                String sdt = rs.getString("sdt");
                 String diachi = rs.getString("diachi");
-                result = new KhachHangDTO(ma, ten, sdt, diachi);
+                                String sdt = rs.getString("sdt");
+                result = new KhachHangDTO(ma, ten, diachi, sdt);
             }
             MySQLConnection.closeConnection(connection);
         } catch (SQLException e) {

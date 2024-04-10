@@ -40,7 +40,6 @@ public class ThuongHieuDAO {
                 ThuongHieuDTO thuongHieu = new ThuongHieuDTO();
                 thuongHieu.setMathuonghieu(resultSet.getInt("mathuonghieu"));
                 thuongHieu.setTenthuonghieu(resultSet.getString("tenthuonghieu"));
-
                 listThuongHieu.add(thuongHieu);
             }
         } catch (SQLException e) {

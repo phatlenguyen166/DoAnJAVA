@@ -53,8 +53,9 @@ public class ChiTietKHang extends javax.swing.JFrame {
 
     private void LoadDuLieu(KhachHangDTO khachHangDTO) {
         txtTenKH.setText(khachHangDTO.getHoten());
+        txtDiaChi.setText(khachHangDTO.getDiachi());
         txtSoDT.setText(khachHangDTO.getSdt());
-        txtDiaChi.setText(khachHangDTO.getHoten());
+
     }
 
 
@@ -129,7 +130,7 @@ public class ChiTietKHang extends javax.swing.JFrame {
                         .addGap(0, 496, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(pnlCenterLayout.createSequentialGroup()
-                .addGap(208, 208, 208)
+                .addGap(195, 195, 195)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -148,9 +149,9 @@ public class ChiTietKHang extends javax.swing.JFrame {
                 .addComponent(lblDiaChi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

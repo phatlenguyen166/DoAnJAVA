@@ -1,4 +1,13 @@
-package GUI;/*
+package GUI;
+
+import GUI.ThongKeHeThong.ThongKeDoanhThu;
+import GUI.ThongKeHeThong.ThongKeKhachHang;
+import GUI.ThongKeHeThong.ThongKeNhaCungCap;
+import GUI.ThongKeHeThong.ThongKeTonKho;
+import GUI.ThongKeHeThong.ThongKeTongQuan;
+import java.awt.Color;
+
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -12,8 +21,21 @@ public class ThongKe extends javax.swing.JPanel {
     /**
      * Creates new form ThongKe
      */
+    ThongKeTongQuan thongKeTongQuan = new ThongKeTongQuan();
+    ThongKeDoanhThu thongKeDoanhThu = new ThongKeDoanhThu();
+    ThongKeTonKho thongKeTonKho = new ThongKeTonKho();
+    ThongKeKhachHang thongKeKhachHang = new ThongKeKhachHang();
+    ThongKeNhaCungCap thongKeNhaCungCap = new ThongKeNhaCungCap();
+    Color BackgroundColor = new Color(240, 247, 250);
     public ThongKe() {
         initComponents();
+        thongKe.setOpaque(false);
+        this.setBackground(BackgroundColor);
+        thongKe.addTab("Tổng quan", thongKeTongQuan);
+        thongKe.addTab("Doanh thu", thongKeDoanhThu);
+        thongKe.addTab("Kho", thongKeTonKho);
+        thongKe.addTab("Khách hàng", thongKeKhachHang);
+        thongKe.addTab("Nhà cung cấp", thongKeNhaCungCap);
     }
 
     /**
@@ -25,30 +47,14 @@ public class ThongKe extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        thongKe = new javax.swing.JTabbedPane();
 
-        jLabel1.setText("Đây là trang nhà thống kê");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(159, Short.MAX_VALUE))
-        );
+        setLayout(new java.awt.BorderLayout());
+        add(thongKe, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTabbedPane thongKe;
     // End of variables declaration//GEN-END:variables
 }

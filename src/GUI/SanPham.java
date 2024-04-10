@@ -25,7 +25,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,9 +54,12 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     ChiTietSanPham chiTietSanPham;
     ArrayList<SanPhamDTO> listSanPham = sanPhamBus.getAllSanPham();
     private final Color hoverColor = new Color(187, 222, 251);
-
+    Color BackgroundColor = new Color(240, 247, 250);
     public SanPham() throws IOException {
         initComponents();
+        
+        
+        
         addIcon();
         tblSanPham.setFocusable(false);
         tblSanPham.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
@@ -74,7 +79,25 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         setPreferredSize(new Dimension(1200, 800));
         this.add(pnlTop, BorderLayout.NORTH);
         this.add(pnlCenter, BorderLayout.CENTER);
+        
+        JPanel pnlTopMargin = new JPanel(new BorderLayout());
+        pnlTopMargin.setBackground(BackgroundColor);
+        pnlTopMargin.setBorder(new EmptyBorder(10, 10, 10, 10)); // Margin: top, left, bottom, right
+        pnlTopMargin.add(pnlTop, BorderLayout.CENTER);
 
+        // Tạo JPanel mới cho pnlCenter và đặt margin cho nó
+        JPanel pnlCenterMargin = new JPanel(new BorderLayout());
+        pnlCenterMargin.setBackground(BackgroundColor);
+        pnlCenterMargin.setBorder(new EmptyBorder(10, 10, 10, 10)); // Margin: top, left, bottom, right
+        pnlCenterMargin.add(pnlCenter, BorderLayout.CENTER);
+
+        // Thêm các JPanel đã tạo vào BorderLayout của SanPham panel
+        this.setLayout(new BorderLayout());
+        this.add(pnlTopMargin, BorderLayout.NORTH);
+        this.add(pnlCenterMargin, BorderLayout.CENTER);
+        
+        
+        
         hienThiListSanPham(listSanPham);
     }
 

@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
@@ -51,16 +52,16 @@ public class Main extends javax.swing.JFrame {
 
     private final Color defaultColor = new Color(255, 255, 255);
     private final Color hoverColor = new Color(187, 222, 251);
-    
+
     public Main() {
-        this.setPreferredSize(new Dimension(1400,800));
+        this.setPreferredSize(new Dimension(1400, 800));
         initComponents();
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addIconTaskbar();
         addHoverBtn();
-    }
 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,22 +98,61 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void addIconTaskbar() {
-        btnTrangChu.setIcon(new FlatSVGIcon("./icon/home.svg"));
-        btnSanPham.setIcon(new FlatSVGIcon("./icon/product.svg"));
-        btnThuocTinh.setIcon(new FlatSVGIcon("./icon/brand.svg"));
-        btnKhuVucKho.setIcon(new FlatSVGIcon("./icon/area.svg"));
-        btnPhieuNhap.setIcon(new FlatSVGIcon("./icon/import.svg"));
-        btnPhieuXuat.setIcon(new FlatSVGIcon("./icon/export.svg"));
-        btnKhachHang.setIcon(new FlatSVGIcon("./icon/customer.svg"));
-        btnNhaCungCap.setIcon(new FlatSVGIcon("./icon/supplier.svg"));
-        btnNhanVien.setIcon(new FlatSVGIcon("./icon/staff.svg"));
-        btnTaiKhoan.setIcon(new FlatSVGIcon("./icon/account.svg"));
-        btnThongKe.setIcon(new FlatSVGIcon("./icon/statistical.svg"));
-        btnDangXuat.setIcon(new FlatSVGIcon("./icon/log_out.svg"));
 
+        btnDangXuat.setText("<html>&nbsp;&nbsp;&nbsp;Đăng xuất</html>");
+        btnKhachHang.setText("<html>&nbsp;&nbsp;&nbsp;Khách hàng</html>");
+        btnKhuVucKho.setText("<html>&nbsp;&nbsp;&nbsp;Khu vực kho</html>");
+        btnNhaCungCap.setText("<html>&nbsp;&nbsp;&nbsp;Nhà cung cấp</html>");
+        btnNhanVien.setText("<html>&nbsp;&nbsp;&nbsp;Nhân viên</html>");
+        btnPhieuNhap.setText("<html>&nbsp;&nbsp;&nbsp;Phiếu nhập</html>");
+        btnPhieuXuat.setText("<html>&nbsp;&nbsp;&nbsp;Phiếu xuất</html>");
+        btnSanPham.setText("<html>&nbsp;&nbsp;&nbsp;Sản phẩm</html>");
+        btnTaiKhoan.setText("<html>&nbsp;&nbsp;&nbsp;Tài khoản</html>");
+        btnThongKe.setText("<html>&nbsp;&nbsp;&nbsp;Thống kê</html>");
+        btnThuocTinh.setText("<html>&nbsp;&nbsp;&nbsp;Thuộc tính</html>");
+        btnTrangChu.setText("<html>&nbsp;&nbsp;&nbsp;Trang chủ</html>");
+
+        // Đặt icon và căn chỉnh biểu tượng sang trái cho mỗi button
+        btnTrangChu.setIcon(new FlatSVGIcon("./icon/home.svg"));
+        btnTrangChu.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnSanPham.setIcon(new FlatSVGIcon("./icon/product.svg"));
+        btnSanPham.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnThuocTinh.setIcon(new FlatSVGIcon("./icon/brand.svg"));
+        btnThuocTinh.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnKhuVucKho.setIcon(new FlatSVGIcon("./icon/area.svg"));
+        btnKhuVucKho.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnPhieuNhap.setIcon(new FlatSVGIcon("./icon/import.svg"));
+        btnPhieuNhap.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnPhieuXuat.setIcon(new FlatSVGIcon("./icon/export.svg"));
+        btnPhieuXuat.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnKhachHang.setIcon(new FlatSVGIcon("./icon/customer.svg"));
+        btnKhachHang.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnNhaCungCap.setIcon(new FlatSVGIcon("./icon/supplier.svg"));
+        btnNhaCungCap.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnNhanVien.setIcon(new FlatSVGIcon("./icon/staff.svg"));
+        btnNhanVien.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnTaiKhoan.setIcon(new FlatSVGIcon("./icon/account.svg"));
+        btnTaiKhoan.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnThongKe.setIcon(new FlatSVGIcon("./icon/statistical.svg"));
+        btnThongKe.setHorizontalAlignment(SwingConstants.LEFT);
+
+        btnDangXuat.setIcon(new FlatSVGIcon("./icon/log_out.svg"));
+        btnDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
     }
 
     private void addHoverEffect(JToggleButton button) {
+
+        button.setBorderPainted(false);
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -131,21 +171,23 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void addHoverEffect(JButton button) {
+        button.setBorderPainted(false);
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                    button.setBackground(hoverColor); // Khi di chuột vào, đổi màu nền 
-                
+                button.setBackground(hoverColor); // Khi di chuột vào, đổi màu nền 
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                    button.setBackground(defaultColor); // Khi di chuột ra khỏi, đổi lại màu nền mặc định
+                button.setBackground(defaultColor); // Khi di chuột ra khỏi, đổi lại màu nền mặc định
             }
         });
     }
 
     private void addHoverBtn() {
+        addHoverEffect(btnTrangChu);
         addHoverEffect(btnDangXuat);
         addHoverEffect(btnKhachHang);
         addHoverEffect(btnKhuVucKho);
@@ -170,7 +212,7 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         bar = new javax.swing.JLabel();
         taskBar = new javax.swing.JPanel();
-        btnTrangChu = new javax.swing.JToggleButton();
+        btnTrangChu = new javax.swing.JToggleButton("<html>&nbsp;&nbsp;&nbsp;Trang chủ</html>");
         btnSanPham = new javax.swing.JToggleButton();
         btnThuocTinh = new javax.swing.JToggleButton();
         btnKhuVucKho = new javax.swing.JToggleButton();
@@ -223,6 +265,7 @@ public class Main extends javax.swing.JFrame {
         taskBar.setBackground(new java.awt.Color(255, 255, 255));
 
         buttonGroup1.add(btnTrangChu);
+        btnTrangChu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTrangChu.setText("Trang chủ");
         btnTrangChu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTrangChu.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +275,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnSanPham);
+        btnSanPham.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSanPham.setText("Sản phẩm");
         btnSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSanPham.addActionListener(new java.awt.event.ActionListener() {
@@ -241,6 +285,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnThuocTinh);
+        btnThuocTinh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnThuocTinh.setText("Thuộc tính");
         btnThuocTinh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThuocTinh.addActionListener(new java.awt.event.ActionListener() {
@@ -250,6 +295,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnKhuVucKho);
+        btnKhuVucKho.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnKhuVucKho.setText("Khu vực kho");
         btnKhuVucKho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnKhuVucKho.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +305,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnPhieuNhap);
+        btnPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPhieuNhap.setText("Phiếu nhập");
         btnPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
@@ -268,6 +315,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnPhieuXuat);
+        btnPhieuXuat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPhieuXuat.setText("Phiếu xuất");
         btnPhieuXuat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPhieuXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -277,6 +325,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnKhachHang);
+        btnKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnKhachHang.setText("Khách hàng");
         btnKhachHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnKhachHang.addActionListener(new java.awt.event.ActionListener() {
@@ -286,6 +335,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnNhaCungCap);
+        btnNhaCungCap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnNhaCungCap.setText("Nhà cung cấp");
         btnNhaCungCap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNhaCungCap.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +345,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnNhanVien);
+        btnNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnNhanVien.setText("Nhân viên");
         btnNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -304,6 +355,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnTaiKhoan);
+        btnTaiKhoan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTaiKhoan.setText("Tài khoản");
         btnTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
@@ -313,6 +365,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(btnThongKe);
+        btnThongKe.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnThongKe.setText("Thống kê");
         btnThongKe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThongKe.addActionListener(new java.awt.event.ActionListener() {
@@ -367,6 +420,7 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnDangXuat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnDangXuat.setText("Đăng xuất");
         btnDangXuat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -379,7 +433,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnDangXuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,9 +449,9 @@ public class Main extends javax.swing.JFrame {
             menuTaskbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(menuTaskbarLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
             .addComponent(taskBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         menuTaskbarLayout.setVerticalGroup(
@@ -406,7 +460,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(taskBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
         );
@@ -516,7 +570,7 @@ public class Main extends javax.swing.JFrame {
         mainContent.setLayout(new BorderLayout());
         panel.setSize(mainContent.getSize());
         mainContent.removeAll();
-        mainContent.add(panel,BorderLayout.CENTER);
+        mainContent.add(panel, BorderLayout.CENTER);
         mainContent.setVisible(true);
         mainContent.revalidate();
         mainContent.repaint();

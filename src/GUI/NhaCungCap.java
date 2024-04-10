@@ -83,16 +83,20 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener{
 
         }
 private void timKiemNhaCungCap(String keyword) {
-        ArrayList<NhaCungCapDTO> ketQuaTimKiem = new ArrayList<>();
-        DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            String tenNhaCungCap = (String) model.getValueAt(i, 1);
-            if (tenNhaCungCap.toLowerCase().contains(keyword.toLowerCase())) {
-                ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm ncc vào danh sách kết quả
-            }
+    ArrayList<NhaCungCapDTO> ketQuaTimKiem = new ArrayList<>();
+    DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
+    for (int i = 0; i < model.getRowCount(); i++) {
+        String tenNhaCungCap = (String) model.getValueAt(i, 1);
+        if (tenNhaCungCap.toLowerCase().contains(keyword.toLowerCase())) {
+            ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm ncc vào danh sách kết quả
         }
-        hienThiListNhaCungCap(ketQuaTimKiem);
+        String soDienThoai = (String) model.getValueAt(i, 4);
+        if (soDienThoai.contains(keyword)) {
+            ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm nccvào danh sách kết quả
+        }
     }
+    hienThiListNhaCungCap(ketQuaTimKiem);
+}
 
     private void hienThiListNhaCungCap(ArrayList<NhaCungCapDTO> listNhaCungCap) {
         nhaCungCapBUS = new NhaCungCapBUS();
@@ -104,8 +108,8 @@ private void timKiemNhaCungCap(String keyword) {
                 nhaCungCap.getMancc(),
                 nhaCungCap.getTenncc(),
                 nhaCungCap.getDiachi(),
-                nhaCungCap.getSdt(),
                 nhaCungCap.getEmail(),
+                nhaCungCap.getSdt(),
             };
             model.addRow(row);
         }
@@ -149,6 +153,7 @@ private void timKiemNhaCungCap(String keyword) {
         pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemNhaCC.setText("Thêm");
+        btnThemNhaCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThemNhaCC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThemNhaCCMouseClicked(evt);
@@ -168,6 +173,18 @@ private void timKiemNhaCungCap(String keyword) {
         pnlTop.add(btnThemNhaCC);
 
         btnSuaNhaCC.setText("Sửa");
+        btnSuaNhaCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSuaNhaCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSuaNhaCCMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaNhaCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaNhaCCMouseExited(evt);
+            }
+        });
         btnSuaNhaCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaNhaCCActionPerformed(evt);
@@ -176,6 +193,18 @@ private void timKiemNhaCungCap(String keyword) {
         pnlTop.add(btnSuaNhaCC);
 
         btnXoaNhaCC.setText("Xóa");
+        btnXoaNhaCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXoaNhaCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaNhaCCMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXoaNhaCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXoaNhaCCMouseExited(evt);
+            }
+        });
         btnXoaNhaCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaNhaCCActionPerformed(evt);
@@ -184,6 +213,18 @@ private void timKiemNhaCungCap(String keyword) {
         pnlTop.add(btnXoaNhaCC);
 
         btnChiTietNCC.setText("Chi tiết");
+        btnChiTietNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChiTietNCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnChiTietNCCMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnChiTietNCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnChiTietNCCMouseExited(evt);
+            }
+        });
         btnChiTietNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChiTietNCCActionPerformed(evt);
@@ -192,6 +233,18 @@ private void timKiemNhaCungCap(String keyword) {
         pnlTop.add(btnChiTietNCC);
 
         btnNhapExcelNCC.setText("Nhập excel");
+        btnNhapExcelNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNhapExcelNCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNhapExcelNCCMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNhapExcelNCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNhapExcelNCCMouseExited(evt);
+            }
+        });
         btnNhapExcelNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNhapExcelNCCActionPerformed(evt);
@@ -200,6 +253,18 @@ private void timKiemNhaCungCap(String keyword) {
         pnlTop.add(btnNhapExcelNCC);
 
         btnXuatExcelNCC.setText("Xuất excel");
+        btnXuatExcelNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXuatExcelNCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXuatExcelNCCMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXuatExcelNCCMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXuatExcelNCCMouseExited(evt);
+            }
+        });
         btnXuatExcelNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXuatExcelNCCActionPerformed(evt);
@@ -225,6 +290,7 @@ private void timKiemNhaCungCap(String keyword) {
         pnlTop.add(txtTimKiem);
 
         btnLammoi.setText("làm mới");
+        btnLammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLammoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLammoiActionPerformed(evt);
@@ -304,6 +370,7 @@ private void timKiemNhaCungCap(String keyword) {
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         // TODO add your handling code here:
+        listNhaCungCap = nhaCungCapBUS.getAllNhaCungCap();
         hienThiListNhaCungCap(listNhaCungCap);
         txtTimKiem.setText("");
     }//GEN-LAST:event_btnLammoiActionPerformed
@@ -323,6 +390,101 @@ private void timKiemNhaCungCap(String keyword) {
     private void btnChiTietNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnChiTietNCCActionPerformed
+
+    private void btnSuaNhaCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaNhaCCMouseClicked
+        // TODO add your handling code here:
+        if (!btnSuaNhaCC.isSelected()) {
+            btnSuaNhaCC.setBackground(Color.WHITE);
+        } else {
+            btnSuaNhaCC.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnSuaNhaCCMouseClicked
+
+    private void btnSuaNhaCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaNhaCCMouseEntered
+        // TODO add your handling code here:
+        btnSuaNhaCC.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnSuaNhaCCMouseEntered
+
+    private void btnSuaNhaCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaNhaCCMouseExited
+        // TODO add your handling code here:
+        btnSuaNhaCC.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnSuaNhaCCMouseExited
+
+    private void btnXoaNhaCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaNhaCCMouseClicked
+        // TODO add your handling code here:
+        if (!btnXoaNhaCC.isSelected()) {
+            btnXoaNhaCC.setBackground(Color.WHITE);
+        } else {
+            btnXoaNhaCC.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnXoaNhaCCMouseClicked
+
+    private void btnXoaNhaCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaNhaCCMouseEntered
+        // TODO add your handling code here:
+        btnXoaNhaCC.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnXoaNhaCCMouseEntered
+
+    private void btnXoaNhaCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaNhaCCMouseExited
+        // TODO add your handling code here:
+        btnXoaNhaCC.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnXoaNhaCCMouseExited
+
+    private void btnChiTietNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChiTietNCCMouseClicked
+        // TODO add your handling code here:
+        if (!btnChiTietNCC.isSelected()) {
+            btnChiTietNCC.setBackground(Color.WHITE);
+        } else {
+            btnChiTietNCC.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnChiTietNCCMouseClicked
+
+    private void btnChiTietNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChiTietNCCMouseEntered
+        // TODO add your handling code here:
+        btnChiTietNCC.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnChiTietNCCMouseEntered
+
+    private void btnChiTietNCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChiTietNCCMouseExited
+        // TODO add your handling code here:
+        btnChiTietNCC.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnChiTietNCCMouseExited
+
+    private void btnNhapExcelNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelNCCMouseClicked
+        // TODO add your handling code here:
+        if (!btnNhapExcelNCC.isSelected()) {
+            btnNhapExcelNCC.setBackground(Color.WHITE);
+        } else {
+            btnNhapExcelNCC.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnNhapExcelNCCMouseClicked
+
+    private void btnNhapExcelNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelNCCMouseEntered
+        // TODO add your handling code here:
+        btnNhapExcelNCC.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnNhapExcelNCCMouseEntered
+
+    private void btnNhapExcelNCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelNCCMouseExited
+        // TODO add your handling code here:
+        btnNhapExcelNCC.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnNhapExcelNCCMouseExited
+
+    private void btnXuatExcelNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelNCCMouseClicked
+        // TODO add your handling code here:
+        if (!btnXuatExcelNCC.isSelected()) {
+            btnXuatExcelNCC.setBackground(Color.WHITE);
+        } else {
+            btnXuatExcelNCC.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnXuatExcelNCCMouseClicked
+
+    private void btnXuatExcelNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelNCCMouseEntered
+        // TODO add your handling code here:
+        btnXuatExcelNCC.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnXuatExcelNCCMouseEntered
+
+    private void btnXuatExcelNCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelNCCMouseExited
+        // TODO add your handling code here:
+        btnXuatExcelNCC.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnXuatExcelNCCMouseExited
   
    
 private void xoaNhaCungCap() {

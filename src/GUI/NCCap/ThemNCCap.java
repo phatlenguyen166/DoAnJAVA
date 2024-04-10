@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,12 +67,63 @@ public class ThemNCCap extends javax.swing.JFrame {
         }
         String tenNhaCungCap = txtTenNCC.getText();
         String diaChi = txtDiaChi.getText();
-        String soDienThoai = txtSoDt.getText();
         String email = txtEmail.getText();
-        nhaCungCapDTO = new NhaCungCapDTO(tenNhaCungCap,soDienThoai,diaChi, email);
+        String soDienThoai = txtSoDt.getText();
+
+        nhaCungCapDTO = new NhaCungCapDTO(tenNhaCungCap,diaChi,soDienThoai, email);
         return nhaCungCapDTO;
     }
+    
+    //kiểm tra dữ liệu
+    private boolean isValidData() {
+    String tenNhaCungCap = txtTenNCC.getText();
+    String diaChi = txtDiaChi.getText();
+    String soDienThoai = txtSoDt.getText();
+    String email = txtEmail.getText();
+
+    if (tenNhaCungCap.isEmpty() || diaChi.isEmpty() || soDienThoai.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin khách hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra định dạng số điện thoại
+    if (soDienThoai.length() != 10 || !soDienThoai.startsWith("0")) {
+        JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra định dạng email
+    if (!isValidEmail(email)) {
+        JOptionPane.showMessageDialog(this, "Email không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    if (isDuplicateTenNCC(tenNhaCungCap)) {
+        JOptionPane.showMessageDialog(this, "Tên nhà cung cấp đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    return true;
+}
+
+    private boolean isValidEmail(String email) {
+        // Sử dụng biểu thức chính quy để kiểm tra email
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email.matches(regex);
+    }
+        private boolean isDuplicateTenNCC(String tenNhaCungCap) {
+    nhaCungCapBUS = new NhaCungCapBUS();
+    ArrayList<NhaCungCapDTO> danhSachNhaCungCap = nhaCungCapBUS.getAllNhaCungCap();
+    for (NhaCungCapDTO kh : danhSachNhaCungCap) {
+        if (kh.getTenncc().equalsIgnoreCase(tenNhaCungCap)) {
+            return true;
+        }
+    }
+    return false;
+}
+
     private void themNhaCungCap() throws IOException {
+        if (!isValidData()) {
+        return;
+        }
         NhaCungCapDTO nccNew = getInfoNhaCungCapMoi();
         nhaCungCapBUS = new NhaCungCapBUS();
         boolean thanhCong = nhaCungCapBUS.themNhaCungCap(nccNew);

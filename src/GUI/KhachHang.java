@@ -67,17 +67,20 @@ public class KhachHang extends javax.swing.JPanel implements ActionListener{
             btnNhapExcelKH.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
         }
 private void timKiemKhachHang(String keyword) {
-        ArrayList<KhachHangDTO> ketQuaTimKiem = new ArrayList<>();
-        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            String tenKhachHang = (String) model.getValueAt(i, 1);
-            if (tenKhachHang.toLowerCase().contains(keyword.toLowerCase())) {
-                ketQuaTimKiem.add(khachHangBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm khách hàng vào danh sách kết quả
-            }
+    ArrayList<KhachHangDTO> ketQuaTimKiem = new ArrayList<>();
+    DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
+    for (int i = 0; i < model.getRowCount(); i++) {
+        String tenKhachHang = (String) model.getValueAt(i, 1);
+        if (tenKhachHang.toLowerCase().contains(keyword.toLowerCase())) {
+            ketQuaTimKiem.add(khachHangBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm khách hàng vào danh sách kết quả
         }
-        hienThiListKhachHang(ketQuaTimKiem);
+        String soDienThoai = (String) model.getValueAt(i, 3);
+        if (soDienThoai.contains(keyword)) {
+            ketQuaTimKiem.add(khachHangBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm khách hàng vào danh sách kết quả
+        }
     }
-
+    hienThiListKhachHang(ketQuaTimKiem);
+}
     private void hienThiListKhachHang(ArrayList<KhachHangDTO> listKhachHang) {
         khachHangBUS = new KhachHangBUS();
         khachHangDAO = new KhachHangDAO();
@@ -127,6 +130,7 @@ private void timKiemKhachHang(String keyword) {
         pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemKH.setText("Thêm");
+        btnThemKH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThemKH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnThemKHMouseClicked(evt);
@@ -146,6 +150,18 @@ private void timKiemKhachHang(String keyword) {
         pnlTop.add(btnThemKH);
 
         btnSuaKH.setText("Sửa");
+        btnSuaKH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSuaKH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSuaKHMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaKHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaKHMouseExited(evt);
+            }
+        });
         btnSuaKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaKHActionPerformed(evt);
@@ -154,6 +170,18 @@ private void timKiemKhachHang(String keyword) {
         pnlTop.add(btnSuaKH);
 
         btnXoaKH.setText("Xóa");
+        btnXoaKH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXoaKH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaKHMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXoaKHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXoaKHMouseExited(evt);
+            }
+        });
         btnXoaKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaKHActionPerformed(evt);
@@ -162,6 +190,18 @@ private void timKiemKhachHang(String keyword) {
         pnlTop.add(btnXoaKH);
 
         btnChiTietKH.setText("Chi tiết");
+        btnChiTietKH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChiTietKH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnChiTietKHMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnChiTietKHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnChiTietKHMouseExited(evt);
+            }
+        });
         btnChiTietKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChiTietKHActionPerformed(evt);
@@ -170,6 +210,18 @@ private void timKiemKhachHang(String keyword) {
         pnlTop.add(btnChiTietKH);
 
         btnNhapExcelKH.setText("Nhập excel");
+        btnNhapExcelKH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNhapExcelKH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNhapExcelKHMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNhapExcelKHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNhapExcelKHMouseExited(evt);
+            }
+        });
         btnNhapExcelKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNhapExcelKHActionPerformed(evt);
@@ -178,6 +230,18 @@ private void timKiemKhachHang(String keyword) {
         pnlTop.add(btnNhapExcelKH);
 
         btnXuatExcel1KH.setText("Xuất excel");
+        btnXuatExcel1KH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXuatExcel1KH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXuatExcel1KHMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXuatExcel1KHMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXuatExcel1KHMouseExited(evt);
+            }
+        });
         btnXuatExcel1KH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXuatExcel1KHActionPerformed(evt);
@@ -202,6 +266,7 @@ private void timKiemKhachHang(String keyword) {
         pnlTop.add(txtTimKiem);
 
         btnLamMoi.setText("Làm mới");
+        btnLamMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiActionPerformed(evt);
@@ -292,6 +357,7 @@ private void timKiemKhachHang(String keyword) {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
+        listKhachHang = khachHangBUS.getAllKhachHang();
         hienThiListKhachHang(listKhachHang);
         txtTimKiem.setText("");
     }//GEN-LAST:event_btnLamMoiActionPerformed
@@ -303,6 +369,101 @@ private void timKiemKhachHang(String keyword) {
             timKiemKhachHang(keyword);
         }
     }//GEN-LAST:event_txtTimKiemKeyPressed
+
+    private void btnSuaKHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaKHMouseEntered
+        // TODO add your handling code here:
+        btnSuaKH.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnSuaKHMouseEntered
+
+    private void btnSuaKHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaKHMouseExited
+        // TODO add your handling code here:
+        btnSuaKH.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnSuaKHMouseExited
+
+    private void btnSuaKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaKHMouseClicked
+        // TODO add your handling code here:
+        if (!btnSuaKH.isSelected()) {
+            btnSuaKH.setBackground(Color.WHITE);
+        } else {
+            btnSuaKH.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnSuaKHMouseClicked
+
+    private void btnXoaKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaKHMouseClicked
+        // TODO add your handling code here:
+        if (!btnXoaKH.isSelected()) {
+            btnXoaKH.setBackground(Color.WHITE);
+        } else {
+            btnXoaKH.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnXoaKHMouseClicked
+
+    private void btnXoaKHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaKHMouseEntered
+        // TODO add your handling code here:
+        btnXoaKH.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnXoaKHMouseEntered
+
+    private void btnXoaKHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaKHMouseExited
+        // TODO add your handling code here:
+        btnXoaKH.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnXoaKHMouseExited
+
+    private void btnChiTietKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChiTietKHMouseClicked
+        // TODO add your handling code here:
+        if (!btnChiTietKH.isSelected()) {
+            btnChiTietKH.setBackground(Color.WHITE);
+        } else {
+            btnChiTietKH.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnChiTietKHMouseClicked
+
+    private void btnChiTietKHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChiTietKHMouseEntered
+        // TODO add your handling code here:
+        btnChiTietKH.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnChiTietKHMouseEntered
+
+    private void btnChiTietKHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChiTietKHMouseExited
+        // TODO add your handling code here:
+        btnChiTietKH.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnChiTietKHMouseExited
+
+    private void btnNhapExcelKHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelKHMouseEntered
+        // TODO add your handling code here:
+        btnNhapExcelKH.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnNhapExcelKHMouseEntered
+
+    private void btnNhapExcelKHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelKHMouseExited
+        // TODO add your handling code here:
+        btnNhapExcelKH.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnNhapExcelKHMouseExited
+
+    private void btnNhapExcelKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelKHMouseClicked
+        // TODO add your handling code here:
+        if (!btnNhapExcelKH.isSelected()) {
+            btnNhapExcelKH.setBackground(Color.WHITE);
+        } else {
+            btnNhapExcelKH.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnNhapExcelKHMouseClicked
+
+    private void btnXuatExcel1KHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcel1KHMouseExited
+        // TODO add your handling code here:
+        btnXuatExcel1KH.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnXuatExcel1KHMouseExited
+
+    private void btnXuatExcel1KHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcel1KHMouseEntered
+        // TODO add your handling code here:
+        btnXuatExcel1KH.setBackground(Color.GRAY);
+    }//GEN-LAST:event_btnXuatExcel1KHMouseEntered
+
+    private void btnXuatExcel1KHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcel1KHMouseClicked
+        // TODO add your handling code here:
+        if (!btnXuatExcel1KH.isSelected()) {
+            btnXuatExcel1KH.setBackground(Color.WHITE);
+        } else {
+            btnXuatExcel1KH.setBackground(Color.BLUE);
+        }
+    }//GEN-LAST:event_btnXuatExcel1KHMouseClicked
  
        private void xoaKhachHang() {
         int selectedRow = tblKhachHang.getSelectedRow();

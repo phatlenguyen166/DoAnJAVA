@@ -12,6 +12,7 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Font;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -58,6 +59,7 @@ public class SuaKHang extends javax.swing.JFrame {
         makh = khachHangDTO.getMaKH();
     }
     
+    
     private void LoadDuLieu(KhachHangDTO khachHangDTO) {
 //        System.err.println("LoadDuLieu() được gọi");   
     if (khachHangDTO != null) {
@@ -78,12 +80,47 @@ public class SuaKHang extends javax.swing.JFrame {
         String tenKhachHang = txtTenKH.getText();
         String diaChi = txtDiaChi.getText();
         String soDienThoai = txtSoDT.getText();
-        khachHangDTO = new KhachHangDTO(tenKhachHang,soDienThoai,diaChi);
+        khachHangDTO = new KhachHangDTO(tenKhachHang,diaChi,soDienThoai);
         return khachHangDTO;
     }
-    
+
+    private boolean isValidData() {
+        String tenKhachHang = txtTenKH.getText();
+        String diaChi = txtDiaChi.getText();
+        String soDienThoai = txtSoDT.getText();
+
+        if (tenKhachHang.isEmpty() || diaChi.isEmpty() || soDienThoai.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin khách hàng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Kiểm tra định dạng số điện thoại
+        if (soDienThoai.length() != 10 || !soDienThoai.startsWith("0")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+//        if (isDuplicateTenKH(tenKhachHang)) {
+//        JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+//        return false;
+//    }
+
+        return true;
+    }
+//    private boolean isDuplicateTenKH(String tenKhachHang) {
+//    khachHangBUS = new KhachHangBUS();
+//    ArrayList<KhachHangDTO> danhSachKhachHang = khachHangBUS.getAllKhachHang();
+//    for (KhachHangDTO kh : danhSachKhachHang) {
+//        if (kh.getHoten().equalsIgnoreCase(tenKhachHang)) {
+//            return true;
+//        }
+//    }
+//    return false;
+//}
     private void SuaKhachHang() throws IOException {
-        // Nhận thông tin sản phẩm từ giao diện
+if (!isValidData()) {
+        return;
+    }        
+// Nhận thông tin sản phẩm từ giao diện
         KhachHangDTO khNew = getInfoKhachHangMoi();
         khNew.setMaKH(makh);
         khachHangBUS = new KhachHangBUS();

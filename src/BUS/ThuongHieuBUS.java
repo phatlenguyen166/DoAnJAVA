@@ -43,6 +43,7 @@ public class ThuongHieuBUS {
 
     public boolean kiemTraTrungTenThuongHieu(String tenThuongHieuMoi) {
         ArrayList<ThuongHieuDTO> listThuongHieu = getAllThuongHieu();
+        
         for (ThuongHieuDTO thuongHieu : listThuongHieu) {
             if (thuongHieu.getTenthuonghieu().equalsIgnoreCase(tenThuongHieuMoi)) {
                 return true; // Tên thương hiệu mới trùng với một thương hiệu khác
