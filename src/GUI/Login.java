@@ -99,11 +99,11 @@ public class Login extends javax.swing.JFrame {
         panelLogo = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         panelLogin = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        title = new javax.swing.JLabel();
+        lblTenDangNhap = new javax.swing.JLabel();
+        txtTenDangNhap = new javax.swing.JTextField();
+        lblMatKhau = new javax.swing.JLabel();
+        txtMatKhau = new javax.swing.JPasswordField();
         btnDangNhap = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,12 +121,12 @@ public class Login extends javax.swing.JFrame {
 
         panelLogin.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("ĐĂNG NHẬP VÀO HỆ THỐNG");
+        title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        title.setText("ĐĂNG NHẬP VÀO HỆ THỐNG");
 
-        jLabel2.setText("Tên đăng nhập");
+        lblTenDangNhap.setText("Tên đăng nhập");
 
-        jLabel3.setText("Mật khẩu");
+        lblMatKhau.setText("Mật khẩu");
 
         btnDangNhap.setBackground(new java.awt.Color(0, 0, 0));
         btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -143,32 +143,32 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLoginLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jTextField1))
+                            .addComponent(txtTenDangNhap))
                         .addGroup(panelLoginLayout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDangNhap, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING))))
+                                .addComponent(lblTenDangNhap, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblMatKhau, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtMatKhau, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(panelLoginLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addComponent(jLabel1)))
+                        .addComponent(title)))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLoginLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jLabel1)
+                .addComponent(title)
                 .addGap(49, 49, 49)
-                .addComponent(jLabel2)
+                .addComponent(lblTenDangNhap)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(lblMatKhau)
                 .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(81, Short.MAX_VALUE))
@@ -210,13 +210,13 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblMatKhau;
+    private javax.swing.JLabel lblTenDangNhap;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel panelLogin;
     private javax.swing.JPanel panelLogo;
+    private javax.swing.JLabel title;
+    private javax.swing.JPasswordField txtMatKhau;
+    private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
 }
