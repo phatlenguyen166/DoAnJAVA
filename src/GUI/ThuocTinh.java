@@ -21,18 +21,31 @@ public class ThuocTinh extends javax.swing.JPanel {
     /**
      * Creates new form ThuocTinh
      */
-    ThuongHieu thuongHieu;
+    ThuongHieu thuongHieu ;
     Loai loai;
     XuatXu xuatXu;
+    Color BackgroundColor = new Color(240, 247, 250);
 
     public ThuocTinh() {
         initComponents();
-        contentCenter.setLayout(new BorderLayout()); // Thiết lập layout cho contentCenter
-        btnThuongHieuActionPerformed(null);
+//        contentCenter.setLayout(new BorderLayout()); // Thiết lập layout cho contentCenter
+//        btnThuongHieuActionPerformed(null);
+        
+
+        
+        tabPaneThuocTinh.setOpaque(false);
+        tabPaneThuocTinh.setOpaque(false);
+        this.setBackground(BackgroundColor);
+        
+        thuongHieu = new ThuongHieu();
+        loai = new Loai();
+        xuatXu = new XuatXu();
+        tabPaneThuocTinh.addTab("Thương hiệu", thuongHieu);
+        tabPaneThuocTinh.addTab("Loại", loai);
+        tabPaneThuocTinh.addTab("Xuất xứ", xuatXu);
+       
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,77 +55,21 @@ public class ThuocTinh extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        contentCenter = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        btnThuongHieu = new javax.swing.JButton();
-        btnLoai = new javax.swing.JButton();
-        btnXuatXu = new javax.swing.JButton();
+        tabPaneThuocTinh = new javax.swing.JTabbedPane();
 
         setPreferredSize(new java.awt.Dimension(1200, 800));
-        setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout contentCenterLayout = new javax.swing.GroupLayout(contentCenter);
-        contentCenter.setLayout(contentCenterLayout);
-        contentCenterLayout.setHorizontalGroup(
-            contentCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabPaneThuocTinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
         );
-        contentCenterLayout.setVerticalGroup(
-            contentCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabPaneThuocTinh, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
-
-        add(contentCenter, java.awt.BorderLayout.CENTER);
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        btnThuongHieu.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        btnThuongHieu.setText("Thương Hiệu");
-        btnThuongHieu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThuongHieuActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnThuongHieu);
-
-        btnLoai.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        btnLoai.setText("Loại");
-        btnLoai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoaiActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnLoai);
-
-        btnXuatXu.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        btnXuatXu.setText("Xuất xứ");
-        btnXuatXu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXuatXuActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnXuatXu);
-
-        add(jPanel2, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnThuongHieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThuongHieuActionPerformed
-        System.out.println("Called btnThuongHieuActionPerformed");
-        thuongHieu = new ThuongHieu();
-        addPanel(contentCenter, thuongHieu);
-    }//GEN-LAST:event_btnThuongHieuActionPerformed
-
-    private void btnXuatXuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatXuActionPerformed
-        // TODO add your handling code here:
-        xuatXu = new XuatXu();
-        addPanel(contentCenter, xuatXu);
-    }//GEN-LAST:event_btnXuatXuActionPerformed
-
-    private void btnLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoaiActionPerformed
-        // TODO add your handling code here:
-        loai = new Loai();
-        addPanel(contentCenter, loai);
-    }//GEN-LAST:event_btnLoaiActionPerformed
     public void addPanel(Container contentCenter, JPanel panel) {
         panel.setSize(contentCenter.getSize());
         contentCenter.removeAll();
@@ -122,10 +79,6 @@ public class ThuocTinh extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLoai;
-    private javax.swing.JButton btnThuongHieu;
-    private javax.swing.JButton btnXuatXu;
-    private javax.swing.JPanel contentCenter;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTabbedPane tabPaneThuocTinh;
     // End of variables declaration//GEN-END:variables
 }

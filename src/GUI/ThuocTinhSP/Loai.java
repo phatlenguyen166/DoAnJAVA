@@ -12,7 +12,9 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -60,6 +62,13 @@ public class Loai extends javax.swing.JPanel {
         for (LoaiDTO loai : listLoai) {
             Object[] row = {loai.getMaloai(), loai.getTenloai()};
             model.addRow(row);
+        }
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblLoai.getColumnCount(); i++) {
+            tblLoai.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
 

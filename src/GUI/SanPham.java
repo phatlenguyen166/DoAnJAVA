@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -83,10 +84,23 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         this.add(pnlTop, BorderLayout.NORTH);
         this.add(pnlCenter, BorderLayout.CENTER);
         
+        
+        
+        
+        
+        hienThiListSanPham();
+        
+        
+        JScrollPane scrollPane = new JScrollPane(pnlTop);
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);    
+        this.add(scrollPane, java.awt.BorderLayout.NORTH);
+    
+        
         JPanel pnlTopMargin = new JPanel(new BorderLayout());
         pnlTopMargin.setBackground(BackgroundColor);
         pnlTopMargin.setBorder(new EmptyBorder(10, 10, 10, 10)); // Margin: top, left, bottom, right
-        pnlTopMargin.add(pnlTop, BorderLayout.CENTER);
+        pnlTopMargin.add(scrollPane, BorderLayout.CENTER);
 
         // Tạo JPanel mới cho pnlCenter và đặt margin cho nó
         JPanel pnlCenterMargin = new JPanel(new BorderLayout());
@@ -98,11 +112,8 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         this.add(pnlTopMargin, BorderLayout.NORTH);
         this.add(pnlCenterMargin, BorderLayout.CENTER);
-        
-        
-        
-        hienThiListSanPham();
     }
+    
 
     private void timKiemSanPham(String keyword) {
         ArrayList<SanPhamDTO> ketQuaTimKiem = new ArrayList<>();
@@ -244,7 +255,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         setLayout(new java.awt.BorderLayout());
 
         pnlTop.setBackground(new java.awt.Color(255, 255, 255));
-        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
+        pnlTop.setPreferredSize(new java.awt.Dimension(1000, 80));
 
         btnThemSP.setText("Thêm");
         btnThemSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -315,7 +326,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         add(pnlCenter, java.awt.BorderLayout.CENTER);
