@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,17 +26,15 @@ public class ThuocTinh extends javax.swing.JPanel {
     Loai loai;
     XuatXu xuatXu;
     Color BackgroundColor = new Color(240, 247, 250);
-
+   
     public ThuocTinh() {
         initComponents();
-//        contentCenter.setLayout(new BorderLayout()); // Thiết lập layout cho contentCenter
-//        btnThuongHieuActionPerformed(null);
+        this.setLayout(new BorderLayout());
         
-
+        this.add(tabPaneThuocTinh,BorderLayout.CENTER);
         
         tabPaneThuocTinh.setOpaque(false);
         tabPaneThuocTinh.setOpaque(false);
-        this.setBackground(BackgroundColor);
         
         thuongHieu = new ThuongHieu();
         loai = new Loai();

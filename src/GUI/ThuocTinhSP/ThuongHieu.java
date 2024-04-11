@@ -7,10 +7,12 @@ package GUI.ThuocTinhSP;
 import BUS.ThuongHieuBUS;
 import DTO.ThuongHieuDTO;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -26,23 +28,33 @@ public class ThuongHieu extends javax.swing.JPanel {
      */
     ThuongHieuBUS thuongHieuBUS;
     ThuongHieuDTO thuongHieuDTO;
+    Color BackgroundColor = new Color(240, 247, 250);
 
     public ThuongHieu() {
         initComponents();
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        this.setBackground(BackgroundColor);
+        pnlTop.setBackground(BackgroundColor);
+        pnlTop.setBorder(new EmptyBorder(0, 0, 10, 0));
+        pnlLeft.setOpaque(false);
+        
         lblThuongHieu.setFont(new Font("Tahoma", Font.BOLD, 20));
         hienThiListThuongHieu();
+
         tblThuongHieu.setFocusable(false);
         tblThuongHieu.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
 
         tblThuongHieu.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             chonDongTrongBang();
         });
-            
+
         btnThemThuongHieu.setIcon(new FlatSVGIcon("./icon/add.svg"));
         btnSuaThuongHieu.setIcon(new FlatSVGIcon("./icon/edit.svg"));
         btnXoaThuongHieu.setIcon(new FlatSVGIcon("./icon/delete.svg"));
+        
+
     }
-    
+
     private void chonDongTrongBang() {
         int selectedRow = tblThuongHieu.getSelectedRow();
         if (selectedRow != -1) { // Kiểm tra xem có dòng nào được chọn không
@@ -54,16 +66,16 @@ public class ThuongHieu extends javax.swing.JPanel {
     }
 
     private void themThuongHieu() {
-        
+
         // lấy dữ liệu cần thêm
         String tenThuongHieuThem = txtTenThuongHieu.getText().trim();
-        
+
         if (!tenThuongHieuThem.isEmpty()) {
             thuongHieuDTO = new ThuongHieuDTO();
             // đối tượng cần thêm
             thuongHieuDTO.setTenthuonghieu(tenThuongHieuThem);
-            
-            thuongHieuBUS = new ThuongHieuBUS();   
+
+            thuongHieuBUS = new ThuongHieuBUS();
             boolean thanhCong = thuongHieuBUS.themThuongHieu(thuongHieuDTO);
             if (thanhCong) {
                 JOptionPane.showMessageDialog(null, "Thêm thương hiệu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -83,7 +95,7 @@ public class ThuongHieu extends javax.swing.JPanel {
         if (selectedRow != -1) {
             int maThuongHieu = (int) tblThuongHieu.getValueAt(selectedRow, 0);
             thuongHieuBUS = new ThuongHieuBUS();
-            
+
             boolean thanhCong = thuongHieuBUS.xoaThuongHieu(maThuongHieu);
             if (thanhCong) {
                 DefaultTableModel model = (DefaultTableModel) tblThuongHieu.getModel();
@@ -113,8 +125,8 @@ public class ThuongHieu extends javax.swing.JPanel {
             thuongHieuBUS = new ThuongHieuBUS();
             boolean thanhCong = thuongHieuBUS.suaThuongHieu(thuongHieuDTO);
             if (thanhCong) {
-                    JOptionPane.showMessageDialog(null, "Đã cập nhật thông tin thương hiệu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    hienThiListThuongHieu();
+                JOptionPane.showMessageDialog(null, "Đã cập nhật thông tin thương hiệu thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                hienThiListThuongHieu();
             } else {
 
             }
@@ -133,7 +145,7 @@ public class ThuongHieu extends javax.swing.JPanel {
             Object[] row = {thuongHieu.getMathuonghieu(), thuongHieu.getTenthuonghieu()};
             model.addRow(row);
         }
-        
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -149,13 +161,13 @@ public class ThuongHieu extends javax.swing.JPanel {
 
         scrollThuongHieu = new javax.swing.JScrollPane();
         tblThuongHieu = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        pnlTop = new javax.swing.JPanel();
         title = new javax.swing.JPanel();
         lblThuongHieu = new javax.swing.JLabel();
         tenThuongHieu = new javax.swing.JPanel();
         lblTenThuongHieu = new javax.swing.JLabel();
         txtTenThuongHieu = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        pnlLeft = new javax.swing.JPanel();
         btnThemThuongHieu = new javax.swing.JButton();
         btnSuaThuongHieu = new javax.swing.JButton();
         btnXoaThuongHieu = new javax.swing.JButton();
@@ -194,25 +206,25 @@ public class ThuongHieu extends javax.swing.JPanel {
         txtTenThuongHieu.setPreferredSize(new java.awt.Dimension(150, 30));
         tenThuongHieu.add(txtTenThuongHieu);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
+        pnlTop.setLayout(pnlTopLayout);
+        pnlTopLayout.setHorizontalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlTopLayout.setVerticalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopLayout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
-        add(jPanel1, java.awt.BorderLayout.NORTH);
+        add(pnlTop, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(130, 580));
+        pnlLeft.setPreferredSize(new java.awt.Dimension(130, 580));
 
         btnThemThuongHieu.setText("Thêm");
         btnThemThuongHieu.addActionListener(new java.awt.event.ActionListener() {
@@ -235,36 +247,36 @@ public class ThuongHieu extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlLeftLayout = new javax.swing.GroupLayout(pnlLeft);
+        pnlLeft.setLayout(pnlLeftLayout);
+        pnlLeftLayout.setHorizontalGroup(
+            pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnThemThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
             .addComponent(btnSuaThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnXoaThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnlLeftLayout.setVerticalGroup(
+            pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLeftLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(btnThemThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSuaThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnXoaThuongHieu, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(310, Short.MAX_VALUE))
         );
 
-        add(jPanel2, java.awt.BorderLayout.WEST);
+        add(pnlLeft, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaThuongHieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaThuongHieuActionPerformed
         // TODO add your handling code here: 
-        int xacNhan = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?","Xác nhận",JOptionPane.YES_NO_OPTION);
-        if (  xacNhan  == JOptionPane.YES_OPTION){
+        int xacNhan = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (xacNhan == JOptionPane.YES_OPTION) {
             xoaThuongHieu();
         }
-        
+
     }//GEN-LAST:event_btnXoaThuongHieuActionPerformed
 
     private void btnSuaThuongHieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaThuongHieuActionPerformed
@@ -282,10 +294,10 @@ public class ThuongHieu extends javax.swing.JPanel {
     private javax.swing.JButton btnSuaThuongHieu;
     private javax.swing.JButton btnThemThuongHieu;
     private javax.swing.JButton btnXoaThuongHieu;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblTenThuongHieu;
     private javax.swing.JLabel lblThuongHieu;
+    private javax.swing.JPanel pnlLeft;
+    private javax.swing.JPanel pnlTop;
     private javax.swing.JScrollPane scrollThuongHieu;
     private javax.swing.JTable tblThuongHieu;
     private javax.swing.JPanel tenThuongHieu;

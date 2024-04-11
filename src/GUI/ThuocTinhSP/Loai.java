@@ -9,10 +9,12 @@ import BUS.ThuongHieuBUS;
 import DTO.LoaiDTO;
 import DTO.ThuongHieuDTO;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -28,9 +30,17 @@ public class Loai extends javax.swing.JPanel {
      */
     LoaiBUS loaiBUS;
     LoaiDTO loaiDTO;
+    Color BackgroundColor = new Color(240, 247, 250);
 
     public Loai() {
         initComponents();
+        
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        this.setBackground(BackgroundColor);
+        pnlTop.setBackground(BackgroundColor);
+        pnlTop.setBorder(new EmptyBorder(0, 0, 10, 0));
+        pnlLeft.setOpaque(false);
+        
         lblLoai.setFont(new Font("Tahoma", Font.BOLD, 20));
         hienThiListLoai();
         tblLoai.setFocusable(false);
@@ -42,6 +52,8 @@ public class Loai extends javax.swing.JPanel {
         btnThemLoai.setIcon(new FlatSVGIcon("./icon/add.svg"));
         btnSuaLoai.setIcon(new FlatSVGIcon("./icon/edit.svg"));
         btnXoaLoai.setIcon(new FlatSVGIcon("./icon/delete.svg"));
+
+       
     }
 
     private void chonDongTrongBang() {
@@ -143,13 +155,13 @@ public class Loai extends javax.swing.JPanel {
 
         scrollThuongHieu = new javax.swing.JScrollPane();
         tblLoai = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        pnlTop = new javax.swing.JPanel();
         title = new javax.swing.JPanel();
         lblLoai = new javax.swing.JLabel();
         tenThuongHieu = new javax.swing.JPanel();
         lblTenLoai = new javax.swing.JLabel();
         txtTenLoai = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        pnlLeft = new javax.swing.JPanel();
         btnThemLoai = new javax.swing.JButton();
         btnSuaLoai = new javax.swing.JButton();
         btnXoaLoai = new javax.swing.JButton();
@@ -188,25 +200,25 @@ public class Loai extends javax.swing.JPanel {
         txtTenLoai.setPreferredSize(new java.awt.Dimension(150, 30));
         tenThuongHieu.add(txtTenLoai);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
+        pnlTop.setLayout(pnlTopLayout);
+        pnlTopLayout.setHorizontalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlTopLayout.setVerticalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopLayout.createSequentialGroup()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(tenThuongHieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
-        add(jPanel1, java.awt.BorderLayout.NORTH);
+        add(pnlTop, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(130, 580));
+        pnlLeft.setPreferredSize(new java.awt.Dimension(130, 580));
 
         btnThemLoai.setText("Thêm");
         btnThemLoai.addActionListener(new java.awt.event.ActionListener() {
@@ -229,27 +241,27 @@ public class Loai extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlLeftLayout = new javax.swing.GroupLayout(pnlLeft);
+        pnlLeft.setLayout(pnlLeftLayout);
+        pnlLeftLayout.setHorizontalGroup(
+            pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnThemLoai, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
             .addComponent(btnSuaLoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnXoaLoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnlLeftLayout.setVerticalGroup(
+            pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLeftLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(btnThemLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSuaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnXoaLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(310, Short.MAX_VALUE))
         );
 
-        add(jPanel2, java.awt.BorderLayout.WEST);
+        add(pnlLeft, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemLoaiActionPerformed
@@ -276,10 +288,10 @@ public class Loai extends javax.swing.JPanel {
     private javax.swing.JButton btnSuaLoai;
     private javax.swing.JButton btnThemLoai;
     private javax.swing.JButton btnXoaLoai;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblLoai;
     private javax.swing.JLabel lblTenLoai;
+    private javax.swing.JPanel pnlLeft;
+    private javax.swing.JPanel pnlTop;
     private javax.swing.JScrollPane scrollThuongHieu;
     private javax.swing.JTable tblLoai;
     private javax.swing.JPanel tenThuongHieu;

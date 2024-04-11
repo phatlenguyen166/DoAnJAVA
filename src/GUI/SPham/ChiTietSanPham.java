@@ -186,6 +186,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
         );
 
+        pnlCenter.setBackground(new java.awt.Color(255, 255, 255));
+
         anhSanPham.setPreferredSize(new java.awt.Dimension(330, 240));
 
         javax.swing.GroupLayout anhSanPhamLayout = new javax.swing.GroupLayout(anhSanPham);
@@ -193,8 +195,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         anhSanPhamLayout.setHorizontalGroup(
             anhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(anhSanPhamLayout.createSequentialGroup()
-                .addComponent(lblAnhSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(lblAnhSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         anhSanPhamLayout.setVerticalGroup(
             anhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,7 +355,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
                 .addComponent(pnlCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

@@ -12,6 +12,7 @@ import java.io.IOException;
 public class XuatExcel {
 
     public static void exportJTableToExcel(JTable table) throws IOException {
+        
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn đường dẫn lưu file Excel");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");

@@ -1,6 +1,10 @@
 package GUI;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,6 +20,7 @@ public class NhanVien extends javax.swing.JPanel {
     /**
      * Creates new form NhanVien
      */
+    Color BackgroundColor = new Color(240, 247, 250);
     public NhanVien() {
         initComponents();
         tblNhanVien.setFocusable(false);     
@@ -24,6 +29,15 @@ public class NhanVien extends javax.swing.JPanel {
         tblNhanVien.setFocusable(false);
         tblNhanVien.setAutoCreateRowSorter(true);
         addIcon();
+        
+        pnlCenter.setBackground(BackgroundColor);
+        pnlCenter.setBorder(new EmptyBorder(20,0,0,0));
+        this.setBorder(new EmptyBorder(10,10,10,10));
+        this.setOpaque(false);
+     
+
+  
+        
     }
     private void addIcon(){
             btnThemNV.setIcon(new FlatSVGIcon("./icon/add.svg"));
@@ -49,7 +63,7 @@ public class NhanVien extends javax.swing.JPanel {
         btnXuatExcelNV = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnTimKiem = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        pnlCenter = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
 
@@ -121,18 +135,18 @@ public class NhanVien extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblNhanVien);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1192, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
+        pnlCenter.setLayout(pnlCenterLayout);
+        pnlCenterLayout.setHorizontalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+        pnlCenterLayout.setVerticalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
         );
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNVActionPerformed
@@ -164,8 +178,8 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JButton btnXoaNV;
     private javax.swing.JButton btnXuatExcelNV;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlTop;
     private javax.swing.JTable tblNhanVien;
     // End of variables declaration//GEN-END:variables

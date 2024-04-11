@@ -231,7 +231,11 @@ public class ThemSanPham extends javax.swing.JFrame {
             .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
         );
 
+        pnlCenter.setBackground(new java.awt.Color(255, 255, 255));
+
         anhSanPham.setPreferredSize(new java.awt.Dimension(330, 240));
+
+        lblAnhSanPham.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout anhSanPhamLayout = new javax.swing.GroupLayout(anhSanPham);
         anhSanPham.setLayout(anhSanPhamLayout);
@@ -418,7 +422,7 @@ public class ThemSanPham extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
                 .addComponent(pnlCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

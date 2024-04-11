@@ -33,6 +33,8 @@ import javax.swing.border.EmptyBorder;
  *
  * @author ADMIN
  */
+
+
 public class Main extends javax.swing.JFrame {
 
     /**
@@ -53,10 +55,13 @@ public class Main extends javax.swing.JFrame {
 
     private final Color defaultColor = new Color(255, 255, 255);
     private final Color hoverColor = new Color(187, 222, 251);
-
+    Color BackgroundColor = new Color(240, 247, 250);
     public Main() {
+        
         this.setPreferredSize(new Dimension(1400, 800));
+        
         initComponents();
+        mainContent2.setBackground(BackgroundColor);
         setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addIconTaskbar();
@@ -67,7 +72,7 @@ public class Main extends javax.swing.JFrame {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
         menuTaskbar.add(scrollPane, java.awt.BorderLayout.CENTER);
-
+        
     }
 
     /**
@@ -472,6 +477,8 @@ public class Main extends javax.swing.JFrame {
         mainContent.setBackground(new java.awt.Color(235, 235, 235));
         mainContent.setPreferredSize(new java.awt.Dimension(1200, 800));
         mainContent.setLayout(new java.awt.BorderLayout());
+
+        mainContent2.setBackground(new java.awt.Color(255, 0, 51));
 
         javax.swing.GroupLayout mainContent2Layout = new javax.swing.GroupLayout(mainContent2);
         mainContent2.setLayout(mainContent2Layout);

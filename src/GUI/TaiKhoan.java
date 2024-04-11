@@ -1,6 +1,8 @@
 package GUI;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
+import javax.swing.border.EmptyBorder;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,7 +18,9 @@ public class TaiKhoan extends javax.swing.JPanel {
     /**
      * Creates new form TaiKhoan
      */
+    Color BackgroundColor = new Color(240, 247, 250);
     public TaiKhoan() {
+        
         initComponents();
         addIcon();
         tblTaiKhoan.setFocusable(false);     
@@ -24,6 +28,11 @@ public class TaiKhoan extends javax.swing.JPanel {
         tblTaiKhoan.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblTaiKhoan.setFocusable(false);
         tblTaiKhoan.setAutoCreateRowSorter(true);
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        pnlCenter.setBackground(BackgroundColor);
+        pnlCenter.setBorder(new EmptyBorder(20,0,0,0));
     }
     private void addIcon(){
             btnThemTK.setIcon(new FlatSVGIcon("./icon/add.svg"));
@@ -42,7 +51,7 @@ public class TaiKhoan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlTop = new javax.swing.JPanel();
         btnThemTK = new javax.swing.JButton();
         btnSuaTK = new javax.swing.JButton();
         btnXoaTK = new javax.swing.JButton();
@@ -56,12 +65,13 @@ public class TaiKhoan extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(1200, 800));
         setRequestFocusEnabled(false);
+        setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 70));
+        pnlTop.setBackground(new java.awt.Color(255, 255, 255));
+        pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemTK.setText("Thêm");
-        jPanel1.add(btnThemTK);
+        pnlTop.add(btnThemTK);
 
         btnSuaTK.setText("Sửa");
         btnSuaTK.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +79,7 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnSuaTKActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSuaTK);
+        pnlTop.add(btnSuaTK);
 
         btnXoaTK.setText("Xóa");
         btnXoaTK.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +87,7 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnXoaTKActionPerformed(evt);
             }
         });
-        jPanel1.add(btnXoaTK);
+        pnlTop.add(btnXoaTK);
 
         btnNhapExcelTK.setText("Nhập excel");
         btnNhapExcelTK.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +95,7 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnNhapExcelTKActionPerformed(evt);
             }
         });
-        jPanel1.add(btnNhapExcelTK);
+        pnlTop.add(btnNhapExcelTK);
 
         btnXuatExcelTK.setText("Xuất excel");
         btnXuatExcelTK.addActionListener(new java.awt.event.ActionListener() {
@@ -93,10 +103,10 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnXuatExcelTKActionPerformed(evt);
             }
         });
-        jPanel1.add(btnXuatExcelTK);
+        pnlTop.add(btnXuatExcelTK);
 
         jLabel1.setText("Tìm kiếm :");
-        jPanel1.add(jLabel1);
+        pnlTop.add(jLabel1);
 
         btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +114,9 @@ public class TaiKhoan extends javax.swing.JPanel {
                 btnTimKiemActionPerformed(evt);
             }
         });
-        jPanel1.add(btnTimKiem);
+        pnlTop.add(btnTimKiem);
+
+        add(pnlTop, java.awt.BorderLayout.NORTH);
 
         tblTaiKhoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,27 +171,14 @@ public class TaiKhoan extends javax.swing.JPanel {
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTKActionPerformed
@@ -211,9 +210,9 @@ public class TaiKhoan extends javax.swing.JPanel {
     private javax.swing.JButton btnXoaTK;
     private javax.swing.JButton btnXuatExcelTK;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnlCenter;
+    private javax.swing.JPanel pnlTop;
     private javax.swing.JTable tblTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

@@ -59,10 +59,18 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     public ArrayList<DTO.SanPhamDTO> listSanPham;
     private final Color hoverColor = new Color(187, 222, 251);
     Color BackgroundColor = new Color(240, 247, 250);
+    
     public SanPham() throws IOException {
         initComponents();
         
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(10,10,10,10));
+        setPreferredSize(new Dimension(1200, 800));
         
+        pnlCenter.setBorder(new EmptyBorder(20,0,0,0));
+        
+        
+        pnlCenter.setBackground(BackgroundColor);
         
         addIcon();
         tblSanPham.setFocusable(false);
@@ -79,15 +87,9 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
 
         addHoverBtn();
 
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(1200, 800));
-        this.add(pnlTop, BorderLayout.NORTH);
-        this.add(pnlCenter, BorderLayout.CENTER);
         
-        
-        
-        
-        
+
+            
         hienThiListSanPham();
         
         
@@ -95,23 +97,9 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
 //        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);    
         this.add(scrollPane, java.awt.BorderLayout.NORTH);
-    
-        
-        JPanel pnlTopMargin = new JPanel(new BorderLayout());
-        pnlTopMargin.setBackground(BackgroundColor);
-        pnlTopMargin.setBorder(new EmptyBorder(10, 10, 10, 10)); // Margin: top, left, bottom, right
-        pnlTopMargin.add(scrollPane, BorderLayout.CENTER);
 
-        // Tạo JPanel mới cho pnlCenter và đặt margin cho nó
-        JPanel pnlCenterMargin = new JPanel(new BorderLayout());
-        pnlCenterMargin.setBackground(BackgroundColor);
-        pnlCenterMargin.setBorder(new EmptyBorder(10, 10, 10, 10)); // Margin: top, left, bottom, right
-        pnlCenterMargin.add(pnlCenter, BorderLayout.CENTER);
 
-        // Thêm các JPanel đã tạo vào BorderLayout của SanPham panel
-        this.setLayout(new BorderLayout());
-        this.add(pnlTopMargin, BorderLayout.NORTH);
-        this.add(pnlCenterMargin, BorderLayout.CENTER);
+     
     }
     
 
