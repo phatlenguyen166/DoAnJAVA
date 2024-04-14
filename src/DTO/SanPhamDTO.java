@@ -255,4 +255,6 @@ public class SanPhamDTO {
         return "SanPhamDTO{" + "masp=" + masp + ", tensp=" + tensp + ", size=" + size + ", hinhanh=" + hinhanh + ", xuatxu=" + xuatxu + ", loai=" + loai + ", thuonghieu=" + thuonghieu + ", khuvuckho=" + khuvuckho + ", soluongton=" + soluongton + '}';
     }
 
+ 
+
 }

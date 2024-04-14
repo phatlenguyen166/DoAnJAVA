@@ -33,8 +33,6 @@ import javax.swing.border.EmptyBorder;
  *
  * @author ADMIN
  */
-
-
 public class Main extends javax.swing.JFrame {
 
     /**
@@ -52,14 +50,15 @@ public class Main extends javax.swing.JFrame {
     TaiKhoan taiKhoan;
     ThongKe thongKe;
     Login login;
-
+    int role;
     private final Color defaultColor = new Color(255, 255, 255);
     private final Color hoverColor = new Color(187, 222, 251);
     Color BackgroundColor = new Color(240, 247, 250);
+
     public Main() {
-        
+
         this.setPreferredSize(new Dimension(1400, 800));
-        
+
         initComponents();
         mainContent2.setBackground(BackgroundColor);
         setLocationRelativeTo(null);
@@ -72,7 +71,65 @@ public class Main extends javax.swing.JFrame {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
         menuTaskbar.add(scrollPane, java.awt.BorderLayout.CENTER);
-        
+
+    }
+
+    public Main(int role) {
+        this.role = role;
+        this.setPreferredSize(new Dimension(1400, 800));
+
+        initComponents();
+        mainContent2.setBackground(BackgroundColor);
+        setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addIconTaskbar();
+        addHoverBtn();
+        setTitle("Hệ thống quản lý cửa hàng giày");
+
+        JScrollPane scrollPane = new JScrollPane(taskBar);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        menuTaskbar.add(scrollPane, java.awt.BorderLayout.CENTER);
+
+        phanQuyen(role);
+
+    }
+
+    public void phanQuyen(int role) {
+
+// Nhân viên
+        if (role == 2) {
+//            btnSanPham.setVisible(false);
+//            btnThuocTinh.setVisible(false);
+//            btnKhuVucKho.setVisible(false);
+//            btnNhaCungCap.setVisible(false);
+//            btnKhachHang.setVisible(false);
+            btnPhieuNhap.setVisible(false);
+            btnPhieuXuat.setVisible(false);
+            btnThongKe.setVisible(false);
+            btnTaiKhoan.setVisible(false);
+            btnNhanVien.setVisible(false);
+        } else if (role == 4) {
+            btnSanPham.setVisible(false);
+            btnThuocTinh.setVisible(false);
+            btnKhuVucKho.setVisible(false);
+            btnNhaCungCap.setVisible(false);
+            btnKhachHang.setVisible(false);
+            btnPhieuNhap.setVisible(false);
+            btnPhieuXuat.setVisible(false);
+            btnThongKe.setVisible(false);
+        } else if (role == 5) {
+//            btnSanPham.setVisible(false);
+//            btnThuocTinh.setVisible(false);
+//            btnKhuVucKho.setVisible(false);
+//            btnNhaCungCap.setVisible(false);
+            btnKhachHang.setVisible(false);
+//            btnPhieuNhap.setVisible(false);
+//            btnPhieuXuat.setVisible(false);
+            btnThongKe.setVisible(false);
+            btnTaiKhoan.setVisible(false);
+            btnNhanVien.setVisible(false);
+        }
     }
 
     /**
@@ -89,21 +146,19 @@ public class Main extends javax.swing.JFrame {
         FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
-        
-        
-        
+
         UIManager.put("Table.showVerticalLines", false); // ẩn đường kể dọc
-        UIManager.put("Table.showHorizontalLines", true ); // hiện đường kẻ ngang
+        UIManager.put("Table.showHorizontalLines", true); // hiện đường kẻ ngang
         UIManager.put("TextComponent.arc", 30);
-        
+
         UIManager.put("Button.arc", 10); // Thiết lập đường cong là 10 pixel
-        
+
         UIManager.put("ScrollBar.thumbArc", 999);
         UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
         UIManager.put("Button.iconTextGap", 10);
-        
+
         UIManager.put("PasswordField.showRevealButton", true);
-        
+
         UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
         UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
         UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
@@ -588,70 +643,36 @@ public class Main extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(() -> {
-//            new Main().setVisible(true);
-//            Main main = new Main();
-//            main.setVisible(true);
-//            main.btnTrangChuActionPerformed(null);
-//        });
-//    }
-//    public static void main(String args[]) {
-//        FlatRobotoFont.install();
-//        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-//        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-//        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-//        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-//        FlatIntelliJLaf.setup();
-//        UIManager.put("Table.showVerticalLines", false);
-//        UIManager.put("Table.showHorizontalLines", true);
-//        UIManager.put("TextComponent.arc", 5);
-//        UIManager.put("ScrollBar.thumbArc", 999);
-//        UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
-//        UIManager.put("Button.iconTextGap", 10);
-//        UIManager.put("PasswordField.showRevealButton", true);
-//        UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
-//        UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
-//        UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
-//        UIManager.put("Table.rowHeight", 40);
-//        UIManager.put("TabbedPane.selectedBackground", Color.white);
-//        UIManager.put("TableHeader.height", 40);
-//        UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
-//        UIManager.put("TableHeader.background", new Color(242, 242, 242));
-//        UIManager.put("TableHeader.separatorColor", new Color(242, 242, 242));
-//        UIManager.put("TableHeader.bottomSeparatorColor", new Color(242, 242, 242));
-//
-//        Main main = new Main();
-//        main.setUT();
-//        main.setVisible(true);
-//        main.btnTrangChuActionPerformed(null);
-//    }
+    public static void main(String args[]) {
+        FlatRobotoFont.install();
+        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
+        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
+        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
+        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+        FlatIntelliJLaf.setup();
+        UIManager.put("Table.showVerticalLines", false);
+        UIManager.put("Table.showHorizontalLines", true);
+        UIManager.put("TextComponent.arc", 5);
+        UIManager.put("ScrollBar.thumbArc", 999);
+        UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
+        UIManager.put("Button.iconTextGap", 10);
+        UIManager.put("PasswordField.showRevealButton", true);
+        UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
+        UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
+        UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
+        UIManager.put("Table.rowHeight", 40);
+        UIManager.put("TabbedPane.selectedBackground", Color.white);
+        UIManager.put("TableHeader.height", 40);
+        UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
+        UIManager.put("TableHeader.background", new Color(242, 242, 242));
+        UIManager.put("TableHeader.separatorColor", new Color(242, 242, 242));
+        UIManager.put("TableHeader.bottomSeparatorColor", new Color(242, 242, 242));
+
+        Main main = new Main();
+        main.setUT();
+        main.setVisible(true);
+        main.btnTrangChuActionPerformed(null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bar;
     private javax.swing.JButton btnDangXuat;

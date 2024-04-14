@@ -3,6 +3,7 @@ package GUI;
 import BUS.SanPhamBUS;
 import DAO.KhuVucKhoDAO;
 import DAO.LoaiDAO;
+import DAO.SanPhamDAO;
 import DAO.ThuongHieuDAO;
 import DAO.XuatXuDAO;
 import DTO.SanPhamDTO;
@@ -18,12 +19,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,6 +35,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -53,25 +62,23 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     ThemSanPham themSanPham;
     SuaSanPham suaSanPham;
     ChiTietSanPham chiTietSanPham;
-    
-     public SanPhamBUS sanPhamBUS ;
-    
+    public SanPhamBUS sanPhamBUS;
+
     public ArrayList<DTO.SanPhamDTO> listSanPham;
     private final Color hoverColor = new Color(187, 222, 251);
     Color BackgroundColor = new Color(240, 247, 250);
-    
+
     public SanPham() throws IOException {
         initComponents();
-        
+
         this.setOpaque(false);
-        this.setBorder(new EmptyBorder(10,10,10,10));
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
         setPreferredSize(new Dimension(1200, 800));
-        
-        pnlCenter.setBorder(new EmptyBorder(20,0,0,0));
-        
-        
+
+        pnlCenter.setBorder(new EmptyBorder(20, 0, 0, 0));
+
         pnlCenter.setBackground(BackgroundColor);
-        
+
         addIcon();
         tblSanPham.setFocusable(false);
         tblSanPham.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
@@ -87,34 +94,31 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
 
         addHoverBtn();
 
-        
-
-            
         hienThiListSanPham();
-        
-        
+
         JScrollPane scrollPane = new JScrollPane(pnlTop);
 //        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBorder(null);    
+        scrollPane.setBorder(null);
         this.add(scrollPane, java.awt.BorderLayout.NORTH);
 
-
-     
     }
-    
 
     private void timKiemSanPham(String keyword) {
         ArrayList<SanPhamDTO> ketQuaTimKiem = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             String tenSanPham = (String) model.getValueAt(i, 1);
-            if (tenSanPham.toLowerCase().contains(keyword.toLowerCase())) {
-                ketQuaTimKiem.add(sanPhamBus.selectByID((int) model.getValueAt(i, 0))); // Thêm sản phẩm vào danh sách kết quả
+            int maSanPham = (int) model.getValueAt(i, 0);
+            int sizeSanPham = (int) model.getValueAt(i, 3);
+            if (tenSanPham.toLowerCase().contains(keyword.toLowerCase())
+                    || String.valueOf(maSanPham).contains(keyword)
+                    || String.valueOf(sizeSanPham).contains(keyword)) {
+                ketQuaTimKiem.add(sanPhamBus.selectByID(maSanPham));
             }
         }
         hienThiListSanPham(ketQuaTimKiem);
     }
-    
+
     public void hienThiListSanPham(ArrayList<SanPhamDTO> a) {
         thuongHieuDAO = new ThuongHieuDAO();
         loaiDAO = new LoaiDAO();
@@ -147,6 +151,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             tblSanPham.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
+
     public void hienThiListSanPham() {
         thuongHieuDAO = new ThuongHieuDAO();
         loaiDAO = new LoaiDAO();
@@ -191,6 +196,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         btnSuaSP.setIcon(new FlatSVGIcon("./icon/edit.svg"));
         btnXoaSP.setIcon(new FlatSVGIcon("./icon/delete.svg"));
         btnXuatExcelSP.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
+        btnNhapExcel.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
         btnChiTietSP.setIcon(new FlatSVGIcon("./icon/detail.svg"));
         btnLamMoi.setIcon(new FlatSVGIcon("./icon/refresh.svg"));
     }
@@ -232,6 +238,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         btnXoaSP = new javax.swing.JButton();
         btnChiTietSP = new javax.swing.JButton();
         btnXuatExcelSP = new javax.swing.JButton();
+        btnNhapExcel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
         btnLamMoi = new javax.swing.JButton();
@@ -265,11 +272,20 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         btnXuatExcelSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pnlTop.add(btnXuatExcelSP);
 
+        btnNhapExcel.setText("Nhập excel");
+        btnNhapExcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNhapExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhapExcelActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnNhapExcel);
+
         jLabel1.setLabelFor(txtTimKiem);
         jLabel1.setText("Tìm kiếm :");
         pnlTop.add(jLabel1);
 
-        txtTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtTimKiem.setPreferredSize(new java.awt.Dimension(100, 30));
         txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtTimKiemKeyPressed(evt);
@@ -349,6 +365,18 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         txtTimKiem.setText("");
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
+    private void btnNhapExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapExcelActionPerformed
+        JFileChooser fileChooser = new JFileChooser(); // Tạo một file chooser để chọn tệp Excel
+        int result = fileChooser.showOpenDialog(SanPham.this); // Hiển thị hộp thoại để chọn tệp Excel
+
+        if (result == JFileChooser.APPROVE_OPTION) { // Kiểm tra xem người dùng đã chọn tệp hay chưa
+            File selectedFile = fileChooser.getSelectedFile(); // Lấy đường dẫn tới tệp đã chọn
+            NhapExcel(selectedFile); // Gọi phương thức để đọc và thêm dữ liệu từ tệp Excel vào cơ sở dữ liệu
+        }
+        listSanPham = sanPhamBUS.getAllSanPham();
+        hienThiListSanPham();
+    }//GEN-LAST:event_btnNhapExcelActionPerformed
+
     private void xoaSanPham() {
         int selectedRow = tblSanPham.getSelectedRow();
         if (selectedRow != -1) {
@@ -389,7 +417,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             xoaSanPham();
         } else if (e.getSource() == btnSuaSP) {
             if (selectSanPham() != null) {
-                suaSanPham = new SuaSanPham(selectSanPham(),this);
+                suaSanPham = new SuaSanPham(selectSanPham(), this);
                 suaSanPham.setLocationRelativeTo(null);
                 suaSanPham.setVisible(true);
                 listSanPham = sanPhamBus.getAllSanPham();
@@ -398,9 +426,8 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
         } else if (e.getSource() == btnXuatExcelSP) {
-            XuatExcel xuatExcel = new XuatExcel();
             try {
-                xuatExcel.exportJTableToExcel(tblSanPham);
+                XuatExcel.exportJTableToExcel(tblSanPham);
                 JOptionPane.showMessageDialog(null, "Xuất thành công");
             } catch (IOException ex) {
                 Logger.getLogger(SanPham.class.getName()).log(Level.SEVERE, null, ex);
@@ -413,10 +440,45 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
-        } else if ( e.getSource() == btnLamMoi){
+        } else if (e.getSource() == btnLamMoi) {
             hienThiListSanPham();
             txtTimKiem.setText("");
             System.out.println("hello");
+        }
+    }
+
+    private void NhapExcel(File file) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file); // Tạo một luồng đầu vào từ tệp đã chọn
+
+            Workbook workbook = new XSSFWorkbook(fileInputStream); // Đọc workbook từ luồng đầu vào
+            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên từ workbook
+
+            SanPhamDAO sanPhamDAO = new SanPhamDAO(); // Tạo một đối tượng DAO để thực hiện thêm dữ liệu
+
+            // Duyệt qua từng hàng dữ liệu trong tệp Excel và thêm vào cơ sở dữ liệu
+            for (Row row : sheet) {
+                SanPhamDTO sanPham = new SanPhamDTO(); // Tạo một đối tượng SanPhamDTO để lưu trữ dữ liệu từ hàng hiện tại
+                // Đặt giá trị cho các thuộc tính của đối tượng SanPhamDTO từ các ô trong hàng hiện tại của tệp Excel
+                sanPham.setTensp(row.getCell(0).getStringCellValue());
+                sanPham.setSize((int) row.getCell(1).getNumericCellValue());
+                sanPham.setLoai((int) row.getCell(2).getNumericCellValue());
+                sanPham.setThuonghieu((int) row.getCell(3).getNumericCellValue());
+                sanPham.setXuatxu((int) row.getCell(4).getNumericCellValue());
+                sanPham.setKhuvuckho((int) row.getCell(5).getNumericCellValue());
+                sanPham.setGianhap((int) row.getCell(6).getNumericCellValue());
+                sanPham.setGiaxuat((int) row.getCell(7).getNumericCellValue());
+                // Thêm đối tượng SanPhamDTO vào cơ sở dữ liệu
+                boolean thanhCong = sanPhamDAO.themSanPham(sanPham);
+                if (thanhCong) {
+                    System.out.println(sanPham.getTensp());
+                }
+            }
+            fileInputStream.close(); // Đóng luồng đầu vào
+            JOptionPane.showMessageDialog(this, "Nhập dữ liệu từ Excel thành công!");
+        } catch (IOException | EncryptedDocumentException ex) {
+            JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi khi nhập dữ liệu từ Excel!");
+            ex.printStackTrace();
         }
     }
 
@@ -424,6 +486,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTietSP;
     private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnNhapExcel;
     private javax.swing.JButton btnSuaSP;
     private javax.swing.JButton btnThemSP;
     private javax.swing.JButton btnXoaSP;

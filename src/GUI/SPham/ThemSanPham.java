@@ -58,6 +58,7 @@ public class ThemSanPham extends javax.swing.JFrame {
         FlatIntelliJLaf.registerCustomDefaultsSource("style");
         FlatIntelliJLaf.setup();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
     }
 
     private void loadCombobox() {
@@ -210,6 +211,7 @@ public class ThemSanPham extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         pnlTop.setBackground(new java.awt.Color(51, 153, 255));
 
@@ -289,6 +291,7 @@ public class ThemSanPham extends javax.swing.JFrame {
 
         lblGiaXuat.setText("Giá xuất");
 
+        btnLuuSP.setBackground(new java.awt.Color(0, 255, 0));
         btnLuuSP.setText("Lưu");
         btnLuuSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,6 +299,7 @@ public class ThemSanPham extends javax.swing.JFrame {
             }
         });
 
+        btnCancel.setBackground(new java.awt.Color(255, 0, 0));
         btnCancel.setText("Hủy bỏ");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

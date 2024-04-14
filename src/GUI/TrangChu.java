@@ -35,7 +35,7 @@ public class TrangChu extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("HỆ THỐNG QUẢN LÍ CỬA HÀNG GIÀY");
+        jLabel2.setText("HỆ THỐNG QUẢN LÍ KHO GIÀY NHÓM 5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
