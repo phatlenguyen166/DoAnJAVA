@@ -18,11 +18,10 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
      */
     public ThongKeTongQuan() {
         initComponents();
-        this.setLayout(new BorderLayout(10, 10));
         this.setOpaque(false);
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
-        this.add(jPanel1,BorderLayout.CENTER);
-        
+        tblThongKe.setFocusable(false);
+        tblThongKe.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
     }
 
     /**
@@ -34,35 +33,82 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlTop = new javax.swing.JPanel();
+        pnlCenter = new javax.swing.JPanel();
+        pnlTableThongKe = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblThongKe = new javax.swing.JTable();
 
-        jPanel1.setBackground(new java.awt.Color(255, 51, 51));
+        setLayout(new java.awt.BorderLayout(10, 10));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        pnlTop.setBackground(new java.awt.Color(255, 0, 0));
+        pnlTop.setPreferredSize(new java.awt.Dimension(0, 120));
+
+        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
+        pnlTop.setLayout(pnlTopLayout);
+        pnlTopLayout.setHorizontalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        pnlTopLayout.setVerticalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        add(pnlTop, java.awt.BorderLayout.NORTH);
+
+        pnlCenter.setBackground(new java.awt.Color(51, 204, 255));
+        pnlCenter.setPreferredSize(new java.awt.Dimension(200, 800));
+
+        javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
+        pnlCenter.setLayout(pnlCenterLayout);
+        pnlCenterLayout.setHorizontalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        pnlCenterLayout.setVerticalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
+
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
+
+        pnlTableThongKe.setBackground(new java.awt.Color(0, 204, 0));
+        pnlTableThongKe.setPreferredSize(new java.awt.Dimension(317, 200));
+
+        tblThongKe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Ngày", "Vốn", "Doanh thu", "Lợi nhuận"
+            }
+        ));
+        jScrollPane1.setViewportView(tblThongKe);
+
+        javax.swing.GroupLayout pnlTableThongKeLayout = new javax.swing.GroupLayout(pnlTableThongKe);
+        pnlTableThongKe.setLayout(pnlTableThongKeLayout);
+        pnlTableThongKeLayout.setHorizontalGroup(
+            pnlTableThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+        );
+        pnlTableThongKeLayout.setVerticalGroup(
+            pnlTableThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+        );
+
+        add(pnlTableThongKe, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnlCenter;
+    private javax.swing.JPanel pnlTableThongKe;
+    private javax.swing.JPanel pnlTop;
+    private javax.swing.JTable tblThongKe;
     // End of variables declaration//GEN-END:variables
 }

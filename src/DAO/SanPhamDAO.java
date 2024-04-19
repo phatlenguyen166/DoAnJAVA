@@ -167,11 +167,11 @@ public class SanPhamDAO {
             connection = MySQLConnection.getConnection();
             String sql = "SELECT * FROM sanpham WHERE masp=?";
             pst = connection.prepareStatement(sql);
-            pst.setInt(1, masp);
+            pst.setInt(1, masp);    
             ResultSet rs = (ResultSet) pst.executeQuery();
             while (rs.next()) {
-                int madm = rs.getInt("masp");
-                String tendm = rs.getString("tensp");
+                int maSP = rs.getInt("masp");
+                String tenSP = rs.getString("tensp");
                 int size = rs.getInt("size");
                 String hinhanh = rs.getString("hinhanh");
                 int xuatxu = rs.getInt("xuatxu");
@@ -181,7 +181,7 @@ public class SanPhamDAO {
                 int soluongton = rs.getInt("soluongton");
                 int gianhap = rs.getInt("gianhap");
                 int giaxuat = rs.getInt("giaxuat");
-                result = new SanPhamDTO(madm, tendm, size, hinhanh, xuatxu, loai, thuonghieu, khuvuckho, gianhap, giaxuat, soluongton);
+                result = new SanPhamDTO(maSP, tenSP, size, hinhanh, xuatxu, loai, thuonghieu, khuvuckho, gianhap, giaxuat, soluongton);
             }
             MySQLConnection.closeConnection(connection);
         } catch (SQLException e) {

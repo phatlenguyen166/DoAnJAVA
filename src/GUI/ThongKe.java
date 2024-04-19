@@ -36,6 +36,8 @@ public class ThongKe extends javax.swing.JPanel {
         thongKe.addTab("Kho", thongKeTonKho);
         thongKe.addTab("Khách hàng", thongKeKhachHang);
         thongKe.addTab("Nhà cung cấp", thongKeNhaCungCap);
+            
+        
     }
 
     /**
