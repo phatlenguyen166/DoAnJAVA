@@ -167,7 +167,7 @@ public class SanPhamDAO {
             connection = MySQLConnection.getConnection();
             String sql = "SELECT * FROM sanpham WHERE masp=?";
             pst = connection.prepareStatement(sql);
-            pst.setInt(1, masp);    
+            pst.setInt(1, masp);
             ResultSet rs = (ResultSet) pst.executeQuery();
             while (rs.next()) {
                 int maSP = rs.getInt("masp");
@@ -187,6 +187,43 @@ public class SanPhamDAO {
         } catch (SQLException e) {
         }
         return result;
+    }
+
+    public boolean checkSize(String tensp, int size) {
+        boolean thanhCong = false;
+        Connection connection = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            connection = MySQLConnection.getConnection();
+            String sql = "SELECT * FROM sanpham WHERE tensp=? AND size=?";
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, tensp);
+            pst.setInt(2, size);
+            rs = pst.executeQuery();
+            thanhCong = !rs.next(); // Trả về true nếu không có bản ghi nào được tìm thấy
+        } catch (SQLException e) {
+            // Xử lý lỗi, ví dụ: ghi log
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo kết nối được đóng
+            MySQLConnection.closeConnection(connection);
+            if (pst != null) {
+                try {
+                    pst.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return thanhCong;
     }
 
 }

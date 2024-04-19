@@ -41,12 +41,16 @@ public class SanPhamBUS {
         return sanPhamDAO.selectById(masp);
     }
     private ArrayList<SanPhamDTO> listSP = new ArrayList<>();
-    public Boolean add(SanPhamDTO lh) {
+    public boolean add(SanPhamDTO lh) {
         boolean check = sanPhamDAO.themSanPham(lh);
         if (check) {
 
             this.listSP.add(lh);
         }
         return check;
+    }
+    
+    public boolean checkSize(String tensp, int size){
+        return sanPhamDAO.checkSize(tensp, size);
     }
 }
