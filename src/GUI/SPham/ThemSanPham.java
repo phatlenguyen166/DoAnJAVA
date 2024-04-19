@@ -182,8 +182,9 @@ public class ThemSanPham extends javax.swing.JFrame {
 
             // Kiểm tra xem việc thêm sản phẩm đã thành công hay không
             if (thanhCong) {
-                sp.hienThiListSanPham();
+                
                 JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                sp.hienThiListSanPham();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);

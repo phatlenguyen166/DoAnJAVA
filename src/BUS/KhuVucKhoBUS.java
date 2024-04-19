@@ -6,8 +6,8 @@ package BUS;
 
 import DAO.KhuVucKhoDAO;
 import DTO.KhuVucKhoDTO;
-import DTO.LoaiDTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +36,39 @@ public class KhuVucKhoBUS {
     public KhuVucKhoDTO selectByID(int makhuvuc){
         return khuVucKhoDAO.selectById(makhuvuc);
     }
+    
+    
+    public boolean xoaKhuVucKho(int makhuvuc) {
+        return khuVucKhoDAO.xoaKho(makhuvuc);
+    }
+
+    public boolean suaKhuVucKho(KhuVucKhoDTO khuVucKhoDTO) {
+        if (kiemTraTrungTenKhuVucKho(khuVucKhoDTO.getTenkhuvuc())) {
+            JOptionPane.showMessageDialog(null, "Tên khu vực kho đã có");
+            return false;
+        }
+        return khuVucKhoDAO.suaKho(khuVucKhoDTO);
+    }
+
+    public boolean themKhuVucKho(KhuVucKhoDTO khuVucKhoDTO) {
+        if (kiemTraTrungTenKhuVucKho(khuVucKhoDTO.getTenkhuvuc())) {
+            JOptionPane.showMessageDialog(null, "Tên khu vực đã có");
+            return false;
+        }
+        return khuVucKhoDAO.themKho(khuVucKhoDTO);
+    }
+
+    public boolean kiemTraTrungTenKhuVucKho(String tenKhoMoi) {
+        ArrayList<KhuVucKhoDTO> listKhuVucKho= getAllKho();
+        
+        for (KhuVucKhoDTO khuvuc : listKhuVucKho) {
+            if (khuvuc.getTenkhuvuc().equalsIgnoreCase(tenKhoMoi)) {
+                return true; // Tên thương hiệu mới trùng với một thương hiệu khác
+            }
+        }
+        return false; // Tên thương hiệu mới không trùng với bất kỳ thương hiệu nào khác
+    }
+    
 }
 
 

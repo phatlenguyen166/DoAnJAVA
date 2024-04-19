@@ -265,6 +265,11 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
 
         btnXoaSP.setText("Xóa");
         btnXoaSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXoaSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaSPActionPerformed(evt);
+            }
+        });
         pnlTop.add(btnXoaSP);
 
         btnChiTietSP.setText("Chi tiết");
@@ -384,6 +389,10 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemSPActionPerformed
 
+    private void btnXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaSPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaSPActionPerformed
+
     private void xoaSanPham() {
         int selectedRow = tblSanPham.getSelectedRow();
         if (selectedRow != -1) {
@@ -427,8 +436,6 @@ public class SanPham extends javax.swing.JPanel implements ActionListener {
                 suaSanPham = new SuaSanPham(selectSanPham(), this);
                 suaSanPham.setLocationRelativeTo(null);
                 suaSanPham.setVisible(true);
-                listSanPham = sanPhamBus.getAllSanPham();
-                hienThiListSanPham();
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
