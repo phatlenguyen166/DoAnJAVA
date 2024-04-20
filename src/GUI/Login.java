@@ -27,7 +27,6 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     Main main;
-    Color BackgroundColor = new Color(240, 247, 250);
     Color FontColor = new Color(96, 125, 139);
 
     public Login() {
@@ -69,8 +68,7 @@ public class Login extends javax.swing.JFrame {
                 btnLogInMouseExited(evt);
             }
         });
-        
-        
+
         txtTenDangNhap.setText("phat");
         txtMatKhau.setText("123");
     }
@@ -104,10 +102,15 @@ public class Login extends javax.swing.JFrame {
             showMessage("Không có tài khoản trên hệ thống");
         } else {
             if (password.equals(taiKhoanSelected.getMatkhau())) {
-                main = new Main(taiKhoanSelected);
-                main.setVisible(true);
-                main.setUT();
-                dispose();
+                if (taiKhoanSelected.getTrangthai() == 0) {
+                    showMessage("Tài khoản của bạn đã bị khóa");
+                } else {
+                    main = new Main(taiKhoanSelected);
+                    main.setVisible(true);
+                    main.setUT();
+                    dispose();
+                }
+
             } else {
                 showMessage("Sai tài khoản hoặc mật khẩu");
             }
@@ -227,18 +230,6 @@ public class Login extends javax.swing.JFrame {
         String passwordText = new String(password);
         System.out.print(passwordText);
         checkLogin();
-//        int role = Integer.parseInt(txtRole.getText());
-//        main = new Main();
-//        main.setVisible(true);
-//        main.setUT();
-//        dispose();
-//        if (role == 1) {
-//            main = new Main();
-//            main.setVisible(true);
-//            main.setUT();
-//            dispose();
-//
-//        }
 
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
