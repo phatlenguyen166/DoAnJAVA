@@ -1,5 +1,9 @@
 package GUI;
 
+import BUS.NhanVienBUS;
+import BUS.TaiKhoanBUS;
+import DTO.NhanVienDTO;
+import DTO.TaiKhoanDTO;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
@@ -33,7 +37,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author ADMIN
  */
-public class Main extends javax.swing.JFrame {
+public final class Main extends javax.swing.JFrame {
 
     /**
      * Creates new form Main
@@ -50,15 +54,15 @@ public class Main extends javax.swing.JFrame {
     TaiKhoan taiKhoan;
     ThongKe thongKe;
     Login login;
-    int role;
+    NhanVienBUS nhanVienBUS;
+    TaiKhoanDTO taiKhoanDTO;
+
     private final Color defaultColor = new Color(255, 255, 255);
     private final Color hoverColor = new Color(187, 222, 251);
     Color BackgroundColor = new Color(240, 247, 250);
 
     public Main() {
-
         this.setPreferredSize(new Dimension(1400, 800));
-
         initComponents();
         mainContent2.setBackground(BackgroundColor);
         setLocationRelativeTo(null);
@@ -66,18 +70,15 @@ public class Main extends javax.swing.JFrame {
         addIconTaskbar();
         addHoverBtn();
         setTitle("Hệ thống quản lý cửa hàng giày");
-
         JScrollPane scrollPane = new JScrollPane(taskBar);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
         menuTaskbar.add(scrollPane, java.awt.BorderLayout.CENTER);
-
     }
 
-    public Main(int role) {
-        this.role = role;
+    public Main(TaiKhoanDTO taiKhoanDTO) {
+        this.taiKhoanDTO = taiKhoanDTO;
         this.setPreferredSize(new Dimension(1400, 800));
-
         initComponents();
         mainContent2.setBackground(BackgroundColor);
         setLocationRelativeTo(null);
@@ -85,31 +86,28 @@ public class Main extends javax.swing.JFrame {
         addIconTaskbar();
         addHoverBtn();
         setTitle("Hệ thống quản lý cửa hàng giày");
-
         JScrollPane scrollPane = new JScrollPane(taskBar);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
         menuTaskbar.add(scrollPane, java.awt.BorderLayout.CENTER);
+        phanQuyen(this.taiKhoanDTO.getManhomquyen());
+        
+        setThongTinNhanVien(this.taiKhoanDTO);
+    }
 
-        phanQuyen(role);
-
+    public void setThongTinNhanVien(TaiKhoanDTO taiKhoan) {
+        nhanVienBUS = new NhanVienBUS();
+        NhanVienDTO NhanVien = nhanVienBUS.selectThongTinNhanVienByMaNV(taiKhoan.getManv());
+        lblTenNhanVien.setText(NhanVien.getHoten());
+        TaiKhoanBUS taiKhoanBUS = new TaiKhoanBUS();
+        String tenChucVuc = taiKhoanBUS.selectTenChucVu(taiKhoan.getManhomquyen());
+        lblChucVu.setText(tenChucVuc);
     }
 
     public void phanQuyen(int role) {
-
-// Nhân viên
-        if (role == 2) {
-//            btnSanPham.setVisible(false);
-//            btnThuocTinh.setVisible(false);
-//            btnKhuVucKho.setVisible(false);
-//            btnNhaCungCap.setVisible(false);
-//            btnKhachHang.setVisible(false);
-            btnPhieuNhap.setVisible(false);
-            btnPhieuXuat.setVisible(false);
-            btnThongKe.setVisible(false);
-            btnTaiKhoan.setVisible(false);
-            btnNhanVien.setVisible(false);
-        } else if (role == 4) {
+        if (role == 1) {
+            // Quản lý nhân viên và tài khoản
+            btnTrangChu.setVisible(false);
             btnSanPham.setVisible(false);
             btnThuocTinh.setVisible(false);
             btnKhuVucKho.setVisible(false);
@@ -118,14 +116,45 @@ public class Main extends javax.swing.JFrame {
             btnPhieuNhap.setVisible(false);
             btnPhieuXuat.setVisible(false);
             btnThongKe.setVisible(false);
-        } else if (role == 5) {
+//            btnTaiKhoan.setVisible(false);
+//            btnNhanVien.setVisible(false);
+
+        } else if (role == 2) {
+            // Nhân viên thống kê
+            btnTrangChu.setVisible(false);
+            btnSanPham.setVisible(false);
+            btnThuocTinh.setVisible(false);
+            btnKhuVucKho.setVisible(false);
+            btnNhaCungCap.setVisible(false);
+            btnKhachHang.setVisible(false);
+            btnPhieuNhap.setVisible(false);
+            btnPhieuXuat.setVisible(false);
+//            btnThongKe.setVisible(false);
+            btnTaiKhoan.setVisible(false);
+            btnNhanVien.setVisible(false);
+        } else if (role == 3) {
+            // Nhân viên xuất hàng
+            btnTrangChu.setVisible(false);
+            btnSanPham.setVisible(false);
+            btnThuocTinh.setVisible(false);
+            btnKhuVucKho.setVisible(false);
+            btnNhaCungCap.setVisible(false);
+//            btnKhachHang.setVisible(false);
+            btnPhieuNhap.setVisible(false);
+//            btnPhieuXuat.setVisible(false);
+            btnThongKe.setVisible(false);
+            btnTaiKhoan.setVisible(false);
+            btnNhanVien.setVisible(false);
+        } else if (role == 4) {
+            // Nhân viên nhập hàng
+            btnTrangChu.setVisible(false);
 //            btnSanPham.setVisible(false);
 //            btnThuocTinh.setVisible(false);
 //            btnKhuVucKho.setVisible(false);
 //            btnNhaCungCap.setVisible(false);
             btnKhachHang.setVisible(false);
 //            btnPhieuNhap.setVisible(false);
-//            btnPhieuXuat.setVisible(false);
+            btnPhieuXuat.setVisible(false);
             btnThongKe.setVisible(false);
             btnTaiKhoan.setVisible(false);
             btnNhanVien.setVisible(false);
@@ -284,8 +313,9 @@ public class Main extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         menuTaskbar = new javax.swing.JPanel();
         info = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTenNhanVien = new javax.swing.JLabel();
         bar = new javax.swing.JLabel();
+        lblChucVu = new javax.swing.JLabel();
         taskBar = new javax.swing.JPanel();
         btnTrangChu = new javax.swing.JToggleButton("<html>&nbsp;&nbsp;&nbsp;Trang chủ</html>");
         btnSanPham = new javax.swing.JToggleButton();
@@ -314,28 +344,35 @@ public class Main extends javax.swing.JFrame {
         info.setBackground(new java.awt.Color(255, 255, 255));
         info.setPreferredSize(new java.awt.Dimension(136, 70));
 
-        jLabel1.setText("ADMIN");
+        lblTenNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        lblTenNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTenNhanVien.setText("Lê Nguyễn Hoàng Phát");
 
         bar.setBackground(new java.awt.Color(0, 0, 0));
         bar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         bar.setPreferredSize(new java.awt.Dimension(1, 1));
 
+        lblChucVu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblChucVu.setForeground(new java.awt.Color(153, 153, 153));
+        lblChucVu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblChucVu.setText("Quản lý kho");
+
         javax.swing.GroupLayout infoLayout = new javax.swing.GroupLayout(info);
         info.setLayout(infoLayout);
         infoLayout.setHorizontalGroup(
             infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+            .addComponent(bar, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+            .addComponent(lblChucVu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblTenNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         infoLayout.setVerticalGroup(
             infoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addContainerGap()
+                .addComponent(lblTenNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -643,36 +680,36 @@ public class Main extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        FlatRobotoFont.install();
-        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-        UIManager.put("Table.showVerticalLines", false);
-        UIManager.put("Table.showHorizontalLines", true);
-        UIManager.put("TextComponent.arc", 5);
-        UIManager.put("ScrollBar.thumbArc", 999);
-        UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
-        UIManager.put("Button.iconTextGap", 10);
-        UIManager.put("PasswordField.showRevealButton", true);
-        UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
-        UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
-        UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
-        UIManager.put("Table.rowHeight", 40);
-        UIManager.put("TabbedPane.selectedBackground", Color.white);
-        UIManager.put("TableHeader.height", 40);
-        UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
-        UIManager.put("TableHeader.background", new Color(242, 242, 242));
-        UIManager.put("TableHeader.separatorColor", new Color(242, 242, 242));
-        UIManager.put("TableHeader.bottomSeparatorColor", new Color(242, 242, 242));
-
-        Main main = new Main();
-        main.setUT();
-        main.setVisible(true);
-        main.btnTrangChuActionPerformed(null);
-    }
+//    public static void main(String args[]) {
+//        FlatRobotoFont.install();
+//        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
+//        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
+//        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
+//        FlatIntelliJLaf.registerCustomDefaultsSource("style");
+//        FlatIntelliJLaf.setup();
+//        UIManager.put("Table.showVerticalLines", false);
+//        UIManager.put("Table.showHorizontalLines", true);
+//        UIManager.put("TextComponent.arc", 5);
+//        UIManager.put("ScrollBar.thumbArc", 999);
+//        UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
+//        UIManager.put("Button.iconTextGap", 10);
+//        UIManager.put("PasswordField.showRevealButton", true);
+//        UIManager.put("Table.selectionBackground", new Color(240, 247, 250));
+//        UIManager.put("Table.selectionForeground", new Color(0, 0, 0));
+//        UIManager.put("Table.scrollPaneBorder", new EmptyBorder(0, 0, 0, 0));
+//        UIManager.put("Table.rowHeight", 40);
+//        UIManager.put("TabbedPane.selectedBackground", Color.white);
+//        UIManager.put("TableHeader.height", 40);
+//        UIManager.put("TableHeader.font", UIManager.getFont("h4.font"));
+//        UIManager.put("TableHeader.background", new Color(242, 242, 242));
+//        UIManager.put("TableHeader.separatorColor", new Color(242, 242, 242));
+//        UIManager.put("TableHeader.bottomSeparatorColor", new Color(242, 242, 242));
+//
+//        Main main = new Main();
+//        main.setUT();
+//        main.setVisible(true);
+//        main.btnTrangChuActionPerformed(null);
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bar;
     private javax.swing.JButton btnDangXuat;
@@ -689,8 +726,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnTrangChu;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel info;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblChucVu;
+    private javax.swing.JLabel lblTenNhanVien;
     private javax.swing.JPanel mainContent;
     private javax.swing.JPanel mainContent2;
     private javax.swing.JPanel menuTaskbar;
