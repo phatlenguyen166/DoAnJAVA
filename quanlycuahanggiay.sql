@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2024 at 07:02 PM
+-- Generation Time: Apr 20, 2024 at 09:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -46,10 +46,6 @@ CREATE TABLE `ctphieuxuat` (
   `soluong` int(11) NOT NULL DEFAULT 0,
   `dongia` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ctphieuxuat`
---
 
 -- --------------------------------------------------------
 
@@ -184,7 +180,9 @@ CREATE TABLE `nhanvien` (
 INSERT INTO `nhanvien` (`manv`, `hoten`, `gioitinh`, `ngaysinh`, `sdt`, `email`, `trangthai`) VALUES
 (1, 'Lê Nguyễn Hoàng Phát', 1, '2004-03-16', '0338641606', 'phat@gmail.com', 1),
 (4, 'Phạm Thiên Phúc', 1, '2004-04-17', '0932831928', 'phuc@gmail.com', 1),
-(5, 'Phạm Thanh Sự', 1, '2004-03-20', '0932831928', 'su@gmail.com', 1);
+(5, 'Phạm Thanh Sự', 1, '2004-03-20', '0932831928', 'su@gmail.com', 1),
+(6, 'Dương Minh Trí', 1, '2004-04-17', '0932831928', 'tri@gmail.com', 1),
+(7, 'Đoàn Ánh Dương', 1, '2004-03-16', '0338641606', 'duong@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -203,10 +201,10 @@ CREATE TABLE `nhomquyen` (
 --
 
 INSERT INTO `nhomquyen` (`manhomquyen`, `tennhomquyen`, `type`) VALUES
-(1, 'Quản lý doanh nghiệp', 1),
-(2, 'Nhân viên', 2),
-(3, 'Kế toán', 3),
-(4, 'ADMIN', 4),
+(1, 'Quản lý tài khoản', 1),
+(2, 'Nhân viên thống kê', 2),
+(3, 'Nhân viên xuất hàng', 3),
+(4, 'Nhân viên nhập hàng', 4),
 (5, 'Quản lý kho', 5);
 
 -- --------------------------------------------------------
@@ -238,10 +236,6 @@ CREATE TABLE `phieuxuat` (
   `makh` int(11) DEFAULT NULL,
   `trangthai` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `phieuxuat`
---
 
 -- --------------------------------------------------------
 
@@ -290,8 +284,11 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`manv`, `matkhau`, `manhomquyen`, `tendangnhap`, `trangthai`) VALUES
-(1, '123', 4, 'phat', 1),
-(5, '123', 4, 'phat123', 1);
+(1, '123', 5, 'phat', 1),
+(4, '123', 2, 'phuc', 1),
+(5, '123', 3, 'su', 1),
+(6, '123', 4, 'tri', 1),
+(7, '123', 1, '123', 1);
 
 -- --------------------------------------------------------
 
@@ -480,7 +477,7 @@ ALTER TABLE `nhacungcap`
 -- AUTO_INCREMENT for table `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `nhomquyen`
@@ -510,7 +507,7 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `thuonghieu`
