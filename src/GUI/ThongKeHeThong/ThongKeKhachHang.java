@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -41,10 +42,8 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
     /**
      * Creates new form ThongKeKhachHang
      */
-    ThongKeDAO thongKeDAO;
     ThongKeBUS thongKeBUS;
     ArrayList<ThongKeKhachHangDTO> listkhTH;
-    private SimpleDateFormat dateFormat = null;
     JDateChooser dateStart = new JDateChooser();
     JDateChooser dateEnd = new JDateChooser();
 
@@ -124,32 +123,44 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
 
     public void loc() throws ParseException {
         if (checkDate()) {
-            String input = txtTenKhachHang.getText() != null ? txtTenKhachHang.getText() : "";
-            java.util.Date time_start = dateStart.getDate() != null ? dateStart.getDate() : new java.util.Date(0);
-            java.util.Date time_end = dateEnd.getDate() != null ? dateEnd.getDate() : new java.util.Date(System.currentTimeMillis());
-            this.listkhTH = thongKeBUS.FilterKhachHang(input, new java.sql.Date(time_start.getTime()), new java.sql.Date(time_end.getTime()));
+            String input = txtTenKhachHang.getText();
+            if (input == null) {
+                input = "";
+            }
+
+            Date time_start = dateStart.getDate();
+            if (time_start == null) {
+                time_start = new Date(0);
+            }
+
+            Date time_end = dateEnd.getDate();
+            if (time_end == null) {
+                time_end = new Date(System.currentTimeMillis());
+            }
+
+            this.listkhTH = thongKeBUS.locKhachHang(input, new Date(time_start.getTime()), new Date(time_end.getTime()));
             themDuLieuVaoBang(listkhTH);
         }
     }
 
     public boolean checkDate() throws ParseException {
-        java.util.Date time_start = dateStart.getDate();
-        java.util.Date time_end = dateEnd.getDate();
+        Date time_start = dateStart.getDate();
+        Date time_end = dateEnd.getDate();
 
-        java.util.Date current_date = new java.util.Date();
+        Date current_date = new Date();
         if (time_start != null && time_start.after(current_date)) {
             JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
-//            start_date.getDateChooser().setCalendar(null);
+            dateStart.setCalendar(null);
             return false;
         }
         if (time_end != null && time_end.after(current_date)) {
             JOptionPane.showMessageDialog(this, "Ngày kết thúc không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
-//            end_date.getDateChooser().setCalendar(null);
+            dateEnd.setCalendar(null);
             return false;
         }
         if (time_start != null && time_end != null && time_start.after(time_end)) {
             JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu", "Lỗi !", JOptionPane.ERROR_MESSAGE);
-//            end_date.getDateChooser().setCalendar(null);
+            dateEnd.setCalendar(null);
             return false;
         }
         return true;
