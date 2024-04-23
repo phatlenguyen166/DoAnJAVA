@@ -22,7 +22,7 @@ public class ThongKeBUS {
         return thongkeDAO.getThongKeKhachHang("", new Date(0), new Date(System.currentTimeMillis()));
     }
 
-    public ArrayList<ThongKeKhachHangDTO> FilterKhachHang(String text, Date start, Date end) {
+    public ArrayList<ThongKeKhachHangDTO> locKhachHang(String text, Date start, Date end) {
         return thongkeDAO.getThongKeKhachHang(text, start, end);
     }
 }

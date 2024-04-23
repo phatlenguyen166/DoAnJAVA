@@ -21,7 +21,7 @@ public class NhanVienDTO {
     }
 
     public NhanVienDTO(int manv, String hoten, int gioitinh, Date ngaysinh, String sdt, int trangthai, String email) {
-        this.manv = manv;
+        this.manv = manv; 
         this.hoten = hoten;
         this.gioitinh = gioitinh;
         this.ngaysinh = ngaysinh;
