@@ -1,10 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DTO;
-
-import java.util.Objects;
 
 public class NhaCungCapDTO {
     private int mancc;
@@ -69,31 +63,6 @@ public class NhaCungCapDTO {
         this.sdt = sdt;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 3;
-//        hash = 67 * hash + this.mancc;
-//        hash = 67 * hash + Objects.hashCode(this.tenncc);
-//        hash = 67 * hash + Objects.hashCode(this.diachi);
-//        hash = 67 * hash + Objects.hashCode(this.email);
-//        hash = 67 * hash + Objects.hashCode(this.sdt);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final NhaCungCapDTO other = (NhaCungCapDTO) obj;
-//        return true;
-//    }
 
     @Override
     public String toString() {

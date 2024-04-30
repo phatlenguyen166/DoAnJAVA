@@ -48,11 +48,11 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
         pnlTop.setLayout(pnlTopLayout);
         pnlTopLayout.setHorizontalGroup(
             pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 995, Short.MAX_VALUE)
         );
         pnlTopLayout.setVerticalGroup(
             pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 120, Short.MAX_VALUE)
         );
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
@@ -64,11 +64,11 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 995, Short.MAX_VALUE)
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 265, Short.MAX_VALUE)
         );
 
         add(pnlCenter, java.awt.BorderLayout.CENTER);
@@ -93,11 +93,13 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
         pnlTableThongKe.setLayout(pnlTableThongKeLayout);
         pnlTableThongKeLayout.setHorizontalGroup(
             pnlTableThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
         );
         pnlTableThongKeLayout.setVerticalGroup(
             pnlTableThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addGroup(pnlTableThongKeLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         add(pnlTableThongKe, java.awt.BorderLayout.SOUTH);

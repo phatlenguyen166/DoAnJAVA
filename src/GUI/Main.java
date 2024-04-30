@@ -91,7 +91,7 @@ public final class Main extends javax.swing.JFrame {
         scrollPane.setBorder(null);
         menuTaskbar.add(scrollPane, java.awt.BorderLayout.CENTER);
         phanQuyen(this.taiKhoanDTO.getManhomquyen());
-        
+
         setThongTinNhanVien(this.taiKhoanDTO);
     }
 
@@ -677,6 +677,9 @@ public final class Main extends javax.swing.JFrame {
         mainContent.repaint();
     }
 
+    public void setPanel(Container container, JPanel panel) {
+        addTaskBar(container, panel);
+    }
     /**
      * @param args the command line arguments
      */

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI.NCCap;
 
 import BUS.NhaCungCapBUS;
@@ -17,16 +13,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author canhc
- */
+
 public class SuaNCCap extends javax.swing.JFrame {
 
     NhaCungCapDAO nhaCungCapDAO;
     NhaCungCapDTO nhaCungCapDTO;
     NhaCungCapBUS nhaCungCapBUS;
     int mancc;
+    NhaCungCap nhaCungCap;
     
     public SuaNCCap() {
         initComponents();
@@ -43,8 +37,9 @@ public class SuaNCCap extends javax.swing.JFrame {
         NhaCungCapDTO nhaCungCapDTO = new NhaCungCapDTO();
         LoadDuLieu(nhaCungCapDTO);
     }
-    public SuaNCCap(NhaCungCapDTO nhaCungCapDTO) {
+    public SuaNCCap(NhaCungCapDTO nhaCungCapDTO, NhaCungCap nhaCungCap) {
         initComponents();
+        this.nhaCungCap = nhaCungCap;
         lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -66,8 +61,6 @@ public class SuaNCCap extends javax.swing.JFrame {
         txtDiaChi.setText(String.valueOf(nhaCungCapDTO.getDiachi()));
         txtEmail.setText(String.valueOf(nhaCungCapDTO.getEmail()));
     } else {
-        // Xử lý trường hợp nhaCungCapDTO là null
-        // Ví dụ: Xóa dữ liệu trên giao diện hoặc hiển thị thông báo
         txtTenNCC.setText("");
         txtSoDt.setText("");
         txtDiaChi.setText("");
@@ -127,6 +120,7 @@ private boolean isValidEmail(String email) {
         boolean thanhCong = nhaCungCapBUS.suaNhaCungCap(nccNew);
         if (thanhCong) {
             JOptionPane.showMessageDialog(null, "Sửa nhà cung cấp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            nhaCungCap.hienThiListNhaCungCap();
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sửa nhà cung cấp thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -289,43 +283,6 @@ private boolean isValidEmail(String email) {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(SuaNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(SuaNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(SuaNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(SuaNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new SuaNCCap().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

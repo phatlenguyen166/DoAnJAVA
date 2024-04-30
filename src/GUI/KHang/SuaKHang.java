@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI.KHang;
+
 import BUS.KhachHangBUS;
 import DAO.KhachHangDAO;
 import DTO.KhachHangDTO;
@@ -12,14 +9,10 @@ import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Font;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-/**
- *
- * @author canhc
- */
+
 public class SuaKHang extends javax.swing.JFrame {
 
     KhachHangDAO khachHangDAO;
@@ -62,15 +55,12 @@ public class SuaKHang extends javax.swing.JFrame {
     }
     
     
-    private void LoadDuLieu(KhachHangDTO khachHangDTO) {
-//        System.err.println("LoadDuLieu() được gọi");   
+    private void LoadDuLieu(KhachHangDTO khachHangDTO) { 
     if (khachHangDTO != null) {
         txtTenKH.setText(String.valueOf(khachHangDTO.getHoten()));
         txtSoDT.setText(String.valueOf(khachHangDTO.getSdt()));
         txtDiaChi.setText(String.valueOf(khachHangDTO.getDiachi()));
     } else {
-        // Xử lý trường hợp khachHangDTO là null
-        // Ví dụ: Xóa dữ liệu trên giao diện hoặc hiển thị thông báo
         txtTenKH.setText("");
         txtSoDT.setText("");
         txtDiaChi.setText("");
@@ -101,10 +91,6 @@ public class SuaKHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-//        if (isDuplicateTenKH(tenKhachHang)) {
-//        JOptionPane.showMessageDialog(this, "Tên khách hàng đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
-//        return false;
-//    }
 
         return true;
     }
@@ -120,7 +106,7 @@ if (!isValidData()) {
         boolean thanhCong = khachHangBUS.suaKhachHang(khNew);
         if (thanhCong) {
             JOptionPane.showMessageDialog(null, "Sửa khách hàng thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            
+            kh.hienThiListKhachHang();
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sửa khách hàng thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -273,41 +259,6 @@ if (!isValidData()) {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(SuaKHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(SuaKHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(SuaKHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(SuaKHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new SuaKHang().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

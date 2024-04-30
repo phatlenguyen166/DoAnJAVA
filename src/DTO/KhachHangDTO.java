@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package DTO;
+    package DTO;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class KhachHangDTO {
 
@@ -77,30 +72,6 @@ public class KhachHangDTO {
         this.diachi = diachi;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 3;
-//        hash = 79 * hash + Objects.hashCode(this.maKH);
-//        hash = 79 * hash + Objects.hashCode(this.hoten);
-//        hash = 79 * hash + Objects.hashCode(this.sdt);
-//        hash = 79 * hash + Objects.hashCode(this.diachi);
-//        return hash;
-//    }
-//
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
-//        if (getClass() != obj.getClass()) {
-//            return false;
-//        }
-//        final KhachHangDTO other = (KhachHangDTO) obj;
-//        return true;
-//    }
 
     @Override
     public String toString() {

@@ -12,12 +12,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/BUS/ThongKeBUS.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeKhachHang.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/KHang/SuaKHang.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/KhachHangDAO.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/ThongKeDAO.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/testFrame.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/PhieuNhapDAO.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Panel/TaoPhieuNhap.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeDoanhThu.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Login.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/ThemSanPham.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/PhieuXuatDAO.java</file>
         </group>
     </open-files>
 </project-private>

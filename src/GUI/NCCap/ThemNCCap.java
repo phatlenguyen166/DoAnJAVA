@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI.NCCap;
 
 import BUS.NhaCungCapBUS;
@@ -12,41 +8,23 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 
-/**
- *
- * @author canhc
- */
+import javax.swing.JOptionPane;
+
 public class ThemNCCap extends javax.swing.JFrame {
 
-    private File selectedFile;
-    private Random randomGenerator = new Random();
     NhaCungCapDAO nhaCungCapDAO;
     NhaCungCapDTO nhaCungCapDTO;
     NhaCungCapBUS nhaCungCapBUS;
+    NhaCungCap nhaCungCap;
     
-    public ThemNCCap() {
+    public ThemNCCap(NhaCungCap nhaCungCap) {
         initComponents();
+        this.nhaCungCap = nhaCungCap;
         lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -129,6 +107,7 @@ public class ThemNCCap extends javax.swing.JFrame {
         boolean thanhCong = nhaCungCapBUS.themNhaCungCap(nccNew);
         if (thanhCong) {
             JOptionPane.showMessageDialog(null, "Thêm nhà cung cấp thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            nhaCungCap.hienThiListNhaCungCap();
             dispose();  
         } else {
             JOptionPane.showMessageDialog(this, "Thêm nhà cung cấp thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -285,49 +264,6 @@ public class ThemNCCap extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ThemNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ThemNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ThemNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ThemNCCap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        FlatRobotoFont.install();
-//        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-//        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-//        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-//        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-//        FlatIntelliJLaf.setup();
-//        new ThemNCCap().setVisible(true);
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

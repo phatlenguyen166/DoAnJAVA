@@ -1,16 +1,47 @@
 package GUI;
 
+import BUS.NhaCungCapBUS;
+import BUS.PhieuNhapBUS;
+import BUS.SanPhamBUS;
+import DAO.NhaCungCapDAO;
+import DAO.PhieuNhapDAO;
+import DTO.NhanVienDTO;
+import DTO.PhieuNhapDTO;
+import DTO.SanPhamDTO;
+import GUI.Component.LocTrongPhieuNhap;
+import GUI.Main;
+import GUI.PNhap.ChiTietPhieuNhap;
 import GUI.Panel.TaoPhieuNhap;
+import GUI.SPham.ChiTietSanPham;
+import GUI.SPham.SuaSanPham;
+import GUI.SPham.ThemSanPham;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Color.red;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,18 +52,43 @@ import javax.swing.JPanel;
  *
  * @author ADMIN
  */
-public class PhieuNhap extends javax.swing.JPanel {
-
+public class PhieuNhap extends javax.swing.JPanel implements ActionListener{
+    PhieuNhapBUS phieuNhapBUS = new PhieuNhapBUS();
+    PhieuNhapDAO phieuNhapDAO = new PhieuNhapDAO();
+    TaoPhieuNhap tpn = new TaoPhieuNhap();
+    NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
+    ChiTietPhieuNhap chiTietPhieuNhap = new ChiTietPhieuNhap();
+    LocTrongPhieuNhap locTrongPhieuNhap = new LocTrongPhieuNhap();
+    private NhaCungCapBUS nhaCungCapBUS;
+    private DefaultTableModel tblModel;
+    private TaoPhieuNhap taoPhieuNhap; 
+    private PhieuNhap phieuNhap;
+    ArrayList<PhieuNhapDTO> selectedPNproducts;
+    Main main;
+    
     public PhieuNhap() {
     initComponents();
-   
     addIcon();
     tblPhieuNhap.setFocusable(false);     
     tblPhieuNhap.setDefaultEditor(Object.class, null);
     tblPhieuNhap.getColumnModel().getColumn(1).setPreferredWidth(180);
     tblPhieuNhap.setFocusable(false);
     tblPhieuNhap.setAutoCreateRowSorter(true);
-}
+    taoPhieuNhap = new TaoPhieuNhap(); // Khởi tạo đối tượng TaoPhieuNhap
+    nhaCungCapBUS = new NhaCungCapBUS();
+    
+    btnChiTietPN.addActionListener(this); // Đăng ký bộ lắng nghe cho nút btnChiTietPN
+//    tblPhieuNhap.addActionListener(this);
+    
+    locTrongPhieuNhap.CBBNhaCungCap(comboboxNCC);
+    
+    // Khởi tạo tblModel
+    tblModel = (DefaultTableModel) tblPhieuNhap.getModel();
+    this.selectedPNproducts = phieuNhapBUS.getAllPhieuNhap();
+    loadDataTalbe(this.selectedPNproducts);
+//    tpn.updateInputTable(this.selectedPNproducts);
+
+}   
 
     
     private void addIcon(){
@@ -60,7 +116,7 @@ public class PhieuNhap extends javax.swing.JPanel {
         btnXuatExcelPN = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnTimKiem = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        pnlBottom = new javax.swing.JPanel();
         scpnlshow = new javax.swing.JScrollPane();
         tblPhieuNhap = new javax.swing.JTable();
         pnlLoc = new javax.swing.JPanel();
@@ -74,6 +130,8 @@ public class PhieuNhap extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         txtnhacungcap5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -126,7 +184,7 @@ public class PhieuNhap extends javax.swing.JPanel {
         });
         pnlTop.add(btnTimKiem);
 
-        mainContentPN.add(pnlTop, java.awt.BorderLayout.PAGE_START);
+        mainContentPN.add(pnlTop, java.awt.BorderLayout.NORTH);
 
         tblPhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,7 +194,7 @@ public class PhieuNhap extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã xuất phiếu", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền"
+                "STT", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền"
             }
         ));
         scpnlshow.setViewportView(tblPhieuNhap);
@@ -147,6 +205,11 @@ public class PhieuNhap extends javax.swing.JPanel {
         txtnhacungcap.setText("Nhân viên nhập");
 
         comboboxNCC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        comboboxNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboboxNCCActionPerformed(evt);
+            }
+        });
 
         txtnhacungcap1.setText("Đến số tiền (VND)");
 
@@ -180,7 +243,9 @@ public class PhieuNhap extends javax.swing.JPanel {
                                     .addComponent(comboboxNCC2, javax.swing.GroupLayout.Alignment.TRAILING, 0, 248, Short.MAX_VALUE))
                                 .addComponent(txtnhacungcap3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(txtnhacungcap4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         pnlLocLayout.setVerticalGroup(
@@ -196,9 +261,13 @@ public class PhieuNhap extends javax.swing.JPanel {
                 .addComponent(comboboxNCC2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,30 +275,30 @@ public class PhieuNhap extends javax.swing.JPanel {
                 .addComponent(txtnhacungcap1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBottomLayout = new javax.swing.GroupLayout(pnlBottom);
+        pnlBottom.setLayout(pnlBottomLayout);
+        pnlBottomLayout.setHorizontalGroup(
+            pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBottomLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scpnlshow, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlBottomLayout.setVerticalGroup(
+            pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBottomLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
                     .addComponent(scpnlshow))
                 .addContainerGap())
         );
 
-        mainContentPN.add(jPanel1, java.awt.BorderLayout.CENTER);
+        mainContentPN.add(pnlBottom, java.awt.BorderLayout.CENTER);
 
         add(mainContentPN, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -243,34 +312,175 @@ public class PhieuNhap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXuatExcelPNActionPerformed
 
     private void btnHuyPhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyPhieuActionPerformed
-        // TODO add your handling code here:
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn hủy phiếu nhập này?", "Xác nhận hủy", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+            DeletePhieuNhap();
+        }
     }//GEN-LAST:event_btnHuyPhieuActionPerformed
 
+    
+    // Thêm bộ lắng nghe cho combobox
+//    public void itemStateChanged(ItemEvent e) {
+//        if (e.getStateChange() == ItemEvent.SELECTED) {
+//            String selectedNcc = (String) comboboxNCC.getSelectedItem();
+//            if (!selectedNcc.equals("Tất cả")) {
+//                loadDataTalbe(phieuNhapBUS.filterNCC(selectedNcc)); // Lọc dữ liệu theo nhà cung cấp đã chọn
+//            } else {
+//                loadDataTalbe(phieuNhapBUS.getAllPhieuNhap()); // Hiển thị lại toàn bộ dữ liệu nếu chọn "Tất cả"
+//            }
+//        }
+//    }
+    
+    //HÀM HỦY PHIẾU NHẬP
+    public void DeletePhieuNhap(){
+        taoPhieuNhap = new TaoPhieuNhap();
+        
+        int selectedRow = tblPhieuNhap.getSelectedRow();
+        
+        if (selectedRow != -1) {
+            phieuNhapBUS = new PhieuNhapBUS(); // tạo mới cho thanhcong trong lệnh if này, nếu chỉ tạo 1 cái thì điều kiện xóa sẽ lỗi kết nối sql
+            int maspColumnIndex = taoPhieuNhap.getColumnIndexByName("Mã phiếu nhập", tblPhieuNhap);
+            int mapn = (int) tblPhieuNhap.getValueAt(selectedRow, maspColumnIndex);
+            boolean thanhcong = phieuNhapBUS.DeletePhieuNhap(mapn);
+            if(thanhcong){
+                phieuNhapBUS = new PhieuNhapBUS();
+                JOptionPane.showMessageDialog(null, "Xóa sản phẩm thành công");
+                selectedPNproducts = phieuNhapBUS.getAllPhieuNhap();
+                loadDataTalbe(selectedPNproducts);
+            }else {
+                JOptionPane.showMessageDialog(null, "Xóa sản phẩm lỗi");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phảm để xóa");
+        }
+        }
+        
     private void btnChiTietPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietPNActionPerformed
-        // TODO add your handling code here:
+        chiTietPhieuNhap = new ChiTietPhieuNhap();
+        
     }//GEN-LAST:event_btnChiTietPNActionPerformed
 
+    
     private void btnThemPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPNActionPerformed
+        // Ẩn các thành phần hiện tại
+        pnlBottom.setVisible(false);
         pnlLoc.setVisible(false);
         pnlTop.setVisible(false);
-        scpnlshow.setVisible(false);
         // Tạo một thể hiện của panel từ file java khác
         TaoPhieuNhap taoPhieuNhap = new TaoPhieuNhap();
-        //        mainContentPN.add(taoPhieuNhap, BorderLayout.CENTER);
-        mainContentPN.add(taoPhieuNhap); // Thêm panel vào mainContentPN
-        mainContentPN.revalidate(); // Cập nhật giao diện
-        mainContentPN.repaint(); // Vẽ lại giao diện để hiển thị panel mới
+        // Thêm taoPhieuNhap vào mainContentPN
+        mainContentPN.add(taoPhieuNhap);
+        mainContentPN.revalidate();
+        mainContentPN.repaint();
 
     }//GEN-LAST:event_btnThemPNActionPerformed
-    private void removepanel(Component component){
-    if (component != null) {
-        remove(component);
-        revalidate();
-        repaint();
+
+    private void comboboxNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxNCCActionPerformed
+        String selectedNcc = (String) comboboxNCC.getSelectedItem();
+        if (selectedNcc != null) { // Kiểm tra giá trị không null trước khi xử lý
+            if (!selectedNcc.equals("Tất cả")) {
+                System.out.println("list: " + phieuNhapBUS.filterNCC(selectedNcc));
+                loadDataTalbe(phieuNhapBUS.filterNCC(selectedNcc));
+            } else {
+                loadDataTalbe(phieuNhapBUS.getAllPhieuNhap());
+            }
+        }
+    }//GEN-LAST:event_comboboxNCCActionPerformed
+
+//Hàm hiển thị mảng phiếu nhập
+private void HienThiListPhieuNhap(ArrayList<PhieuNhapDTO> listPhieuNhap) {
+    DefaultTableModel model = (DefaultTableModel) tblPhieuNhap.getModel();
+    model.setRowCount(0);
+    for (PhieuNhapDTO pn : listPhieuNhap) {
+        Object[] row = {
+            pn.getManhacungcap(),
+            pn.getMaphieunhap(),
+            pn.getMaNV(),
+            pn.getThoigiantao(),
+            pn.getTongTien() 
+        };
+        model.addRow(row);
+    }
+
+    // Tạo renderer để hiển thị nội dung ở giữa ô
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+    // Áp dụng renderer cho từng cột trong bảng
+    for (int i = 0; i < tblPhieuNhap.getColumnCount(); i++) { // Sửa tblSanPham thành tblPhieuNhap
+        tblPhieuNhap.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
     }
 }
-    
+public void loadDataTalbe(ArrayList<PhieuNhapDTO> listphieunhap) {
+    tblModel.setRowCount(0); // Xóa tất cả các hàng trong bảng
+    int i = 1;
+    for (PhieuNhapDTO pn : listphieunhap) {
+        String TenNcc = nhaCungCapDAO.selectById(pn.getManhacungcap()).getTenncc();
+        DecimalFormat decimalFormat = new DecimalFormat("#,### đ"); // Khởi tạo một đối tượng DecimalFormat
+        Object[] rowData = {
+            i++,
+            pn.getMaphieunhap(),
+            TenNcc,       
+            pn.getMaNV(),          
+            pn.getThoigiantao(),
+            decimalFormat.format(pn.getTongTien())
+        };
+        tblModel.addRow(rowData); // Thêm hàng mới vào bảng
+    }
+    // Tạo renderer để căn giữa nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int j = 0; j < tblModel.getColumnCount(); j++) {
+            tblPhieuNhap.getColumnModel().getColumn(j).setCellRenderer(centerRenderer);
+        }
+}        
+        
+    private PhieuNhapDTO selectPhieuNhap() {
+    int selectedRow = tblPhieuNhap.getSelectedRow();
+    PhieuNhapDTO result = null;
+    if (selectedRow != -1) {
+        //int mapnColumnIndex = taoPhieuNhap.getColumnIndexByName("Mã xuất phiếu", tblPhieuNhap); // Sử dụng đối tượng taoPhieuNhap để gọi phương thức getColumnIndexByName
+        int mapn = (int) tblPhieuNhap.getValueAt(selectedRow, 1);
+        phieuNhapBUS = new PhieuNhapBUS();
+        result = phieuNhapBUS.selectByID(mapn);   
+    }
+    return result;
+}
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+    if (e.getSource() == btnChiTietPN) {
+        if (selectPhieuNhap() != null) {
+            //int mapn = selectedPhieuNhap.getMaphieunhap();
+            // Sử dụng mã phiếu nhập mapn ở đây theo nhu cầu của bạn
+            //JOptionPane.showMessageDialog(null, "Mã phiếu nhập: " + selectPhieuNhap().getMaphieunhap());
+            chiTietPhieuNhap = new ChiTietPhieuNhap(selectPhieuNhap());
+            chiTietPhieuNhap.setLocationRelativeTo(null);
+            chiTietPhieuNhap.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
+//            System.out.println(selectPhieuNhap());
+        }
+    } 
+//else if(e.getSource() == comboboxNCC){
+//        if(!comboboxNCC.getSelectedItem().equals("Tất cả")){
+//            phieuNhapBUS.filterNCC();
+//        }
+//    }
+}
+//    // Thêm bộ lắng nghe cho combobox
+//            if (comboboxNCC.getSelectedItem().equals("Tất cả")) {
+//                phieuNhapBUS.filterNCC();
+//            } else {
+//                // Hiển thị lại toàn bộ dữ liệu nếu chọn "Tất cả"
+//                phieuNhap.loadDataTalbe(phieuNhapBUS.getAllPhieuNhap());
+//            }
+
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTietPN;
@@ -278,18 +488,20 @@ public class PhieuNhap extends javax.swing.JPanel {
     private javax.swing.JButton btnThemPN;
     private javax.swing.JTextField btnTimKiem;
     private javax.swing.JButton btnXuatExcelPN;
-    private javax.swing.JComboBox<String> comboboxNCC;
+    public javax.swing.JComboBox<String> comboboxNCC;
     private javax.swing.JComboBox<String> comboboxNCC2;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel mainContentPN;
+    private javax.swing.JPanel pnlBottom;
     private javax.swing.JPanel pnlLoc;
     private javax.swing.JPanel pnlTop;
     private javax.swing.JScrollPane scpnlshow;
-    private javax.swing.JTable tblPhieuNhap;
+    public javax.swing.JTable tblPhieuNhap;
     private javax.swing.JLabel txtnhacungcap;
     private javax.swing.JLabel txtnhacungcap1;
     private javax.swing.JLabel txtnhacungcap2;

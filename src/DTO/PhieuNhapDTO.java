@@ -4,7 +4,8 @@
  */
 package DTO;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -14,13 +15,15 @@ public class PhieuNhapDTO {
     private int maphieunhap;
     private Timestamp thoigiantao;
     private int manhacungcap;
+    private int manv; //Them manv
     private long tongTien;
     private int trangthai;
 
-    public PhieuNhapDTO(int maphieunhap, Timestamp thoigiantao, int manhacungcap, long tongTien, int trangthai) {
+    public PhieuNhapDTO(int maphieunhap, Timestamp thoigiantao, int manhacungcap, int manv, long tongTien, int trangthai) {
         this.maphieunhap = maphieunhap;
         this.thoigiantao = thoigiantao;
         this.manhacungcap = manhacungcap;
+        this.manv = manv;
         this.tongTien = tongTien;
         this.trangthai = trangthai;
     }
@@ -38,6 +41,10 @@ public class PhieuNhapDTO {
 
     public int getManhacungcap() {
         return manhacungcap;
+    }
+    
+    public int getMaNV() {
+        return manv;
     }
 
     public long getTongTien() {
@@ -58,6 +65,10 @@ public class PhieuNhapDTO {
 
     public void setManhacungcap(int manhacungcap) {
         this.manhacungcap = manhacungcap;
+    }
+    
+    public void setMaNV(int manv) {
+        this.manv = manv;
     }
 
     public void setTongTien(long tongTien) {
@@ -94,7 +105,7 @@ public class PhieuNhapDTO {
 
     @Override
     public String toString() {
-        return "PhieuNhapDTO{" + "maphieunhap=" + maphieunhap + ", thoigiantao=" + thoigiantao + ", manhacungcap=" + manhacungcap + ", tongTien=" + tongTien + ", trangthai=" + trangthai + '}';
+        return "PhieuNhapDTO{" + "maphieunhap=" + maphieunhap + ", thoigiantao=" + thoigiantao + ", manhacungcap=" + manhacungcap + ", manv =" + manv + ", tongTien=" + tongTien + ", trangthai=" + trangthai + '}';
     }
 
     

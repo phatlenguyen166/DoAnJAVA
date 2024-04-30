@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,12 +21,10 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 
 public class KhachHang extends javax.swing.JPanel implements ActionListener{
 
-    DefaultTableModel tblModel;
     KhachHangBUS khachHangBUS = new KhachHangBUS();
     KhachHangDAO khachHangDAO = new KhachHangDAO();
     ThemKHang themKH;
@@ -49,7 +46,6 @@ public class KhachHang extends javax.swing.JPanel implements ActionListener{
         btnXoaKH.addActionListener(this);
         btnChiTietKH.addActionListener(this);
         btnXuatExcel1KH.addActionListener(this);
-        btnNhapExcelKH.addActionListener(this);
 
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(1200, 800));
@@ -64,7 +60,6 @@ public class KhachHang extends javax.swing.JPanel implements ActionListener{
             btnXoaKH.setIcon(new FlatSVGIcon("./icon/delete.svg"));
             btnChiTietKH.setIcon(new FlatSVGIcon("./icon/detail.svg"));
             btnXuatExcel1KH.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
-            btnNhapExcelKH.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
         }
 private void timKiemKhachHang(String keyword) {
     ArrayList<KhachHangDTO> ketQuaTimKiem = new ArrayList<>();
@@ -81,9 +76,10 @@ private void timKiemKhachHang(String keyword) {
     }
     hienThiListKhachHang(ketQuaTimKiem);
 }
-    private void hienThiListKhachHang(ArrayList<KhachHangDTO> listKhachHang) {
+    public void hienThiListKhachHang(ArrayList<KhachHangDTO> listKhachHang) {
         khachHangBUS = new KhachHangBUS();
         khachHangDAO = new KhachHangDAO();
+        listKhachHang = khachHangBUS.getAllKhachHang();
         DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
         model.setRowCount(0);
         for (KhachHangDTO khachHang : listKhachHang) {
@@ -105,7 +101,31 @@ private void timKiemKhachHang(String keyword) {
             tblKhachHang.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
+    public void hienThiListKhachHang() {
+        khachHangBUS = new KhachHangBUS();
+        khachHangDAO = new KhachHangDAO();
+        listKhachHang = khachHangBUS.getAllKhachHang();
+        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
+        model.setRowCount(0);
+        for (KhachHangDTO khachHang : listKhachHang) {
+            Object[] row = {
+                khachHang.getMaKH(),
+                khachHang.getHoten(),
+                khachHang.getDiachi(),
+                khachHang.getSdt(),
+                khachHang.getNgaythamgia(),};
+            model.addRow(row);
+        }
 
+//         Tạo renderer để hiển thị nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblKhachHang.getColumnCount(); i++) {
+            tblKhachHang.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -115,7 +135,6 @@ private void timKiemKhachHang(String keyword) {
         btnSuaKH = new javax.swing.JButton();
         btnXoaKH = new javax.swing.JButton();
         btnChiTietKH = new javax.swing.JButton();
-        btnNhapExcelKH = new javax.swing.JButton();
         btnXuatExcel1KH = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
@@ -209,26 +228,6 @@ private void timKiemKhachHang(String keyword) {
         });
         pnlTop.add(btnChiTietKH);
 
-        btnNhapExcelKH.setText("Nhập excel");
-        btnNhapExcelKH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNhapExcelKH.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNhapExcelKHMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNhapExcelKHMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNhapExcelKHMouseExited(evt);
-            }
-        });
-        btnNhapExcelKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhapExcelKHActionPerformed(evt);
-            }
-        });
-        pnlTop.add(btnNhapExcelKH);
-
         btnXuatExcel1KH.setText("Xuất excel");
         btnXuatExcel1KH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXuatExcel1KH.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,11 +318,6 @@ private void timKiemKhachHang(String keyword) {
     private void btnChiTietKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietKHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnChiTietKHActionPerformed
-
-    private void btnNhapExcelKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapExcelKHActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnNhapExcelKHActionPerformed
 
     private void btnXuatExcel1KHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcel1KHActionPerformed
         // TODO add your handling code here:
@@ -427,25 +421,6 @@ private void timKiemKhachHang(String keyword) {
         btnChiTietKH.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnChiTietKHMouseExited
 
-    private void btnNhapExcelKHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelKHMouseEntered
-        // TODO add your handling code here:
-        btnNhapExcelKH.setBackground(Color.GRAY);
-    }//GEN-LAST:event_btnNhapExcelKHMouseEntered
-
-    private void btnNhapExcelKHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelKHMouseExited
-        // TODO add your handling code here:
-        btnNhapExcelKH.setBackground(Color.WHITE);
-    }//GEN-LAST:event_btnNhapExcelKHMouseExited
-
-    private void btnNhapExcelKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelKHMouseClicked
-        // TODO add your handling code here:
-        if (!btnNhapExcelKH.isSelected()) {
-            btnNhapExcelKH.setBackground(Color.WHITE);
-        } else {
-            btnNhapExcelKH.setBackground(Color.BLUE);
-        }
-    }//GEN-LAST:event_btnNhapExcelKHMouseClicked
-
     private void btnXuatExcel1KHMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcel1KHMouseExited
         // TODO add your handling code here:
         btnXuatExcel1KH.setBackground(Color.WHITE);
@@ -499,7 +474,7 @@ private void timKiemKhachHang(String keyword) {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnThemKH) {
-            themKH = new ThemKHang();
+            themKH = new ThemKHang(this);
             themKH.setLocationRelativeTo(null);
             themKH.setVisible(true);
         } else if (e.getSource() == btnXoaKH) {
@@ -514,18 +489,6 @@ private void timKiemKhachHang(String keyword) {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng");
             }
         }
-//        else if (e.getSource() == btnNhapExcelKH) {
-//            NhapExcel nhapExcel = new NhapExcel();
-//            try {
-//                nhapExcel.importJTableFromExcel(tblKhachHang);
-//            } catch (IOException ex) {
-//                Logger.getLogger(KhachHang.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (InvalidFormatException ex) {
-//                Logger.getLogger(KhachHang.class.getName()).log(Level.SEVERE, null, ex);
-//            }       catch (SQLException ex) {
-//                        Logger.getLogger(KhachHang.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//}
         else if (e.getSource() == btnXuatExcel1KH) {
             XuatExcel xuatExcel = new XuatExcel();
             try {
@@ -549,7 +512,6 @@ private void timKiemKhachHang(String keyword) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTietKH;
     private javax.swing.JButton btnLamMoi;
-    private javax.swing.JButton btnNhapExcelKH;
     private javax.swing.JButton btnSuaKH;
     private javax.swing.JButton btnThemKH;
     private javax.swing.JButton btnXoaKH;

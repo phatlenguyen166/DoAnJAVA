@@ -1,10 +1,10 @@
 package BUS;
 
 import DAO.ThongKeDAO;
-//import DTO.ThongKe.ThongKeDoanhThuDTO;
+import DTO.ThongKe.ThongKeDoanhThuDTO;
 import DTO.ThongKe.ThongKeKhachHangDTO;
 //import DTO.ThongKe.ThongKeNhaCungCapDTO;
-//import DTO.ThongKe.ThongKeTheoThangDTO;
+import DTO.ThongKe.ThongKeTheoThangDTO;
 //import DTO.ThongKe.ThongKeTonKhoDTO;
 //import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  *
- * @author Tran Nhat Sinh
+ * @author 
  */
 public class ThongKeBUS {
 
@@ -24,5 +24,12 @@ public class ThongKeBUS {
 
     public ArrayList<ThongKeKhachHangDTO> locKhachHang(String text, Date start, Date end) {
         return thongkeDAO.getThongKeKhachHang(text, start, end);
+    }
+        public ArrayList<ThongKeDoanhThuDTO> getDoanhThuTheoTungNam(int year_start, int year_end) {
+        return this.thongkeDAO.getDoanhThuTheoTungNam(year_start, year_end);
+    }
+    
+    public ArrayList<ThongKeTheoThangDTO> getThongKeTheoThang(int nam){
+        return thongkeDAO.getThongKeTheoThang(nam);
     }
 }

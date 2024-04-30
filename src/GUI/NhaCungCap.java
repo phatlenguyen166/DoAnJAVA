@@ -21,30 +21,11 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-import javax.swing.JFileChooser;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 
-/**
- *
- * @author ADMIN
- */
+
 public class NhaCungCap extends javax.swing.JPanel implements ActionListener{
 
-    DefaultTableModel tblModel;
     NhaCungCapBUS nhaCungCapBUS = new NhaCungCapBUS();
     NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
     ThemNCCap themNCC;
@@ -78,7 +59,6 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener{
             btnSuaNhaCC.setIcon(new FlatSVGIcon("./icon/edit.svg"));
             btnXoaNhaCC.setIcon(new FlatSVGIcon("./icon/delete.svg"));
             btnChiTietNCC.setIcon(new FlatSVGIcon("./icon/detail.svg"));
-            btnNhapExcelNCC.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
             btnXuatExcelNCC.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
 
         }
@@ -98,9 +78,35 @@ private void timKiemNhaCungCap(String keyword) {
     hienThiListNhaCungCap(ketQuaTimKiem);
 }
 
-    private void hienThiListNhaCungCap(ArrayList<NhaCungCapDTO> listNhaCungCap) {
+    public void hienThiListNhaCungCap(ArrayList<NhaCungCapDTO> listNhaCungCap) {
         nhaCungCapBUS = new NhaCungCapBUS();
         nhaCungCapDAO = new NhaCungCapDAO();
+        DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
+        model.setRowCount(0);
+        for (NhaCungCapDTO nhaCungCap : listNhaCungCap) {
+            Object[] row = {
+                nhaCungCap.getMancc(),
+                nhaCungCap.getTenncc(),
+                nhaCungCap.getDiachi(),
+                nhaCungCap.getEmail(),
+                nhaCungCap.getSdt(),
+            };
+            model.addRow(row);
+        }
+
+//         Tạo renderer để hiển thị nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblNhaCC.getColumnCount(); i++) {
+            tblNhaCC.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+    public void hienThiListNhaCungCap() {
+        nhaCungCapBUS = new NhaCungCapBUS();
+        nhaCungCapDAO = new NhaCungCapDAO();
+        listNhaCungCap = nhaCungCapBUS.getAllNhaCungCap();
         DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
         model.setRowCount(0);
         for (NhaCungCapDTO nhaCungCap : listNhaCungCap) {
@@ -137,7 +143,6 @@ private void timKiemNhaCungCap(String keyword) {
         btnSuaNhaCC = new javax.swing.JButton();
         btnXoaNhaCC = new javax.swing.JButton();
         btnChiTietNCC = new javax.swing.JButton();
-        btnNhapExcelNCC = new javax.swing.JButton();
         btnXuatExcelNCC = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
@@ -232,26 +237,6 @@ private void timKiemNhaCungCap(String keyword) {
         });
         pnlTop.add(btnChiTietNCC);
 
-        btnNhapExcelNCC.setText("Nhập excel");
-        btnNhapExcelNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNhapExcelNCC.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNhapExcelNCCMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNhapExcelNCCMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNhapExcelNCCMouseExited(evt);
-            }
-        });
-        btnNhapExcelNCC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhapExcelNCCActionPerformed(evt);
-            }
-        });
-        pnlTop.add(btnNhapExcelNCC);
-
         btnXuatExcelNCC.setText("Xuất excel");
         btnXuatExcelNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXuatExcelNCC.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,10 +321,6 @@ private void timKiemNhaCungCap(String keyword) {
     private void btnXoaNhaCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNhaCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaNhaCCActionPerformed
-
-    private void btnNhapExcelNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapExcelNCCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNhapExcelNCCActionPerformed
 
     private void btnXuatExcelNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelNCCActionPerformed
         // TODO add your handling code here:
@@ -448,25 +429,6 @@ private void timKiemNhaCungCap(String keyword) {
         btnChiTietNCC.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnChiTietNCCMouseExited
 
-    private void btnNhapExcelNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelNCCMouseClicked
-        // TODO add your handling code here:
-        if (!btnNhapExcelNCC.isSelected()) {
-            btnNhapExcelNCC.setBackground(Color.WHITE);
-        } else {
-            btnNhapExcelNCC.setBackground(Color.BLUE);
-        }
-    }//GEN-LAST:event_btnNhapExcelNCCMouseClicked
-
-    private void btnNhapExcelNCCMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelNCCMouseEntered
-        // TODO add your handling code here:
-        btnNhapExcelNCC.setBackground(Color.GRAY);
-    }//GEN-LAST:event_btnNhapExcelNCCMouseEntered
-
-    private void btnNhapExcelNCCMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNhapExcelNCCMouseExited
-        // TODO add your handling code here:
-        btnNhapExcelNCC.setBackground(Color.WHITE);
-    }//GEN-LAST:event_btnNhapExcelNCCMouseExited
-
     private void btnXuatExcelNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatExcelNCCMouseClicked
         // TODO add your handling code here:
         if (!btnXuatExcelNCC.isSelected()) {
@@ -520,32 +482,20 @@ private void xoaNhaCungCap() {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnThemNhaCC) {
-            themNCC = new ThemNCCap();
+            themNCC = new ThemNCCap(this);
             themNCC.setLocationRelativeTo(null);
             themNCC.setVisible(true);
         } else if (e.getSource() == btnXoaNhaCC) {
             xoaNhaCungCap();
         } else if (e.getSource() == btnSuaNhaCC) {
             if (selectNhaCungCap()!= null) {
-                suaNCC = new SuaNCCap(selectNhaCungCap());
+                suaNCC = new SuaNCCap(selectNhaCungCap(), this);
                 suaNCC.setLocationRelativeTo(null);
                 suaNCC.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
         }
-//        else if (e.getSource() == btnNhapExcelNCC) {
-//            NhapExcel nhapExcel = new NhapExcel();
-//            try {
-//                nhapExcel.importJTableFromExcel(tblNhaCC);
-//            } catch (IOException ex) {
-//                Logger.getLogger(NhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (InvalidFormatException ex) {
-//                Logger.getLogger(NhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
-//            }       catch (SQLException ex) {
-//                        Logger.getLogger(NhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//}
         else if (e.getSource() == btnXuatExcelNCC) {
             XuatExcel xuatExcel = new XuatExcel();
             try {
@@ -569,7 +519,6 @@ private void xoaNhaCungCap() {
     private javax.swing.JScrollPane asd;
     private javax.swing.JButton btnChiTietNCC;
     private javax.swing.JButton btnLammoi;
-    private javax.swing.JButton btnNhapExcelNCC;
     private javax.swing.JButton btnSuaNhaCC;
     private javax.swing.JButton btnThemNhaCC;
     private javax.swing.JButton btnXoaNhaCC;

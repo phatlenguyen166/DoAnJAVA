@@ -105,7 +105,7 @@ public class ThemSanPham extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Selected file is not a valid image.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Error reading image file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               
             }
         }
     }
@@ -145,6 +145,10 @@ public class ThemSanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập tên sản phẩm");
         } else if (!isInteger(txtSizeSP.getText()) || Integer.parseInt(txtSizeSP.getText()) < 0) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập size hợp lệ");
+        } else if (!isInteger(txtGiaNhap.getText())) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập giá nhập là số");
+        } else if (!isInteger(txtGiaXuat.getText())) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập giá xuất là số");
         }
 
         String hinhAnh = selectedFile.getPath();
@@ -182,7 +186,7 @@ public class ThemSanPham extends javax.swing.JFrame {
 
             // Kiểm tra xem việc thêm sản phẩm đã thành công hay không
             if (thanhCong) {
-                
+
                 JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 sp.hienThiListSanPham();
                 dispose();

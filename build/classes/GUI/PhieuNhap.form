@@ -45,7 +45,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="First"/>
+              <BorderConstraints direction="North"/>
             </Constraint>
           </Constraints>
 
@@ -100,7 +100,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="pnlBottom">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>
@@ -141,7 +141,7 @@
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="4">
                         <Column editable="true" title="STT" type="java.lang.Object"/>
-                        <Column editable="true" title="M&#xe3; xu&#x1ea5;t phi&#x1ebf;u" type="java.lang.Object"/>
+                        <Column editable="true" title="M&#xe3; phi&#x1ebf;u nh&#x1ead;p" type="java.lang.Object"/>
                         <Column editable="true" title="Nh&#xe0; cung c&#x1ea5;p" type="java.lang.Object"/>
                         <Column editable="true" title="Nh&#xe2;n vi&#xea;n nh&#x1ead;p" type="java.lang.Object"/>
                         <Column editable="true" title="Th&#x1edd;i gian" type="java.lang.Object"/>
@@ -186,6 +186,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -202,7 +205,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="jTextField2" max="32767" attributes="0"/>
@@ -223,6 +226,8 @@
                                   <Component id="txtnhacungcap4" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   <Component id="txtnhacungcap5" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="jDateChooser1" max="32767" attributes="0"/>
+                              <Component id="jDateChooser2" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
@@ -241,9 +246,13 @@
                           <Component id="comboboxNCC2" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap2" min="-2" pref="24" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jDateChooser1" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap3" min="-2" pref="24" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jDateChooser2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap5" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jTextField2" min="-2" pref="30" max="-2" attributes="0"/>
@@ -251,7 +260,7 @@
                           <Component id="txtnhacungcap1" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jTextField1" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="192" max="32767" attributes="0"/>
+                          <EmptySpace pref="184" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -270,8 +279,12 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboboxNCCActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtnhacungcap1">
@@ -314,6 +327,10 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField2">
+                </Component>
+                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                </Component>
+                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
                 </Component>
               </SubComponents>
             </Container>

@@ -6,10 +6,6 @@ import java.util.ArrayList;
         
 
 
-/**
- *
- * @author ADMIN
- */
 public class NhaCungCapBUS {
     NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
     public NhaCungCapBUS() {
