@@ -139,22 +139,27 @@ public class ChonKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnchonkhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnchonkhachhangActionPerformed
+        themKhachHang();
+    }//GEN-LAST:event_btnchonkhachhangActionPerformed
+    
+    public int themKhachHang(){
         KhachHangDTO selectedKhachHang = SelectKhachHang();
+        int maKh = -1;
         if (selectedKhachHang == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn khách hàng!", "Chưa chọn khách hàng", JOptionPane.WARNING_MESSAGE);
-        } else {
-            taoPhieuXuat.setKhachHang(selectedKhachHang.getMaKH());
-            JOptionPane.showMessageDialog(this, taoPhieuXuat.txtkhachhang.getText());
+        } else {            
             // Đóng dialog chứa panel
+            maKh = selectedKhachHang.getMaKH();
             Window window = SwingUtilities.getWindowAncestor(this); // Lấy ra cửa sổ chứa panel
             if (window instanceof JDialog) {
                 JDialog dialog = (JDialog) window;
                 dialog.dispose(); // Đóng dialog
             }
         }
-    }//GEN-LAST:event_btnchonkhachhangActionPerformed
-
-    //HÀM LẤY RA KHÁCH HÀNG KHI CLICK VÀO KHÁCH HÀNG TRONG BẢNG 
+        return maKh;
+    }
+    
+//HÀM LẤY RA KHÁCH HÀNG KHI CLICK VÀO KHÁCH HÀNG TRONG BẢNG 
     public KhachHangDTO SelectKhachHang(){
         int SelectedRow = tblkhachhang.getSelectedRow();
         KhachHangDTO result = null;

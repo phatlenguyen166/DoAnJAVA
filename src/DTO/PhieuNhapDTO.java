@@ -6,6 +6,7 @@ package DTO;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.sql.Date;
 
 /**
  *
@@ -13,7 +14,8 @@ import java.time.LocalDateTime;
  */
 public class PhieuNhapDTO {
     private int maphieunhap;
-    private Timestamp thoigiantao;
+    //private Timestamp thoigiantao;
+     private Timestamp thoigiantao;
     private int manhacungcap;
     private int manv; //Them manv
     private long tongTien;

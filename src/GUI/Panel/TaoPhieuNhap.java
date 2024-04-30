@@ -4,11 +4,8 @@
  */
 package GUI.Panel;
 import javax.swing.*;
-import config.MySQLConnection;
-import java.sql.PreparedStatement;
 import BUS.SanPhamPhieuNhapBUS;
 import BUS.NhaCungCapBUS;
-import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DAO.ChiTietPhieuNhapDAO;
 import DAO.LoaiDAO;
@@ -24,24 +21,22 @@ import DTO.SanPhamDTO;
 import GUI.Component.BuildTable;
 import GUI.Main;
 import GUI.PhieuNhap;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.ResultSet;
-import com.mysql.jdbc.StringUtils;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.TextField;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextField;
 import java.text.DecimalFormat;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author this pc
@@ -88,6 +83,8 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
         txtmaphieunhap.setEditable(false);
         txtmasanpham.setEditable(false);
         txttensanpham.setEditable(false);
+        txtgianhap.setEditable(false);
+        txtnhanviennhap.setEditable(false);
         CBBNhaCungCap(cbbnhacc);
         
         tblsoluongsanpham.setDefaultEditor(Object.class, null);
@@ -103,9 +100,21 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
         
         tblsoluongsanpham.addMouseListener(this);
         tblthongtinspdathem.addMouseListener(this);
+        
+        txtsearch.putClientProperty("JTextField.placeholderText", "Tên sản phẩm, mã sản phẩm...");
+        txtsearch.putClientProperty("JTextField.showClearButton", true);
+        txtsearch.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
+        txtsearch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sanPhamBUS = new SanPhamBUS();
+                ArrayList<SanPhamDTO> rs = sanPhamBUS.search(txtsearch.getText());
+                buildTable.updateTableProducts(tblsoluongsanpham, rs);
+            }
+        });
     }
 
-    
+        
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -291,7 +300,7 @@ public SanPhamDTO selectSanPham(int masp) {
 
         containerpanel = new javax.swing.JPanel();
         leftcontent = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtsearch = new javax.swing.JTextField();
         btnthem = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblsoluongsanpham = new javax.swing.JTable();
@@ -311,7 +320,7 @@ public SanPhamDTO selectSanPham(int masp) {
         jPanel1 = new javax.swing.JPanel();
         txtmaphieunhap = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txtnhanviennhap = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         cbbnhacc = new javax.swing.JComboBox<>();
@@ -468,7 +477,7 @@ public SanPhamDTO selectSanPham(int masp) {
                         .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(leftcontentLayout.createSequentialGroup()
                                 .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                                    .addComponent(txtsearch, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(leftcontentLayout.createSequentialGroup()
@@ -485,7 +494,7 @@ public SanPhamDTO selectSanPham(int masp) {
                 .addContainerGap()
                 .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(leftcontentLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -542,7 +551,7 @@ public SanPhamDTO selectSanPham(int masp) {
                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtmaphieunhap)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField11)
+                            .addComponent(txtnhanviennhap)
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbbnhacc, 0, 287, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -560,7 +569,7 @@ public SanPhamDTO selectSanPham(int masp) {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtnhanviennhap, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -607,7 +616,6 @@ public SanPhamDTO selectSanPham(int masp) {
     }//GEN-LAST:event_btnnhaphangActionPerformed
 
     
-    // Phương thức tạo phiếu nhập
 private boolean createPhieuNhap() {
     try {
         String tenncc = (String) cbbnhacc.getSelectedItem();
@@ -618,20 +626,50 @@ private boolean createPhieuNhap() {
         long tongtien = 0;
         String tongtienStr = txttongtien.getText().replaceAll("[.,đ]", "").trim();
         tongtien = Long.parseLong(tongtienStr);
+        
+        //long now = System.currentTimeMillis();
+////        Timestamp currentTime = new Timestamp(now);
+//        Date currentTime = new Date(now);
+//        
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        String formattedDateTime = dateFormat.format(currentTime);
+//        Date parsedDate = dateFormat.parse(formattedDateTime);
+//        java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+//        String formattedDateTime = dateFormat.format(currentTime);
+//        System.out.println("Ngày giờ hiện tại: " + formattedDateTime);
+//        // Chuyển đổi chuỗi đã định dạng thành đối tượng Date
+//        Date parsedDate = null;
+//        try {
+//            parsedDate = (Date) dateFormat.parse(formattedDateTime);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        // Tạo đối tượng java.sql.Date từ chuỗi đã định dạng
+//        java.util.Date parsedDate = dateFormat.parse(formattedDateTime);
+//        System.out.println("Ngày giờ hiện tại: " + parsedDate);
+//        //java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+//        //System.out.println("Ngày giờ hiện tại: " + sqlDate);
+        // Chuyển đổi chuỗi đã định dạng thành Timestamp
+        //java.util.Date parsedDate = dateFormat.parse(formattedDateTime);
+//        System.out.println("Ngày giờ hiện tại: " + parsedDate);
+//        Timestamp timestamp = new Timestamp(parsedDate.getTime());
+//        System.out.println("Ngày giờ hiện tại: " + timestamp);
         long now = System.currentTimeMillis();
-        Timestamp currentTime = new Timestamp(now);
-
-        PhieuNhapDTO pn = new PhieuNhapDTO(maphieunhap, currentTime, mancc, manv, tongtien, 1);
+        Timestamp timestamp = new Timestamp(now);
+        
+        PhieuNhapDTO pn = new PhieuNhapDTO(maphieunhap, timestamp, mancc, manv, tongtien, 1);
+        
         phieuNhapDAO = new PhieuNhapDAO();
         phieuNhapDAO.insertPhieuNhap(pn, now);
         addChiTietPhieuNhapToDatabase();
         JOptionPane.showMessageDialog(null, "Tạo phiếu nhập thành công");
         return true;
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(null, "Lỗi khi tạo phiếu nhập: " + ex.getMessage());
+    } catch (Exception ex) {
+        ex.printStackTrace();
         return false;
     }
 }
+
 
 //    public boolean ShowTableProducts_AfterClickNhapHang() {
 //        String tenncc = (String) cbbnhacc.getSelectedItem();
@@ -762,6 +800,10 @@ private void addChiTietPhieuNhapToDatabase() {
         if (selectedRow != -1) {
             model.removeRow(selectedRow);
             updateTotalPrice();
+            txtmasanpham.setText("");
+            txtsoluong.setText("");
+            txttensanpham.setText("");
+            txtgianhap.setText("");
         }
     }//GEN-LAST:event_btnxoasanphamActionPerformed
 
@@ -884,14 +926,14 @@ public void CBBNhaCungCap(JComboBox<String> comboBox) {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JPanel leftcontent;
     private javax.swing.JTable tblsoluongsanpham;
     private javax.swing.JTable tblthongtinspdathem;
     private javax.swing.JTextField txtgianhap;
     private javax.swing.JTextField txtmaphieunhap;
     public javax.swing.JTextField txtmasanpham;
+    private javax.swing.JTextField txtnhanviennhap;
+    private javax.swing.JTextField txtsearch;
     private javax.swing.JTextField txtsoluong;
     private javax.swing.JTextField txttensanpham;
     private javax.swing.JLabel txttongtien;

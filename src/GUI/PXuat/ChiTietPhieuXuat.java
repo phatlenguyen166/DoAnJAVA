@@ -117,7 +117,7 @@ public class ChiTietPhieuXuat extends javax.swing.JFrame {
                 XuatXu,
                 TenLoai,
                 TenThuongHieu,
-                decimalFormat.format(product.getGianhap()), // Định dạng giá nhập
+                decimalFormat.format(product.getGiaxuat()), // Định dạng giá nhập
                 soluong
             });
         // Tạo renderer để hiển thị nội dung ở giữa ô

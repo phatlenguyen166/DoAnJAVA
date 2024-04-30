@@ -13,17 +13,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author this pc
  */
 public class ChiTietPhieuNhapDAO {
+
     Connection connection;
     PreparedStatement ps;
+
     public ChiTietPhieuNhapDAO() {
-        
+
     }
-    
+
     public void insert(ArrayList<ChiTietPhieuNhapDTO> chiTietPhieuNhapList) {
         connection = MySQLConnection.getConnection();
         String sql = "INSERT INTO `ctphieunhap`(`maphieunhap`, `masp`, `soluong`, `dongia`) VALUES (?,?,?,?)";
@@ -44,34 +47,33 @@ public class ChiTietPhieuNhapDAO {
             JOptionPane.showMessageDialog(null, "Lỗi SQL");
         }
     }
-    
-    public void updateSoluongton(int masp, int soluong){
+
+    public void updateSoluongton(int masp, int soluong) {
         SanPhamDTO sanpham = new SanPhamDTO();
         int soluongton = sanpham.getSoluongton() + soluong;
-    try {
-        connection = MySQLConnection.getConnection();
-        String sql = "UPDATE sanpham SET soluongton = soluongton + ? WHERE masp = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)){
+        try {
+            connection = MySQLConnection.getConnection();
+            String sql = "UPDATE sanpham SET soluongton = soluongton + ? WHERE masp = ?";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setInt(1, soluongton);
                 ps.setInt(2, masp);
                 System.out.println("check");
                 System.out.println(masp);
                 System.out.println(soluongton);
                 ps.executeUpdate(); // Thực hiện cập nhật
+            }
+            // MySQLConnection.closeConnection(connection);
+            //System.out.println(chiTiet);
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ
+            e.printStackTrace();
         }
-       // MySQLConnection.closeConnection(connection);
-        //System.out.println(chiTiet);
-    } catch (SQLException e) {
-        // Xử lý ngoại lệ
-        e.printStackTrace();
     }
-}
 
-    
-    public  ArrayList<ChiTietPhieuNhapDTO> selectAll(String t) {
+    public ArrayList<ChiTietPhieuNhapDTO> selectAll(String t) {
         ArrayList<ChiTietPhieuNhapDTO> result = new ArrayList<>();
         String sql = "SELECT * FROM ctphieunhap WHERE maphieunhap = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)){
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, t);
             ResultSet rs = (ResultSet) ps.executeQuery();
             while (rs.next()) {
@@ -89,8 +91,8 @@ public class ChiTietPhieuNhapDAO {
         }
         return result;
     }
-    
-    public ChiTietPhieuNhapDTO selectByID(int mapn){
+
+    public ChiTietPhieuNhapDTO selectByID(int mapn) {
         ChiTietPhieuNhapDTO result = null;
         try {
             connection = MySQLConnection.getConnection();
@@ -110,7 +112,7 @@ public class ChiTietPhieuNhapDAO {
         }
         return result;
     }
-    
+
     public ArrayList<ChiTietPhieuNhapDTO> getAllChiTietPhieuNhap(int mapn) {
         ArrayList<ChiTietPhieuNhapDTO> result = new ArrayList<>();
         connection = MySQLConnection.getConnection(); // Lấy kết nối từ lớp MySQLConnection
@@ -135,9 +137,5 @@ public class ChiTietPhieuNhapDAO {
         }
         return result;
     }
-
-    
-    
-
 
 }

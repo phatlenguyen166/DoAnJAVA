@@ -5,7 +5,6 @@
 package GUI.ThongKeHeThong;
 
 import BUS.ThongKeBUS;
-import DAO.ThongKeDAO;
 import DTO.ThongKe.ThongKeKhachHangDTO;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
@@ -19,7 +18,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

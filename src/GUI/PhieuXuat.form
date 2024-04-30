@@ -84,14 +84,14 @@
                 <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="btnTimKiem">
+            <Component class="javax.swing.JTextField" name="txtTimKiem">
               <Properties>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[200, 30]"/>
+                  <Dimension value="[300, 30]"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimKiemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKiemActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -110,7 +110,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pnlLoc" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scpnltable" pref="925" max="32767" attributes="0"/>
+                      <Component id="scpnltable" pref="919" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -170,13 +171,13 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jTextField2" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtminprice" alignment="1" max="32767" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jTextField1" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="txtmaxprice" alignment="1" max="32767" attributes="0"/>
                                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="comboboxNCC" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="comboboxKH" alignment="1" max="32767" attributes="0"/>
                                               <Component id="txtnhacungcap" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                               <Component id="txtnhacungcap2" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                               <Component id="txtnhacungcap1" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
@@ -188,8 +189,8 @@
                                   <Component id="txtnhacungcap4" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                   <Component id="txtnhacungcap5" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jDateChooser1" max="32767" attributes="0"/>
-                              <Component id="jDateChooser2" max="32767" attributes="0"/>
+                              <Component id="datengaybatdau" max="32767" attributes="0"/>
+                              <Component id="datengayketthuc" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
@@ -201,7 +202,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtnhacungcap4" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="comboboxNCC" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="comboboxKH" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -209,19 +210,19 @@
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap2" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jDateChooser1" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="datengaybatdau" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap3" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jDateChooser2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="datengayketthuc" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap5" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtminprice" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap1" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtmaxprice" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace pref="171" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -233,7 +234,7 @@
                     <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n xu&#x1ea5;t"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboboxNCC">
+                <Component class="javax.swing.JComboBox" name="comboboxKH">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
@@ -277,18 +278,18 @@
                     <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="txtmaxprice">
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtnhacungcap5">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="T&#x1eeb; s&#x1ed1; ti&#x1ec1;n (VND)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="txtminprice">
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                <Component class="com.toedter.calendar.JDateChooser" name="datengaybatdau">
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+                <Component class="com.toedter.calendar.JDateChooser" name="datengayketthuc">
                 </Component>
               </SubComponents>
             </Container>

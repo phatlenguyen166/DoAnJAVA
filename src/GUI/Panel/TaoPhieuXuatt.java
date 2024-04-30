@@ -25,9 +25,11 @@ import GUI.Main;
 import GUI.PhieuNhap;
 import GUI.PXuat.ChonKhachHang;
 import GUI.PhieuXuat;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
@@ -61,9 +63,9 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
     ChiTietPhieuXuatDTO chiTietPhieuXuatDTO;
     PhieuNhap phieuNhap;
     PhieuXuat phieuXuat;
-    ChonKhachHang chonKhachHang;
     KhachHangDTO khachHang;
     KhachHangBUS khachHangBUS;
+    ChonKhachHang chonKhachHang;
     Main main;
     
     private ArrayList<SanPhamDTO> selectedProducts = new ArrayList<>();
@@ -73,6 +75,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
     
     long totalPrice = 0;
     int rowNum = 1;
+    int maKH = -1;
     public TaoPhieuXuatt() {
         initComponents();
         btnsuasanpham.setVisible(false);
@@ -95,7 +98,8 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         txtnhanvienxuat.setEditable(false);
         txtmasanphampx.setEditable(false);
         txtsoluongton.setEditable(false);
-
+        txtgiaxuat.setEditable(false);
+        
         tblsoluongsanpham.setDefaultEditor(Object.class, null);
         tblsoluongsanpham.setFocusable(false);
         tblthongtinspdathempx.setDefaultEditor(Object.class, null);
@@ -105,6 +109,19 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         btnxuathang.addActionListener(this);
         tblsoluongsanpham.addMouseListener(this);
         tblthongtinspdathempx.addMouseListener(this);
+        
+        txttimkiem.putClientProperty("JTextField.placeholderText", "Tên sản phẩm, mã sản phẩm...");
+        txttimkiem.putClientProperty("JTextField.showClearButton", true);
+        txttimkiem.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
+        txttimkiem.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sanPhamBUS = new SanPhamBUS();
+                ArrayList<SanPhamDTO> rs = sanPhamBUS.search(txttimkiem.getText());
+                buildTable.updateTableProducts(tblsoluongsanpham, rs);
+            }
+        });
+        
     }
 
     @Override
@@ -160,7 +177,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                 txtmasanphampx.setText(String.valueOf(result.getMasp()));
                 txtsoluong.setText(String.valueOf(soluongcheck));
                 txttensanpham.setText(result.getTensp());
-                txtgiaxuat.setText(String.valueOf(result.getGianhap()).replaceAll("[.,đ]", "").trim());
+                txtgiaxuat.setText(String.valueOf(result.getGiaxuat()).replaceAll("[.,đ]", "").trim());
                 txtsoluongton.setText(String.valueOf(result.getSoluongton()));
                 btnthem.setVisible(false);
                 btnsuasanpham.setVisible(true);
@@ -214,11 +231,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
 
         containerpanel = new javax.swing.JPanel();
         leftcontent = new javax.swing.JPanel();
-        txttimkiem = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         btnthem = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblsoluongsanpham = new javax.swing.JTable();
         containernhap = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -234,6 +247,9 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         btnxoasanpham = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblthongtinspdathempx = new javax.swing.JTable();
+        txttimkiem = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblsoluongsanpham = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         txtmaphieuxuat = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -251,10 +267,6 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         containerpanel.setBackground(new java.awt.Color(255, 255, 255));
         containerpanel.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Nhập Excel");
-
         btnthem.setBackground(new java.awt.Color(0, 153, 255));
         btnthem.setForeground(new java.awt.Color(255, 255, 255));
         btnthem.setText("Thêm sản phẩm");
@@ -264,32 +276,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
             }
         });
 
-        tblsoluongsanpham.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Mã SP", "Tên sản phẩm", "Số lượng tồn", "Size"
-            }
-        ));
-        tblsoluongsanpham.setFocusTraversalPolicyProvider(true);
-        tblsoluongsanpham.setRequestFocusEnabled(false);
-        tblsoluongsanpham.setRowHeight(40);
-        jScrollPane3.setViewportView(tblsoluongsanpham);
+        containernhap.setPreferredSize(new java.awt.Dimension(447, 385));
 
         jLabel1.setText("Mã sản phẩm");
 
@@ -375,7 +362,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                         .addComponent(btnsuasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnxoasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))))
+                        .addGap(44, 44, 44))))
         );
         containernhapLayout.setVerticalGroup(
             containernhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,11 +386,11 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                     .addComponent(txtgiaxuat, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtsoluongton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtsoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(208, 208, 208)
+                .addGap(167, 167, 167)
                 .addGroup(containernhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsuasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnxoasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
 
         tblthongtinspdathempx.setModel(new javax.swing.table.DefaultTableModel(
@@ -411,11 +398,24 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
 
             },
             new String [] {
-                "STT", "Mã SP", "Tên sản phẩm", "Size", "Xuất xứ", "Loại", "Thương hiệu", "Giá nhập", "Số lượng"
+                "STT", "Mã SP", "Tên sản phẩm", "Size", "Xuất xứ", "Loại", "Thương hiệu", "Giá xuất", "Số lượng"
             }
         ));
         tblthongtinspdathempx.setRowHeight(30);
         jScrollPane2.setViewportView(tblthongtinspdathempx);
+
+        tblsoluongsanpham.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã SP", "Tên sản phẩm", "Số lượng tồn", "Size"
+            }
+        ));
+        tblsoluongsanpham.setFocusTraversalPolicyProvider(true);
+        tblsoluongsanpham.setRequestFocusEnabled(false);
+        tblsoluongsanpham.setRowHeight(40);
+        jScrollPane3.setViewportView(tblsoluongsanpham);
 
         javax.swing.GroupLayout leftcontentLayout = new javax.swing.GroupLayout(leftcontent);
         leftcontent.setLayout(leftcontentLayout);
@@ -427,17 +427,15 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                     .addComponent(jScrollPane2)
                     .addGroup(leftcontentLayout.createSequentialGroup()
                         .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txttimkiem)
+                            .addGroup(leftcontentLayout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE))
                             .addGroup(leftcontentLayout.createSequentialGroup()
                                 .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(leftcontentLayout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txttimkiem)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(containernhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
                 .addContainerGap())
@@ -451,14 +449,12 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                         .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(containernhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         containerpanel.add(leftcontent, java.awt.BorderLayout.CENTER);
@@ -480,6 +476,12 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         btnxuathang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnxuathangActionPerformed(evt);
+            }
+        });
+
+        txtkhachhang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtkhachhangActionPerformed(evt);
             }
         });
 
@@ -535,13 +537,13 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtkhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnchonkhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txttongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnxuathang, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(43, 43, 43))
         );
 
         containerpanel.add(jPanel1, java.awt.BorderLayout.EAST);
@@ -553,6 +555,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         try {
             // Gọi phương thức xử lý thêm sản phẩm vào hàng chờ
             ThemSanPhamVaoHangCho();
+            updateTotalPrice();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
@@ -573,6 +576,10 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         }
         else if (Integer.parseInt(txtsoluong.getText()) <= 0) {
             JOptionPane.showMessageDialog(null, "Số lượng sản phẩm phải lớn hơn 0");
+        }
+        else if (Integer.parseInt(txtsoluong.getText()) > Integer.parseInt(txtsoluongton.getText())) {
+            JOptionPane.showMessageDialog(null, "Số lượng sản phẩm phải nhỏ hơn số lượng tồn");
+            txtsoluong.setText("");
         }
         else {
             sanPhamBUS = new SanPhamBUS();
@@ -610,7 +617,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                 decimalFormat.format(product.getGiaxuat()), 
                 soluong
             });
-            totalPrice += product.getGianhap() * soluong;
+            totalPrice += product.getGiaxuat()* soluong;
 
         txttongtien.setText(decimalFormat.format(totalPrice));
         // Tạo renderer để hiển thị nội dung ở giữa ô
@@ -660,12 +667,15 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
             try {
                 // Chuyển đổi giá trị số lượng thành số nguyên
                 int soluong = Integer.parseInt(updatesoluong);
-                if (soluong > 0) {
+                if (soluong > 0 && soluong <= Integer.valueOf(txtsoluongton.getText())) {
                     // Cập nhật số lượng mới trong bảng
                     tblthongtinspdathempx.setValueAt(soluong, selectedRow, 8);
-                    // Cập nhật lại tổng tiền sau khi sửa số lượng
+                     // Cập nhật lại tổng tiền sau khi sửa số lượng
                     updateTotalPrice();
-                } else {
+                } else if(soluong > Integer.valueOf(txtsoluongton.getText())){
+                    JOptionPane.showMessageDialog(this, "Số lượng sản phẩm phải nhỏ hơn số lượng tồn");
+                }
+                else {
                     // Hiển thị thông báo khi số lượng nhập vào là một số âm
                     JOptionPane.showMessageDialog(this, "Số lượng sản phẩm phải lớn hơn 0.");
                 }
@@ -684,8 +694,17 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
         if (selectedRow != -1) {
             model.removeRow(selectedRow);
             updateTotalPrice();
+            txtmasanphampx.setText("");
+            txtsoluong.setText("");
+            txttensanpham.setText("");
+            txtgiaxuat.setText("");
+            txtsoluongton.setText("");
         }
     }//GEN-LAST:event_btnxoasanphamActionPerformed
+
+    private void txtkhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtkhachhangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtkhachhangActionPerformed
 
     // Phương thức để cập nhật tổng tiền sau khi sửa số lượng
 private void updateTotalPrice() {
@@ -695,39 +714,37 @@ private void updateTotalPrice() {
      // Tính lại tổng tiền dựa trên số lượng mới của từng sản phẩm
     for (int i = 0; i < tblthongtinspdathempx.getRowCount(); i++) {
         int soluong = (int) tblthongtinspdathempx.getValueAt(i, 8); // Lấy số lượng từ cột 8 (cột số lượng)
-        String gianhapStr = (String) tblthongtinspdathempx.getValueAt(i, 7); // Lấy giá nhập từ cột 7 (cột giá nhập) dưới dạng chuỗi
-        gianhapStr = gianhapStr.replaceAll("[.,đ]", "").trim();
-        long gianhap = Long.parseLong(gianhapStr); 
-        totalPrice += soluong * gianhap; 
+        String giaxuatStr = (String) tblthongtinspdathempx.getValueAt(i, 7); // Lấy giá nhập từ cột 7 (cột giá nhập) dưới dạng chuỗi
+        giaxuatStr = giaxuatStr.replaceAll("[.,đ]", "").trim();
+        long giaxuat = Long.parseLong(giaxuatStr); 
+        totalPrice += soluong * giaxuat; 
     }
-
     // Hiển thị tổng tiền mới sau khi cập nhật
     DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
     txttongtien.setText(decimalFormat.format(totalPrice));
-}
-    
-    public int SelectedMaKH(String TenKH) {
-    ArrayList<KhachHangDTO> khachHangList = khachHangBUS.getAllKhachHang();
-    int maKH = -1; // Giá trị mặc định nếu không tìm thấy
-
-    for (KhachHangDTO khachHang : khachHangList) {
-        if (khachHang.getHoten().equals(TenKH)) {
-            maKH = khachHang.getMaKH();
-            break;
-        }
-    }
-    
-    return maKH; 
-}
+}    
+//    public int SelectedMaKH() {
+//    //ArrayList<KhachHangDTO> khachHangList = khachHangBUS.getAllKhachHang();
+//    chonKhachHang = new ChonKhachHang();
+//    int maKH = chonKhachHang.themKhachHang();
+//    System.out.println("mã khách hàng: " + maKH);
+////    for (KhachHangDTO khachHang : khachHangList) {
+////        if (khachHang.getHoten().equals(TenKH)) {
+////            maKH = khachHang.getMaKH();
+////            break;
+////        }
+////    }
+//    return maKH; 
+//}
     //HÀM TẠO PHIẾU XUẤT
     public boolean CreatePhieuXuat(){
         try {
         String maphieuxuatstr = txtmaphieuxuat.getText().replaceAll("[PXs.,đ]", "").trim();
         int maphieuxuat = Integer.parseInt(maphieuxuatstr);
-        String tenKhachHang = String.valueOf(txtkhachhang.getText());
-        System.out.println("tenkh" + tenKhachHang);
-        //int makh = SelectedMaKH(tenKhachHang);
-        int makh = 3;  //Lỗi lấy giá trị từ txtkhachhang
+        //String tenKhachHang = String.valueOf(txtkhachhang.getText());
+        int makh = maKH;
+            System.out.println("ma" + makh);
+        //int makh = 3;  //Lỗi lấy giá trị từ txtkhachhang
         int manv = 1;
         long tongtien = 0;
         String tongtienStr = txttongtien.getText().replaceAll("[.,đ]", "").trim();
@@ -739,7 +756,7 @@ private void updateTotalPrice() {
         phieuXuatDAO = new PhieuXuatDAO();
         phieuXuatDAO.insertPhieuXuat(px, now);
         addChiTietPhieuXuatToDatabase();
-        JOptionPane.showMessageDialog(null, "Tạo phiếu nhập thành công");
+        JOptionPane.showMessageDialog(null, "Tạo phiếu xuất thành công");
         return true;
     } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(null, "Lỗi khi tạo phiếu nhập: " + ex.getMessage());
@@ -787,10 +804,10 @@ private void addChiTietPhieuXuatToDatabase() {
             if (rowCount == 0) {
                 JOptionPane.showMessageDialog(null, "Chưa có sản phẩm nào để xuất. Vui lòng nhập sản phẩm.");
             } else {
-//                if (txtkhachhang.getText().isEmpty()) {
-//                    JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng");
-//                } 
-                if (CreatePhieuXuat()) {
+                if (txtkhachhang.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng");
+                } 
+                else if (CreatePhieuXuat()) {
                     // Tạo đối tượng mới của panel PhieuNhap
                     phieuXuat = new PhieuXuat();
                     main = new Main();
@@ -821,24 +838,23 @@ private void addChiTietPhieuXuatToDatabase() {
 
     // Phương thức hiển thị panel chọn khách hàng
     private void showChonKhachHangPanel() {
-    ChonKhachHang chonKhachHangPanel = new ChonKhachHang();
+    chonKhachHang = new ChonKhachHang();
     JDialog dialog = new JDialog(null, "Chọn khách hàng", Dialog.ModalityType.APPLICATION_MODAL); // Thêm tên cho JDialog
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Thiết lập hành động khi đóng cửa sổ
-    dialog.getContentPane().add(chonKhachHangPanel); // Thêm panel chọn khách hàng vào JDialog
+    dialog.getContentPane().add(chonKhachHang); // Thêm panel chọn khách hàng vào JDialog
     dialog.pack(); // Đặt kích thước của JDialog dựa trên kích thước của panel
     dialog.setLocationRelativeTo(null); // Hiển thị JDialog ở trung tâm màn hình
     dialog.setVisible(true); // Hiển thị JDialog
+    //setKhachHang(SelectedMaKH());
+    txtkhachhang.setText(String.valueOf(chonKhachHang.SelectKhachHang().getHoten()));
+    maKH = chonKhachHang.SelectKhachHang().getMaKH();
+        System.out.println("makh" + maKH);
 }
-    // Phương thức để nhận tên khách hàng từ ChonKhachHang
-    public void setKhachHang(int index) {
-        System.out.println("mã kh" + index);
-        KhachHangDTO khachhang = khachHangBUS.selectByID(index);
-        System.out.println(khachhang);
-        JOptionPane.showMessageDialog(null, khachhang.getHoten());
-        txtkhachhang.setText(khachhang.getHoten());
-        txtkhachhang.revalidate();
-        System.out.println(txtkhachhang.getText());
-    }
+//    // Phương thức để nhận tên khách hàng từ ChonKhachHang
+//    public void setKhachHang(int index) {
+//        KhachHangDTO khachhang = khachHangBUS.selectByID(index);
+//        txtkhachhang.setText(khachhang.getHoten());
+//    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -849,7 +865,6 @@ private void addChiTietPhieuXuatToDatabase() {
     private javax.swing.JButton btnxuathang;
     private javax.swing.JPanel containernhap;
     private javax.swing.JPanel containerpanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;

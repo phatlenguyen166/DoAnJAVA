@@ -4,15 +4,25 @@ import BUS.KhachHangBUS;
 import BUS.PhieuXuatBUS;
 import DAO.PhieuXuatDAO;
 import DTO.ChiTietPhieuXuatDTO;
+import DTO.PhieuNhapDTO;
 import DTO.PhieuXuatDTO;
+import GUI.Component.ShowCBB;
 import GUI.PXuat.ChiTietPhieuXuat;
 import GUI.Panel.TaoPhieuNhap;
 import GUI.Panel.TaoPhieuXuatt;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,15 +37,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
+public class PhieuXuat extends javax.swing.JPanel implements ActionListener, PropertyChangeListener, KeyListener, ItemListener{
     private DefaultTableModel tblModel;
     KhachHangBUS khachHangBUS;
-    PhieuXuatBUS phieuXuatBUS;
     PhieuXuat phieuXuat;
     TaoPhieuNhap taoPhieuNhap;
     PhieuXuatDAO phieuXuatDAO;
     ChiTietPhieuXuatDTO chiTietPhieuXuatDTO;
     ChiTietPhieuXuat chiTietPhieuXuat;
+    ShowCBB showCBB = new ShowCBB();    
+    PhieuXuatBUS phieuXuatBUS = new PhieuXuatBUS();
     ArrayList<PhieuXuatDTO> selectedPXproducts;
     
     /**
@@ -50,14 +61,30 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
         tblPhieuxuat.setFocusable(false);
         tblPhieuxuat.setAutoCreateRowSorter(true);
         
-        // Khởi tạo tblModel
-    tblModel = (DefaultTableModel) tblPhieuxuat.getModel();
-    phieuXuatBUS = new PhieuXuatBUS();
-    this.selectedPXproducts = phieuXuatBUS.getAllPhieuXuat();
-    loadDataTable(this.selectedPXproducts);
-    
-    btnChiTietPX.addActionListener(this);
-    btnHuyPX.addActionListener(this);
+        tblModel = (DefaultTableModel) tblPhieuxuat.getModel();
+        this.selectedPXproducts = phieuXuatBUS.getAllPhieuXuat();
+        loadDataTable(this.selectedPXproducts);
+
+        showCBB.CBBKhachHang(comboboxKH);
+        
+        btnChiTietPX.addActionListener(this);
+        btnHuyPX.addActionListener(this);
+        comboboxKH.addItemListener(this);
+        datengaybatdau.addPropertyChangeListener(this);
+        datengayketthuc.addPropertyChangeListener(this);
+        txtminprice.addKeyListener(this);
+        txtmaxprice.addKeyListener(this);
+        
+        txtTimKiem.putClientProperty("JTextField.placeholderText", "Tên khách hàng, mã phiếu xuất...");
+        txtTimKiem.putClientProperty("JTextField.showClearButton", true);
+        txtTimKiem.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
+        txtTimKiem.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ArrayList<PhieuXuatDTO> rs = phieuXuatBUS.search(txtTimKiem.getText());
+                loadDataTable(rs);
+            }
+        });
     
     }
     private void addIcon(){
@@ -83,23 +110,23 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
         btnHuyPX = new javax.swing.JButton();
         btnXuatExcelPX = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnTimKiem = new javax.swing.JTextField();
+        txtTimKiem = new javax.swing.JTextField();
         pnlBottom = new javax.swing.JPanel();
         scpnltable = new javax.swing.JScrollPane();
         tblPhieuxuat = new javax.swing.JTable();
         pnlLoc = new javax.swing.JPanel();
         txtnhacungcap = new javax.swing.JLabel();
-        comboboxNCC = new javax.swing.JComboBox<>();
+        comboboxKH = new javax.swing.JComboBox<>();
         txtnhacungcap1 = new javax.swing.JLabel();
         txtnhacungcap2 = new javax.swing.JLabel();
         comboboxNCC2 = new javax.swing.JComboBox<>();
         txtnhacungcap3 = new javax.swing.JLabel();
         txtnhacungcap4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtmaxprice = new javax.swing.JTextField();
         txtnhacungcap5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtminprice = new javax.swing.JTextField();
+        datengaybatdau = new com.toedter.calendar.JDateChooser();
+        datengayketthuc = new com.toedter.calendar.JDateChooser();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -144,13 +171,13 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
         jLabel1.setText("Tìm kiếm :");
         pnlTop.add(jLabel1);
 
-        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        txtTimKiem.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+                txtTimKiemActionPerformed(evt);
             }
         });
-        pnlTop.add(btnTimKiem);
+        pnlTop.add(txtTimKiem);
 
         mainContentPX.add(pnlTop, java.awt.BorderLayout.NORTH);
 
@@ -169,7 +196,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
 
         txtnhacungcap.setText("Nhân viên xuất");
 
-        comboboxNCC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        comboboxKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
 
         txtnhacungcap1.setText("Đến số tiền (VND)");
 
@@ -190,13 +217,13 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
             .addGroup(pnlLocLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlLocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextField2)
+                    .addComponent(txtminprice)
                     .addGroup(pnlLocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(pnlLocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField1)
+                            .addComponent(txtmaxprice)
                             .addGroup(pnlLocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(pnlLocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboboxNCC, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboboxKH, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtnhacungcap2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtnhacungcap1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,8 +231,8 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
                                 .addComponent(txtnhacungcap3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(txtnhacungcap4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(datengaybatdau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(datengayketthuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         pnlLocLayout.setVerticalGroup(
@@ -214,7 +241,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
                 .addContainerGap()
                 .addComponent(txtnhacungcap4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboboxNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboboxKH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -222,19 +249,19 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(datengaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(datengayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtminprice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtmaxprice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(171, Short.MAX_VALUE))
         );
 
@@ -246,7 +273,8 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
                 .addContainerGap()
                 .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scpnltable, javax.swing.GroupLayout.DEFAULT_SIZE, 925, Short.MAX_VALUE))
+                .addComponent(scpnltable, javax.swing.GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnlBottomLayout.setVerticalGroup(
             pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,9 +291,9 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
         add(mainContentPX, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void btnXuatExcelPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelPXActionPerformed
         // TODO add your handling code here:
@@ -379,25 +407,100 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener{
         }
     }
     
+        @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getSource() == comboboxKH) {
+            Fillter();
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getSource() == datengaybatdau && "date".equals(evt.getPropertyName())) {
+            Fillter();
+        } else if ("date".equals(evt.getPropertyName()) && evt.getSource() == datengayketthuc) {
+            Fillter();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getSource() == txtmaxprice || e.getSource() == txtminprice) {
+            Fillter();
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    public void Fillter() {
+        if (validateSelectDate()) {
+            phieuXuatBUS = new PhieuXuatBUS();
+            ArrayList<PhieuXuatDTO> listphieu = new ArrayList<>();
+            String selectedKH = (String) comboboxKH.getSelectedItem();
+            int makh = comboboxKH.getSelectedIndex() == 0 ? 0 : phieuXuatBUS.getMakh(selectedKH);
+            System.out.println("ma kh" + makh);
+            //int manv = cbxNhanVien.getSelectedIndex() == 0 ? 0 : nvBUS.getByIndex(cbxNhanVien.getSelectedIndex() - 1).getManv();
+            int manv = 1;
+            //String input = search.txtSearchForm.getText() != null ? search.txtSearchForm.getText() : "";
+            Date time_start = datengaybatdau.getDate() != null ? datengaybatdau.getDate() : new Date(0);
+            Date time_end = datengayketthuc.getDate() != null ? datengayketthuc.getDate() : new Date(System.currentTimeMillis());
+            String min_price = String.valueOf(txtminprice.getText());
+            String max_price = txtmaxprice.getText();
+            listphieu = phieuXuatBUS.fillerPhieuXuat(makh, manv, time_start, time_end, min_price, max_price);
+            loadDataTable(listphieu);
+        }
+    }
+
+    public boolean validateSelectDate() {
+        Date time_start = datengaybatdau.getDate();
+        Date time_end = datengayketthuc.getDate();
+
+        Date current_date = new Date();
+        if (time_start != null && time_start.after(current_date)) {
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            datengaybatdau.setCalendar(null);
+            return false;
+        }
+        if (time_end != null && time_end.after(current_date)) {
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc không được lớn hơn ngày hiện tại", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            datengayketthuc.setCalendar(null);
+            return false;
+        }
+        if (time_start != null && time_end != null && time_start.after(time_end)) {
+            JOptionPane.showMessageDialog(this, "Ngày kết thúc phải lớn hơn ngày bắt đầu", "Lỗi !", JOptionPane.ERROR_MESSAGE);
+            datengayketthuc.setCalendar(null);
+            return false;
+        }
+        return true;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTietPX;
     private javax.swing.JButton btnHuyPX;
     private javax.swing.JButton btnThemPX;
-    private javax.swing.JTextField btnTimKiem;
     private javax.swing.JButton btnXuatExcelPX;
-    private javax.swing.JComboBox<String> comboboxNCC;
+    private javax.swing.JComboBox<String> comboboxKH;
     private javax.swing.JComboBox<String> comboboxNCC2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser datengaybatdau;
+    private com.toedter.calendar.JDateChooser datengayketthuc;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel mainContentPX;
     private javax.swing.JPanel pnlBottom;
     private javax.swing.JPanel pnlLoc;
     private javax.swing.JPanel pnlTop;
     private javax.swing.JScrollPane scpnltable;
     public javax.swing.JTable tblPhieuxuat;
+    private javax.swing.JTextField txtTimKiem;
+    private javax.swing.JTextField txtmaxprice;
+    private javax.swing.JTextField txtminprice;
     private javax.swing.JLabel txtnhacungcap;
     private javax.swing.JLabel txtnhacungcap1;
     private javax.swing.JLabel txtnhacungcap2;
