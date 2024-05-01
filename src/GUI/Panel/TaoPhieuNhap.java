@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI.Panel;
+
 import javax.swing.*;
 import BUS.SanPhamPhieuNhapBUS;
 import BUS.NhaCungCapBUS;
+import BUS.NhanVienBUS;
 import BUS.SanPhamBUS;
 import DAO.ChiTietPhieuNhapDAO;
 import DAO.LoaiDAO;
@@ -18,6 +20,7 @@ import DTO.ChiTietPhieuNhapDTO;
 import DTO.NhaCungCapDTO;
 import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
+import DTO.TaiKhoanDTO;
 import GUI.Component.BuildTable;
 import GUI.Main;
 import GUI.PhieuNhap;
@@ -41,7 +44,8 @@ import java.text.SimpleDateFormat;
  *
  * @author this pc
  */
-public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
+public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener {
+
     Main main;
     PhieuNhap phieuNhap;
     ThuongHieuDAO thuongHieuDAO;
@@ -64,6 +68,7 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
     private ArrayList<PhieuNhapDTO> selectedPNproducts = new ArrayList<>();
     long totalPrice = 0;
     int rowNum = 1; // Biến đếm số thứ tự hàng
+
     public TaoPhieuNhap() {
         nhaCungCapBUS = new NhaCungCapBUS();
         sanPhamPhieuNhapBUS = new SanPhamPhieuNhapBUS();
@@ -74,10 +79,9 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
         initComponents();
         btnsuasanpham.setVisible(false);
         btnxoasanpham.setVisible(false);
-        
 
         // Tạo mã phiếu nhập mới
-        int soLuongPhieuNhapDaTao = phieuNhapDAO.getLatestMaPhieuNhap(); 
+        int soLuongPhieuNhapDaTao = phieuNhapDAO.getLatestMaPhieuNhap();
         int maPhieuNhap = ++soLuongPhieuNhapDaTao;
         txtmaphieunhap.setText("PN" + (maPhieuNhap));
         txtmaphieunhap.setEditable(false);
@@ -86,21 +90,21 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
         txtgianhap.setEditable(false);
         txtnhanviennhap.setEditable(false);
         CBBNhaCungCap(cbbnhacc);
-        
+
         tblsoluongsanpham.setDefaultEditor(Object.class, null);
         tblsoluongsanpham.setFocusable(false);
         tblthongtinspdathem.setDefaultEditor(Object.class, null);
         tblthongtinspdathem.setFocusable(false);
-        
+
         // Gọi phương thức getListSanPham từ SanPhamPhieuNhapBUS để lấy danh sách sản phẩm từ cơ sở dữ liệu
         SanPhamPhieuNhapBUS sanPhamPhieuNhapBUS = new SanPhamPhieuNhapBUS();
         ArrayList<SanPhamDTO> list = sanPhamPhieuNhapBUS.getListSanPham();
         // Cập nhật dữ liệu vào bảng
         buildTable.updateTableProducts(tblsoluongsanpham, list);
-        
+
         tblsoluongsanpham.addMouseListener(this);
         tblthongtinspdathem.addMouseListener(this);
-        
+
         txtsearch.putClientProperty("JTextField.placeholderText", "Tên sản phẩm, mã sản phẩm...");
         txtsearch.putClientProperty("JTextField.showClearButton", true);
         txtsearch.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
@@ -113,9 +117,62 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
             }
         });
     }
+    
+    NhanVienBUS nhanVienBUS = new NhanVienBUS();
+    TaiKhoanDTO taiKhoanDTO;
+    public TaoPhieuNhap(TaiKhoanDTO taiKhoanDTO) {
+        nhaCungCapBUS = new NhaCungCapBUS();
+        this.taiKhoanDTO = taiKhoanDTO;
+        sanPhamPhieuNhapBUS = new SanPhamPhieuNhapBUS();
+        sanPhamPhieuNhapDAO = new SanPhamPhieuNhapDAO();
+        chiTiet = new ChiTietPhieuNhapDAO();
+        phieuNhapDAO = new PhieuNhapDAO();
+        BuildTable buildTable = new BuildTable();
+        initComponents();
+        btnsuasanpham.setVisible(false);
+        btnxoasanpham.setVisible(false);
 
+        // Tạo mã phiếu nhập mới
+        int soLuongPhieuNhapDaTao = phieuNhapDAO.getLatestMaPhieuNhap();
+        int maPhieuNhap = ++soLuongPhieuNhapDaTao;
+        txtmaphieunhap.setText("PN" + (maPhieuNhap));
+        txtmaphieunhap.setEditable(false);
+        txtmasanpham.setEditable(false);
+        txttensanpham.setEditable(false);
+        txtgianhap.setEditable(false);
+        txtnhanviennhap.setEditable(false);
+        CBBNhaCungCap(cbbnhacc);
+
+        tblsoluongsanpham.setDefaultEditor(Object.class, null);
+        tblsoluongsanpham.setFocusable(false);
+        tblthongtinspdathem.setDefaultEditor(Object.class, null);
+        tblthongtinspdathem.setFocusable(false);
+
+        // Gọi phương thức getListSanPham từ SanPhamPhieuNhapBUS để lấy danh sách sản phẩm từ cơ sở dữ liệu
+        SanPhamPhieuNhapBUS sanPhamPhieuNhapBUS = new SanPhamPhieuNhapBUS();
+        ArrayList<SanPhamDTO> list = sanPhamPhieuNhapBUS.getListSanPham();
+        // Cập nhật dữ liệu vào bảng
+        buildTable.updateTableProducts(tblsoluongsanpham, list);
+
+        tblsoluongsanpham.addMouseListener(this);
+        tblthongtinspdathem.addMouseListener(this);
+
+        txtsearch.putClientProperty("JTextField.placeholderText", "Tên sản phẩm, mã sản phẩm...");
+        txtsearch.putClientProperty("JTextField.showClearButton", true);
+        txtsearch.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
+        txtsearch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sanPhamBUS = new SanPhamBUS();
+                ArrayList<SanPhamDTO> rs = sanPhamBUS.search(txtsearch.getText());
+                buildTable.updateTableProducts(tblsoluongsanpham, rs);
+            }
+        });
         
-
+        
+        txtnhanviennhap.setText(nhanVienBUS.selectByID(taiKhoanDTO.getManv()).getHoten());
+    }
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == tblsoluongsanpham) {
@@ -177,10 +234,7 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
         }
     }
 
-    
-
 // Các phương thức khác trong class TaoPhieuNhap
-
     @Override
     public void mousePressed(MouseEvent e) {
         // Xử lý khi chuột được nhấn
@@ -200,12 +254,14 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener{
     public void mouseExited(MouseEvent e) {
         // Xử lý khi chuột rời khỏi component
     }
-public SanPhamDTO selectSanPham(int masp) {
-    sanPhamBUS = new SanPhamBUS();
-    SanPhamDTO result = sanPhamBUS.selectByID(masp);
-    return result;
-}
+
+    public SanPhamDTO selectSanPham(int masp) {
+        sanPhamBUS = new SanPhamBUS();
+        SanPhamDTO result = sanPhamBUS.selectByID(masp);
+        return result;
+    }
 // Phương thức để lấy chỉ số của cột dựa trên tên cột
+
     public int getColumnIndexByName(String columnName, JTable table) {
         for (int i = 0; i < table.getColumnCount(); i++) {
             if (table.getColumnName(i).equals(columnName)) {
@@ -214,7 +270,7 @@ public SanPhamDTO selectSanPham(int masp) {
         }
         return -1; // Trả về -1 nếu không tìm thấy tên cột
     }
-    
+
     public void CheckCombobox(JComboBox<String> combobox) {
         sanPhamBUS = new SanPhamBUS();
         ArrayList<SanPhamDTO> list = sanPhamBUS.getAllSanPham();
@@ -228,13 +284,14 @@ public SanPhamDTO selectSanPham(int masp) {
             }
         }
     }
-        // Phương thức cập nhật dữ liệu vào bảng
+    // Phương thức cập nhật dữ liệu vào bảng
+
     public void updatetableaddedproducts(ArrayList<SanPhamDTO> productList, JTable table) {
         thuongHieuDAO = new ThuongHieuDAO();
         loaiDAO = new LoaiDAO();
         xuatXuDAO = new XuatXuDAO();
-        nhaCungCapDAO = new NhaCungCapDAO();        
-               
+        nhaCungCapDAO = new NhaCungCapDAO();
+
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 //        model.setRowCount(0); // Xóa hết dữ liệu trong bảng
         for (SanPhamDTO product : productList) {
@@ -242,16 +299,16 @@ public SanPhamDTO selectSanPham(int masp) {
             String TenThuongHieu = thuongHieuDAO.selectById(product.getThuonghieu()).getTenthuonghieu();
             String XuatXu = xuatXuDAO.selectById(product.getXuatxu()).getTenxuatxu();
             DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
-            int soluong = Integer.valueOf(txtsoluong.getText()); 
+            int soluong = Integer.valueOf(txtsoluong.getText());
             // Thêm mỗi sản phẩm vào bảng
             model.addRow(new Object[]{
-                rowNum++, 
-                product.getMasp(), 
+                rowNum++,
+                product.getMasp(),
                 product.getTensp(),
-                product.getSize(), 
-                XuatXu, 
-                TenLoai, 
-                TenThuongHieu, 
+                product.getSize(),
+                XuatXu,
+                TenLoai,
+                TenThuongHieu,
                 decimalFormat.format(product.getGianhap()), // Định dạng giá nhập
                 soluong
             });
@@ -266,13 +323,13 @@ public SanPhamDTO selectSanPham(int masp) {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        txtmasanpham.setText(""); 
-        txtsoluong.setText(""); 
+        txtmasanpham.setText("");
+        txtsoluong.setText("");
         txttensanpham.setText("");
         txtgianhap.setText("");
-        
+
     }
-    
+
     // Phương thức để tạo mô hình dữ liệu cho JTable từ danh sách sản phẩm
     public DefaultTableModel buildTableModel(ArrayList<SanPhamDTO> list) {
         // Định nghĩa tên cột
@@ -286,9 +343,10 @@ public SanPhamDTO selectSanPham(int masp) {
             Object[] rowData = {sp.getMasp(), sp.getTensp(), sp.getSoluongton()};
             model.addRow(rowData);
         }
-        
+
         return model;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -354,6 +412,8 @@ public SanPhamDTO selectSanPham(int masp) {
         tblsoluongsanpham.setRequestFocusEnabled(false);
         tblsoluongsanpham.setRowHeight(40);
         jScrollPane3.setViewportView(tblsoluongsanpham);
+
+        containernhap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setText("Mã sản phẩm");
 
@@ -477,7 +537,7 @@ public SanPhamDTO selectSanPham(int masp) {
                         .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(leftcontentLayout.createSequentialGroup()
                                 .addGroup(leftcontentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtsearch, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                                    .addComponent(txtsearch, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(leftcontentLayout.createSequentialGroup()
@@ -501,7 +561,7 @@ public SanPhamDTO selectSanPham(int masp) {
                         .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(containernhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -615,19 +675,18 @@ public SanPhamDTO selectSanPham(int masp) {
         }
     }//GEN-LAST:event_btnnhaphangActionPerformed
 
-    
-private boolean createPhieuNhap() {
-    try {
-        String tenncc = (String) cbbnhacc.getSelectedItem();
-        int mancc = SelectedMaNCC(tenncc);
-        String maphieunhapstr = txtmaphieunhap.getText().replaceAll("[PN.,đ]", "").trim();
-        int maphieunhap = Integer.parseInt(maphieunhapstr);
-        int manv = 1;
-        long tongtien = 0;
-        String tongtienStr = txttongtien.getText().replaceAll("[.,đ]", "").trim();
-        tongtien = Long.parseLong(tongtienStr);
-        
-        //long now = System.currentTimeMillis();
+    private boolean createPhieuNhap() {
+        try {
+            String tenncc = (String) cbbnhacc.getSelectedItem();
+            int mancc = SelectedMaNCC(tenncc);
+            String maphieunhapstr = txtmaphieunhap.getText().replaceAll("[PN.,đ]", "").trim();
+            int maphieunhap = Integer.parseInt(maphieunhapstr);
+            int manv = taiKhoanDTO.getManv();
+            long tongtien = 0;
+            String tongtienStr = txttongtien.getText().replaceAll("[.,đ]", "").trim();
+            tongtien = Long.parseLong(tongtienStr);
+
+            //long now = System.currentTimeMillis();
 ////        Timestamp currentTime = new Timestamp(now);
 //        Date currentTime = new Date(now);
 //        
@@ -649,27 +708,26 @@ private boolean createPhieuNhap() {
 //        System.out.println("Ngày giờ hiện tại: " + parsedDate);
 //        //java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
 //        //System.out.println("Ngày giờ hiện tại: " + sqlDate);
-        // Chuyển đổi chuỗi đã định dạng thành Timestamp
-        //java.util.Date parsedDate = dateFormat.parse(formattedDateTime);
+            // Chuyển đổi chuỗi đã định dạng thành Timestamp
+            //java.util.Date parsedDate = dateFormat.parse(formattedDateTime);
 //        System.out.println("Ngày giờ hiện tại: " + parsedDate);
 //        Timestamp timestamp = new Timestamp(parsedDate.getTime());
 //        System.out.println("Ngày giờ hiện tại: " + timestamp);
-        long now = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(now);
-        
-        PhieuNhapDTO pn = new PhieuNhapDTO(maphieunhap, timestamp, mancc, manv, tongtien, 1);
-        
-        phieuNhapDAO = new PhieuNhapDAO();
-        phieuNhapDAO.insertPhieuNhap(pn, now);
-        addChiTietPhieuNhapToDatabase();
-        JOptionPane.showMessageDialog(null, "Tạo phiếu nhập thành công");
-        return true;
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        return false;
-    }
-}
+            long now = System.currentTimeMillis();
+            Timestamp timestamp = new Timestamp(now);
 
+            PhieuNhapDTO pn = new PhieuNhapDTO(maphieunhap, timestamp, mancc, manv, tongtien, 1);
+
+            phieuNhapDAO = new PhieuNhapDAO();
+            phieuNhapDAO.insertPhieuNhap(pn, now);
+            addChiTietPhieuNhapToDatabase();
+            JOptionPane.showMessageDialog(null, "Tạo phiếu nhập thành công");
+            return true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
 //    public boolean ShowTableProducts_AfterClickNhapHang() {
 //        String tenncc = (String) cbbnhacc.getSelectedItem();
@@ -717,50 +775,48 @@ private boolean createPhieuNhap() {
 //        return hasProductsToImport; // Trả về giá trị boolean
 //    }
 // Phương thức thêm chi tiết phiếu nhập vào cơ sở dữ liệu
-private void addChiTietPhieuNhapToDatabase() {
-    DefaultTableModel model = (DefaultTableModel) tblthongtinspdathem.getModel();
-    ArrayList<ChiTietPhieuNhapDTO> chiTietPhieuNhapList = new ArrayList<>();
-    boolean hasProductsToImport = false;
-    String maphieunhapstr = txtmaphieunhap.getText().replaceAll("[PN.,đ]", "").trim();
-    int maphieunhap = Integer.parseInt(maphieunhapstr);
+    private void addChiTietPhieuNhapToDatabase() {
+        DefaultTableModel model = (DefaultTableModel) tblthongtinspdathem.getModel();
+        ArrayList<ChiTietPhieuNhapDTO> chiTietPhieuNhapList = new ArrayList<>();
+        boolean hasProductsToImport = false;
+        String maphieunhapstr = txtmaphieunhap.getText().replaceAll("[PN.,đ]", "").trim();
+        int maphieunhap = Integer.parseInt(maphieunhapstr);
 
-    for (int i = 0; i < model.getRowCount(); i++) {
-        int masp = (int) model.getValueAt(i, 1);
-        int soluong = (int) model.getValueAt(i, 8);
-        String dongiastr = model.getValueAt(i, 7).toString();
-        int dongia = Integer.parseInt(dongiastr.replaceAll("[.,đ]", "").trim());
-        try {
-            chiTiet.updateSoluongton(masp, soluong);
-            ChiTietPhieuNhapDTO chiTietPhieuNhapDTO = new ChiTietPhieuNhapDTO(maphieunhap, masp, soluong, dongia);
-            chiTietPhieuNhapList.add(chiTietPhieuNhapDTO);
-            hasProductsToImport = true;
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Số lượng sản phẩm phải là một số nguyên dương");
-            hasProductsToImport = false;
-            break;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            int masp = (int) model.getValueAt(i, 1);
+            int soluong = (int) model.getValueAt(i, 8);
+            String dongiastr = model.getValueAt(i, 7).toString();
+            int dongia = Integer.parseInt(dongiastr.replaceAll("[.,đ]", "").trim());
+            try {
+                chiTiet.updateSoluongton(masp, soluong);
+                ChiTietPhieuNhapDTO chiTietPhieuNhapDTO = new ChiTietPhieuNhapDTO(maphieunhap, masp, soluong, dongia);
+                chiTietPhieuNhapList.add(chiTietPhieuNhapDTO);
+                hasProductsToImport = true;
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Số lượng sản phẩm phải là một số nguyên dương");
+                hasProductsToImport = false;
+                break;
+            }
+        }
+
+        if (hasProductsToImport) {
+            chiTietPhieuNhapDAO = new ChiTietPhieuNhapDAO();
+            chiTietPhieuNhapDAO.insert(chiTietPhieuNhapList);
         }
     }
 
-    if (hasProductsToImport) {
-        chiTietPhieuNhapDAO = new ChiTietPhieuNhapDAO();
-        chiTietPhieuNhapDAO.insert(chiTietPhieuNhapList);
-    }
-}
     public boolean isNumeric(String str) {
-    return str.matches("-?\\d+(\\.\\d+)?");  // Biểu thức chính quy kiểm tra chuỗi có chứa số hay không
+        return str.matches("-?\\d+(\\.\\d+)?");  // Biểu thức chính quy kiểm tra chuỗi có chứa số hay không
     }
-    
-    public void ThemSanPhamVaoHangCho(){
-        if(txtmasanpham.getText().isEmpty()) {
+
+    public void ThemSanPhamVaoHangCho() {
+        if (txtmasanpham.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm!");
-        }
-        else if (txtsoluong.getText().isEmpty() || !isNumeric(txtsoluong.getText())) {
+        } else if (txtsoluong.getText().isEmpty() || !isNumeric(txtsoluong.getText())) {
             JOptionPane.showMessageDialog(null, "Số lượng không được để trống và phải là một số!");
-        }
-        else if (Integer.parseInt(txtsoluong.getText()) <= 0) {
+        } else if (Integer.parseInt(txtsoluong.getText()) <= 0) {
             JOptionPane.showMessageDialog(null, "Số lượng sản phẩm phải lớn hơn 0");
-        }
-        else {
+        } else {
             int masp = Integer.parseInt(txtmasanpham.getText());
             tblModel = (DefaultTableModel) tblthongtinspdathem.getModel(); // Lấy mô hình dữ liệu từ bảng
             ArrayList<SanPhamDTO> newProductList = sanPhamPhieuNhapDAO.getListSanPham(masp);
@@ -768,7 +824,7 @@ private void addChiTietPhieuNhapToDatabase() {
             updatetableaddedproducts(newProductList, tblthongtinspdathem);
         }
     }
-    
+
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         try {
@@ -820,7 +876,7 @@ private void addChiTietPhieuNhapToDatabase() {
                 if (soluong > 0) {
                     // Cập nhật số lượng mới trong bảng
                     tblthongtinspdathem.setValueAt(soluong, selectedRow, 8);
-                     // Cập nhật lại tổng tiền sau khi sửa số lượng
+                    // Cập nhật lại tổng tiền sau khi sửa số lượng
                     updateTotalPrice();
                 } else {
                     // Hiển thị thông báo khi số lượng nhập vào là một số âm
@@ -836,75 +892,74 @@ private void addChiTietPhieuNhapToDatabase() {
     }//GEN-LAST:event_btnsuasanphamActionPerformed
 
     // Phương thức để cập nhật tổng tiền sau khi sửa số lượng
-private void updateTotalPrice() {
-    // Khởi tạo biến tổng tiền
-    long totalPrice = 0;
+    private void updateTotalPrice() {
+        // Khởi tạo biến tổng tiền
+        long totalPrice = 0;
 
-     // Tính lại tổng tiền dựa trên số lượng mới của từng sản phẩm
-    for (int i = 0; i < tblthongtinspdathem.getRowCount(); i++) {
-        int soluong = (int) tblthongtinspdathem.getValueAt(i, 8); // Lấy số lượng từ cột 8 (cột số lượng)
-        String gianhapStr = (String) tblthongtinspdathem.getValueAt(i, 7); // Lấy giá nhập từ cột 7 (cột giá nhập) dưới dạng chuỗi
-        gianhapStr = gianhapStr.replaceAll("[.,đ]", "").trim();
-        long gianhap = Long.parseLong(gianhapStr); 
-        totalPrice += soluong * gianhap; 
+        // Tính lại tổng tiền dựa trên số lượng mới của từng sản phẩm
+        for (int i = 0; i < tblthongtinspdathem.getRowCount(); i++) {
+            int soluong = (int) tblthongtinspdathem.getValueAt(i, 8); // Lấy số lượng từ cột 8 (cột số lượng)
+            String gianhapStr = (String) tblthongtinspdathem.getValueAt(i, 7); // Lấy giá nhập từ cột 7 (cột giá nhập) dưới dạng chuỗi
+            gianhapStr = gianhapStr.replaceAll("[.,đ]", "").trim();
+            long gianhap = Long.parseLong(gianhapStr);
+            totalPrice += soluong * gianhap;
+        }
+
+        // Hiển thị tổng tiền mới sau khi cập nhật
+        DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
+        txttongtien.setText(decimalFormat.format(totalPrice));
     }
 
-    // Hiển thị tổng tiền mới sau khi cập nhật
-    DecimalFormat decimalFormat = new DecimalFormat("#,### đ");
-    txttongtien.setText(decimalFormat.format(totalPrice));
-}
     //Cập nhật sản phẩm đã bấm nút nhập hàng vào bảng phiếu nhập
     public void updateInputTable(ArrayList<PhieuNhapDTO> danhSachPhieuNhap) {
-    PhieuNhap phieunhap = new PhieuNhap();
-    nhaCungCapDAO = new NhaCungCapDAO();
-    int stt = 1;
-    DefaultTableModel model = (DefaultTableModel) phieunhap.tblPhieuNhap.getModel();
-    model.setRowCount(0); // Xóa tất cả các hàng trong bảng
-    
-    for (PhieuNhapDTO pn : danhSachPhieuNhap) {
-        String TenNcc = nhaCungCapDAO.selectById(pn.getManhacungcap()).getTenncc();
-        Object[] rowData = {
-            stt++, 
-            pn.getMaphieunhap(), 
-            TenNcc, 
-            pn.getMaNV(), 
-            pn.getThoigiantao(), 
-            pn.getTongTien()
-        };
-        model.addRow(rowData); // Thêm hàng mới vào bảng
-    }
-}
-    
-public int SelectedMaNCC(String TenNccCanTim) {
-    ArrayList<NhaCungCapDTO> nhaCungCapList = nhaCungCapBUS.getAllNhaCungCap();
-    int maNhaCungCap = -1; // Giá trị mặc định nếu không tìm thấy
+        PhieuNhap phieunhap = new PhieuNhap();
+        nhaCungCapDAO = new NhaCungCapDAO();
+        int stt = 1;
+        DefaultTableModel model = (DefaultTableModel) phieunhap.tblPhieuNhap.getModel();
+        model.setRowCount(0); // Xóa tất cả các hàng trong bảng
 
-    for (NhaCungCapDTO nhaCungCap : nhaCungCapList) {
-        if (nhaCungCap.getTenncc().equals(TenNccCanTim)) {
-            maNhaCungCap = nhaCungCap.getMancc();
-            break;
+        for (PhieuNhapDTO pn : danhSachPhieuNhap) {
+            String TenNcc = nhaCungCapDAO.selectById(pn.getManhacungcap()).getTenncc();
+            Object[] rowData = {
+                stt++,
+                pn.getMaphieunhap(),
+                TenNcc,
+                pn.getMaNV(),
+                pn.getThoigiantao(),
+                pn.getTongTien()
+            };
+            model.addRow(rowData); // Thêm hàng mới vào bảng
         }
     }
-    
-    return maNhaCungCap; 
-}
 
-    
-    
+    public int SelectedMaNCC(String TenNccCanTim) {
+        ArrayList<NhaCungCapDTO> nhaCungCapList = nhaCungCapBUS.getAllNhaCungCap();
+        int maNhaCungCap = -1; // Giá trị mặc định nếu không tìm thấy
+
+        for (NhaCungCapDTO nhaCungCap : nhaCungCapList) {
+            if (nhaCungCap.getTenncc().equals(TenNccCanTim)) {
+                maNhaCungCap = nhaCungCap.getMancc();
+                break;
+            }
+        }
+
+        return maNhaCungCap;
+    }
+
     // Thêm nhà cung cấp vào combobox
-public void CBBNhaCungCap(JComboBox<String> comboBox) {
-    // Gọi phương thức getAllNhaCungCap từ nhaCungCapBUS để lấy danh sách nhà cung cấp từ cơ sở dữ liệu
-    ArrayList<NhaCungCapDTO> nhaCungCapList = nhaCungCapBUS.getAllNhaCungCap();
-    ArrayList<String> tenNhaCungCapList = new ArrayList<>();
+    public void CBBNhaCungCap(JComboBox<String> comboBox) {
+        // Gọi phương thức getAllNhaCungCap từ nhaCungCapBUS để lấy danh sách nhà cung cấp từ cơ sở dữ liệu
+        ArrayList<NhaCungCapDTO> nhaCungCapList = nhaCungCapBUS.getAllNhaCungCap();
+        ArrayList<String> tenNhaCungCapList = new ArrayList<>();
 
-    for (NhaCungCapDTO nhaCungCap : nhaCungCapList) {
-        tenNhaCungCapList.add(nhaCungCap.getTenncc());
+        for (NhaCungCapDTO nhaCungCap : nhaCungCapList) {
+            tenNhaCungCapList.add(nhaCungCap.getTenncc());
+        }
+        // Thêm từng tên nhà cung cấp vào ComboBox
+        for (String tenNhaCungCap : tenNhaCungCapList) {
+            comboBox.addItem(tenNhaCungCap);
+        }
     }
-    // Thêm từng tên nhà cung cấp vào ComboBox
-    for (String tenNhaCungCap : tenNhaCungCapList) {
-        comboBox.addItem(tenNhaCungCap);
-    }
-}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -60,6 +60,8 @@ public final class Main extends javax.swing.JFrame {
     private final Color defaultColor = new Color(255, 255, 255);
     private final Color hoverColor = new Color(187, 222, 251);
     Color BackgroundColor = new Color(240, 247, 250);
+//    Color BackgroundColor = new Color(235,235,235);
+    
 
     public Main() {
         this.setPreferredSize(new Dimension(1400, 800));
@@ -91,7 +93,6 @@ public final class Main extends javax.swing.JFrame {
         scrollPane.setBorder(null);
         menuTaskbar.add(scrollPane, java.awt.BorderLayout.CENTER);
         phanQuyen(this.taiKhoanDTO.getManhomquyen());
-
         setThongTinNhanVien(this.taiKhoanDTO);
     }
 
@@ -570,7 +571,7 @@ public final class Main extends javax.swing.JFrame {
         mainContent.setPreferredSize(new java.awt.Dimension(1200, 800));
         mainContent.setLayout(new java.awt.BorderLayout());
 
-        mainContent2.setBackground(new java.awt.Color(255, 0, 51));
+        mainContent2.setBackground(new java.awt.Color(235, 235, 235));
 
         javax.swing.GroupLayout mainContent2Layout = new javax.swing.GroupLayout(mainContent2);
         mainContent2.setLayout(mainContent2Layout);
@@ -613,7 +614,7 @@ public final class Main extends javax.swing.JFrame {
 
     private void btnPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhieuNhapActionPerformed
         // TODO add your handling code here:
-        phieuNhap = new PhieuNhap();
+        phieuNhap = new PhieuNhap(taiKhoanDTO);
         addTaskBar(mainContent2, phieuNhap);
     }//GEN-LAST:event_btnPhieuNhapActionPerformed
 

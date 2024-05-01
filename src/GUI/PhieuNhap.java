@@ -7,6 +7,7 @@ import DAO.NhaCungCapDAO;
 import DAO.PhieuNhapDAO;
 import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
+import DTO.TaiKhoanDTO;
 import GUI.Component.BuildTable;
 import GUI.Component.ShowCBB;
 import GUI.Main;
@@ -66,7 +67,48 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         taoPhieuNhap = new TaoPhieuNhap(); // Khởi tạo đối tượng TaoPhieuNhap
         nhaCungCapBUS = new NhaCungCapBUS();
 
-        btnChiTietPN.addActionListener(this); 
+        btnChiTietPN.addActionListener(this);
+        comboboxNCC.addItemListener(this);
+        datengaybatdau.addPropertyChangeListener(this);
+        datengayketthuc.addPropertyChangeListener(this);
+        txtminprice.addKeyListener(this);
+        txtmaxprice.addKeyListener(this);
+
+        showCBB.CBBNhaCungCap(comboboxNCC);
+
+        // Khởi tạo tblModel
+        tblModel = (DefaultTableModel) tblPhieuNhap.getModel();
+        this.selectedPNproducts = phieuNhapBUS.getAllPhieuNhap();
+        loadDataTalbe(this.selectedPNproducts);
+
+        txtTimKiem.putClientProperty("JTextField.placeholderText", "Tên nhà cung cấp, mã phiếu nhập...");
+        txtTimKiem.putClientProperty("JTextField.showClearButton", true);
+        txtTimKiem.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
+        txtTimKiem.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ArrayList<PhieuNhapDTO> rs = phieuNhapBUS.search(txtTimKiem.getText());
+                loadDataTalbe(rs);
+            }
+        });
+
+    }
+    TaiKhoanDTO taiKhoanDTO;
+    public PhieuNhap(TaiKhoanDTO taiKhoanDTO) {
+        initComponents();
+        addIcon();
+        
+        this.taiKhoanDTO = taiKhoanDTO;
+        
+        tblPhieuNhap.setFocusable(false);
+        tblPhieuNhap.setDefaultEditor(Object.class, null);
+        tblPhieuNhap.getColumnModel().getColumn(1).setPreferredWidth(180);
+        tblPhieuNhap.setFocusable(false);
+        tblPhieuNhap.setAutoCreateRowSorter(true);
+        taoPhieuNhap = new TaoPhieuNhap(); // Khởi tạo đối tượng TaoPhieuNhap
+        nhaCungCapBUS = new NhaCungCapBUS();
+
+        btnChiTietPN.addActionListener(this);
         comboboxNCC.addItemListener(this);
         datengaybatdau.addPropertyChangeListener(this);
         datengayketthuc.addPropertyChangeListener(this);
@@ -127,7 +169,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         comboboxNCC = new javax.swing.JComboBox<>();
         txtnhacungcap1 = new javax.swing.JLabel();
         txtnhacungcap2 = new javax.swing.JLabel();
-        comboboxNCC2 = new javax.swing.JComboBox<>();
+        cbxNhanVien = new javax.swing.JComboBox<>();
         txtnhacungcap3 = new javax.swing.JLabel();
         txtnhacungcap4 = new javax.swing.JLabel();
         txtmaxprice = new javax.swing.JTextField();
@@ -218,7 +260,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
         txtnhacungcap2.setText("Từ ngày");
 
-        comboboxNCC2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        cbxNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
 
         txtnhacungcap3.setText("Đến ngày");
 
@@ -243,7 +285,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
                                     .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtnhacungcap2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtnhacungcap1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboboxNCC2, javax.swing.GroupLayout.Alignment.TRAILING, 0, 248, Short.MAX_VALUE))
+                                    .addComponent(cbxNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, 0, 248, Short.MAX_VALUE))
                                 .addComponent(txtnhacungcap3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(txtnhacungcap4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -261,7 +303,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboboxNCC2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbxNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -369,7 +411,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         pnlLoc.setVisible(false);
         pnlTop.setVisible(false);
         // Tạo một thể hiện của panel từ file java khác
-        TaoPhieuNhap taoPhieuNhap = new TaoPhieuNhap();
+        TaoPhieuNhap taoPhieuNhap = new TaoPhieuNhap(taiKhoanDTO);
         // Thêm taoPhieuNhap vào mainContentPN
         mainContentPN.add(taoPhieuNhap);
         mainContentPN.revalidate();
@@ -495,7 +537,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
             //int type = search.cbxChoose.getSelectedIndex();
             String selectedNcc = (String) comboboxNCC.getSelectedItem();
             int mancc = comboboxNCC.getSelectedIndex() == 0 ? 0 : phieuNhapBUS.getMancc(selectedNcc);
-            //int manv = cbxNhanVien.getSelectedIndex() == 0 ? 0 : nvBUS.getByIndex(cbxNhanVien.getSelectedIndex() - 1).getManv();
+//            int manv = cbxNhanVien.getSelectedIndex() == 0 ? 0 : nvBUS.getByIndex(cbxNhanVien.getSelectedIndex() - 1).getManv();
             int manv = 1;
             //String input = search.txtSearchForm.getText() != null ? search.txtSearchForm.getText() : "";
             Date time_start = datengaybatdau.getDate() != null ? datengaybatdau.getDate() : new Date(0);
@@ -535,8 +577,8 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
     private javax.swing.JButton btnHuyPhieu;
     private javax.swing.JButton btnThemPN;
     private javax.swing.JButton btnXuatExcelPN;
+    private javax.swing.JComboBox<String> cbxNhanVien;
     public javax.swing.JComboBox<String> comboboxNCC;
-    private javax.swing.JComboBox<String> comboboxNCC2;
     public com.toedter.calendar.JDateChooser datengaybatdau;
     public com.toedter.calendar.JDateChooser datengayketthuc;
     private javax.swing.JLabel jLabel1;

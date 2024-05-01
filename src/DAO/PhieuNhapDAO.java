@@ -26,43 +26,43 @@ public class PhieuNhapDAO {
     }
 
     public void insertPhieuNhap(PhieuNhapDTO phieuNhapDTO, long now) throws ParseException {
-         try {
-        connection = MySQLConnection.getConnection();
-        Date currentTime = new Date(now); // Tạo đối tượng Date từ giá trị now
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String formattedDateTime = dateFormat.format(currentTime);
-             System.out.println(formattedDateTime);
-             Date parsedDate = dateFormat.parse(formattedDateTime);
-        System.out.println("long time" + parsedDate);
-        long timestampLong = 0;
-             try {
-                 System.out.println(formattedDateTime);
-            timestampLong = dateFormat.parse(formattedDateTime).getTime(); // Chuyển đổi thành số long
+        try {
+            connection = MySQLConnection.getConnection();
+            Date currentTime = new Date(now); // Tạo đối tượng Date từ giá trị now
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String formattedDateTime = dateFormat.format(currentTime);
+            System.out.println(formattedDateTime);
+            Date parsedDate = dateFormat.parse(formattedDateTime);
+            System.out.println("long time" + parsedDate);
+            long timestampLong = 0;
+            try {
+                System.out.println(formattedDateTime);
+                timestampLong = dateFormat.parse(formattedDateTime).getTime(); // Chuyển đổi thành số long
+                System.out.println("long time" + timestampLong);
+            } catch (ParseException ex) {
+                Logger.getLogger(PhieuNhapDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
             System.out.println("long time" + timestampLong);
-        } catch (ParseException ex) {
-            Logger.getLogger(PhieuNhapDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("long time" + timestampLong);
 //        // Tạo đối tượng Timestamp từ số long
 //        Timestamp timestamp = new Timestamp(timestampLong);
 //        Date parsedDate = dateFormat.parse(formattedDateTime);
 //        Timestamp timestamp = new Timestamp(parsedDate.getTime());
-        Timestamp timestamp = new Timestamp(parsedDate.getTime());
-        // Chèn dữ liệu vào cơ sở dữ liệu
-             System.out.println("long time" + timestamp);
-        String sql = "INSERT INTO phieunhap (thoigian, manhacungcap, manv, tongtien, trangthai) VALUES (?, ?, ?, ?, 1)";
-        ps = connection.prepareStatement(sql);
-        ps.setTimestamp(1, phieuNhapDTO.getThoigiantao()); // Sử dụng thời gian đã định dạng thành chuỗi
-        ps.setInt(2, phieuNhapDTO.getManhacungcap());
-        ps.setInt(3, phieuNhapDTO.getMaNV());
-        ps.setLong(4, phieuNhapDTO.getTongTien());
-        ps.executeUpdate();
-        
-        MySQLConnection.closeConnection(connection);
-    } catch (SQLException e) {
-        e.printStackTrace();
-        // Xử lý hoặc thông báo lỗi theo nhu cầu của bạn
-    }
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            // Chèn dữ liệu vào cơ sở dữ liệu
+            System.out.println("long time" + timestamp);
+            String sql = "INSERT INTO phieunhap (thoigian, manhacungcap, manv, tongtien, trangthai) VALUES (?, ?, ?, ?, 1)";
+            ps = connection.prepareStatement(sql);
+            ps.setTimestamp(1, phieuNhapDTO.getThoigiantao()); // Sử dụng thời gian đã định dạng thành chuỗi
+            ps.setInt(2, phieuNhapDTO.getManhacungcap());
+            ps.setInt(3, phieuNhapDTO.getMaNV());
+            ps.setLong(4, phieuNhapDTO.getTongTien());
+            ps.executeUpdate();
+
+            MySQLConnection.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Xử lý hoặc thông báo lỗi theo nhu cầu của bạn
+        }
     }
 
     public ArrayList<PhieuNhapDTO> getAllPhieuNhap() {
@@ -85,7 +85,7 @@ public class PhieuNhapDAO {
                 phieuNhapDTO.setTongTien(rs.getLong("tongtien"));
                 listPhieuNhap.add(phieuNhapDTO);
             }
-        MySQLConnection.closeConnection(connection);    
+            MySQLConnection.closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
             // Xử lý hoặc thông báo lỗi theo nhu cầu của bạn
