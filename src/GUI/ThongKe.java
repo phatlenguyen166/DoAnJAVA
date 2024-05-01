@@ -3,6 +3,7 @@ package GUI;
 import GUI.ThongKeHeThong.ThongKeDoanhThu;
 import GUI.ThongKeHeThong.ThongKeKhachHang;
 import GUI.ThongKeHeThong.ThongKeNhaCungCap;
+import GUI.ThongKeHeThong.ThongKeSanPhamBanChay;
 import GUI.ThongKeHeThong.ThongKeTonKho;
 import GUI.ThongKeHeThong.ThongKeTongQuan;
 import java.awt.Color;
@@ -11,7 +12,6 @@ import java.awt.Color;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 /**
  *
  * @author ADMIN
@@ -26,7 +26,9 @@ public class ThongKe extends javax.swing.JPanel {
     ThongKeTonKho thongKeTonKho = new ThongKeTonKho();
     ThongKeKhachHang thongKeKhachHang = new ThongKeKhachHang();
     ThongKeNhaCungCap thongKeNhaCungCap = new ThongKeNhaCungCap();
+    ThongKeSanPhamBanChay thongKeSanPhamBanChay = new ThongKeSanPhamBanChay();
     Color BackgroundColor = new Color(240, 247, 250);
+
     public ThongKe() {
         initComponents();
         thongKe.setOpaque(false);
@@ -36,8 +38,8 @@ public class ThongKe extends javax.swing.JPanel {
         thongKe.addTab("Kho", thongKeTonKho);
         thongKe.addTab("Khách hàng", thongKeKhachHang);
         thongKe.addTab("Nhà cung cấp", thongKeNhaCungCap);
-            
-        
+        thongKe.addTab("Sản phẩm bán chạy", thongKeSanPhamBanChay);
+
     }
 
     /**

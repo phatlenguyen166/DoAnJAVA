@@ -3,6 +3,7 @@ package DAO;
 import DTO.ThongKe.ThongKeDoanhThuDTO; //tk theo nam
 import DTO.ThongKe.ThongKeTheoThangDTO; //tk theo thang
 import DTO.ThongKe.ThongKeKhachHangDTO;
+import DTO.ThongKeSanPhamBanChayDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,9 +15,122 @@ import java.util.Date;
 import config.MySQLConnection;
 
 public class ThongKeDAO {
+
     public static ThongKeDAO getInstance() {
         return new ThongKeDAO();
     }
+
+    public ArrayList<ThongKeSanPhamBanChayDTO> getTop5SanPhamBanChay() {
+        Connection con = MySQLConnection.getConnection();
+        ArrayList<ThongKeSanPhamBanChayDTO> listThongSP = new ArrayList<>();
+        String sql = "SELECT sp.masp, sp.tensp, SUM(ct.soluong) AS soluong_ban "
+                + "FROM sanpham sp "
+                + "JOIN ctphieuxuat ct ON sp.masp = ct.masp "
+                + "GROUP BY sp.tensp "
+                + "ORDER BY soluong_ban DESC ";
+        try {
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String tensp = rs.getString("tensp");
+                int soluongBan = rs.getInt("soluong_ban");
+
+                ThongKeSanPhamBanChayDTO thongKeSanPhamBanChayDTO = new ThongKeSanPhamBanChayDTO(tensp, soluongBan);
+                listThongSP.add(thongKeSanPhamBanChayDTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra thông báo lỗi
+            // Ghi log hoặc xử lý exception theo nhu cầu của bạn
+        } finally {
+            // Đóng kết nối sau khi sử dụng xong
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Xử lý exception khi đóng kết nối
+            }
+        }
+        return listThongSP;
+    }
+
+    public ArrayList<ThongKeSanPhamBanChayDTO> getListSanPhamBanChay() {
+        Connection con = MySQLConnection.getConnection();
+        ArrayList<ThongKeSanPhamBanChayDTO> listThongSP = new ArrayList<>();
+        String sql = "SELECT sp.masp, sp.tensp, SUM(ct.soluong) AS soluong_ban "
+                + "FROM sanpham sp "
+                + "JOIN ctphieuxuat ct ON sp.masp = ct.masp "
+                + "GROUP BY sp.tensp "
+                + "ORDER BY soluong_ban DESC ";
+
+        try {
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String tensp = rs.getString("tensp");
+                int soluongBan = rs.getInt("soluong_ban");
+
+                ThongKeSanPhamBanChayDTO thongKeSanPhamBanChayDTO = new ThongKeSanPhamBanChayDTO(tensp, soluongBan);
+                listThongSP.add(thongKeSanPhamBanChayDTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra thông báo lỗi
+            // Ghi log hoặc xử lý exception theo nhu cầu của bạn
+        } finally {
+            // Đóng kết nối sau khi sử dụng xong
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Xử lý exception khi đóng kết nối
+            }
+        }
+        return listThongSP;
+    }
+
+    public ArrayList<ThongKeSanPhamBanChayDTO> getListSanPhamBanChay(int thang, int nam) {
+        Connection con = MySQLConnection.getConnection();
+        ArrayList<ThongKeSanPhamBanChayDTO> listThongSP = new ArrayList<>();
+        String sql = "SELECT sp.masp, sp.tensp, SUM(ct.soluong) AS soluong_ban "
+                + "FROM sanpham sp "
+                + "JOIN ctphieuxuat ct ON sp.masp = ct.masp "
+                + "JOIN phieuxuat px ON ct.maphieuxuat = px.maphieuxuat "
+                + "WHERE MONTH(px.thoigian) = ? AND YEAR(px.thoigian) = ? "
+                + "GROUP BY sp.tensp "
+                + "ORDER BY soluong_ban DESC ";
+
+        try {
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, thang); // Thiết lập tháng
+            pst.setInt(2, nam); // Thiết lập năm
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String tensp = rs.getString("tensp");
+                int soluongBan = rs.getInt("soluong_ban");
+
+                ThongKeSanPhamBanChayDTO thongKeSanPhamBanChayDTO = new ThongKeSanPhamBanChayDTO(tensp, soluongBan);
+                listThongSP.add(thongKeSanPhamBanChayDTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra thông báo lỗi
+            // Ghi log hoặc xử lý exception theo nhu cầu của bạn
+        } finally {
+            // Đóng kết nối sau khi sử dụng xong
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Xử lý exception khi đóng kết nối
+            }
+        }
+        return listThongSP;
+    }
+
     public ArrayList<ThongKeKhachHangDTO> getThongKeKhachHang(String text, Date timeStart, Date timeEnd) {
         ArrayList<ThongKeKhachHangDTO> result = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -54,6 +168,7 @@ public class ThongKeDAO {
         }
         return result;
     }
+
     public ArrayList<ThongKeDoanhThuDTO> getDoanhThuTheoTungNam(int year_start, int year_end) {
         ArrayList<ThongKeDoanhThuDTO> result = new ArrayList<>();
         try {
@@ -96,12 +211,13 @@ public class ThongKeDAO {
                 Long doanhthu = rs.getLong("doanhthu");
                 ThongKeDoanhThuDTO x = new ThongKeDoanhThuDTO(thoigian, chiphi, doanhthu, doanhthu - chiphi);
                 result.add(x);
-            }          
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;
     }
+
     public ArrayList<ThongKeTheoThangDTO> getThongKeTheoThang(int nam) {
         ArrayList<ThongKeTheoThangDTO> result = new ArrayList<>();
         try {
@@ -145,6 +261,5 @@ public class ThongKeDAO {
         }
         return result;
     }
-
 
 }
