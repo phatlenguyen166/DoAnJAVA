@@ -1,26 +1,42 @@
 package GUI;
 
+import BUS.TaiKhoanBUS;
+//import DAO.NhomQuyenDAO;
+import DAO.TaiKhoanDAO;
+import DTO.TaiKhoanDTO;
+import GUI.TKhoan.ChonNhanVien;
+import GUI.TKhoan.ThemTaiKhoan;
+import GUI.TKhoan.SuaTaiKhoan;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import java.awt.Color;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
-/**
- *
- * @author ADMIN
- */
-public class TaiKhoan extends javax.swing.JPanel {
+public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form TaiKhoan
      */
-    Color BackgroundColor = new Color(240, 247, 250);
+    DefaultTableModel tblModel;
+    TaiKhoanBUS taiKhoanBus = new TaiKhoanBUS();
+//    NhomQuyenDAO nhomQuyenDAO;
+    TaiKhoanDAO taiKhoanDAO;
+    ThemTaiKhoan themTaiKhoan;
+    SuaTaiKhoan suaTaiKhoan;
+    ChonNhanVien chonNhanVien;
+    ArrayList<TaiKhoanDTO> listTaiKhoan = taiKhoanBus.getAllTaiKhoan();
+    
     public TaiKhoan() {
-        
         initComponents();
         addIcon();
         tblTaiKhoan.setFocusable(false);     
@@ -28,12 +44,61 @@ public class TaiKhoan extends javax.swing.JPanel {
         tblTaiKhoan.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblTaiKhoan.setFocusable(false);
         tblTaiKhoan.setAutoCreateRowSorter(true);
-        this.setOpaque(false);
-        this.setBorder(new EmptyBorder(10, 10, 10, 10));
         
-        pnlCenter.setBackground(BackgroundColor);
-        pnlCenter.setBorder(new EmptyBorder(20,0,0,0));
+        btnThemTK.addActionListener(this);
+        btnSuaTK.addActionListener(this);
+        btnXoaTK.addActionListener(this);
+        btnXuatExcelTK.addActionListener(this);
+        
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(1200, 800));
+        this.add(pnlTop, BorderLayout.NORTH);
+        this.add(pnlCenter, BorderLayout.CENTER);
+
+        hienThiListTaiKhoan(listTaiKhoan);
     }
+    
+    private void timKiemTaiKhoan(String keyword) {
+        ArrayList<TaiKhoanDTO> ketQuaTimKiem = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) tblTaiKhoan.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenTaiKhoan = (String) model.getValueAt(i, 1);
+            if (tenTaiKhoan.toLowerCase().contains(keyword.toLowerCase())) {
+                ketQuaTimKiem.add(taiKhoanBus.selectByID((int) model.getValueAt(i, 0))); // Thêm tài khoản vào danh sách kết quả
+            }
+        }
+        hienThiListTaiKhoan(ketQuaTimKiem);
+    }
+
+    public void hienThiListTaiKhoan(ArrayList<TaiKhoanDTO> listTaiKhoan) {
+        taiKhoanBus = new TaiKhoanBUS();
+        DefaultTableModel model = (DefaultTableModel) tblTaiKhoan.getModel();
+        model.setRowCount(0);
+        for (TaiKhoanDTO taiKhoan : listTaiKhoan) {
+            String trangthai = null;
+            if (taiKhoan.getTrangthai() == 1) {
+                trangthai = "Hoạt động";
+            } else if (taiKhoan.getTrangthai() == 0) {
+                trangthai = "Ngưng hoạt động";
+            }
+            Object[] row = {
+                taiKhoan.getManv(),
+                taiKhoan.getUsername(),
+                taiKhoanBus.selectTenNhomQuyenByMaNQ(taiKhoan.getManhomquyen()),
+                trangthai};
+            model.addRow(row);
+        }
+
+        // Tạo renderer để hiển thị nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblTaiKhoan.getColumnCount(); i++) {
+            tblTaiKhoan.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+    
     private void addIcon(){
             btnThemTK.setIcon(new FlatSVGIcon("./icon/add.svg"));
             btnSuaTK.setIcon(new FlatSVGIcon("./icon/edit.svg"));
@@ -58,14 +123,14 @@ public class TaiKhoan extends javax.swing.JPanel {
         btnNhapExcelTK = new javax.swing.JButton();
         btnXuatExcelTK = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnTimKiem = new javax.swing.JTextField();
+        txtTimKiem = new javax.swing.JTextField();
+        btnLamMoi = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTaiKhoan = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(1200, 800));
         setRequestFocusEnabled(false);
-        setLayout(new java.awt.BorderLayout());
 
         pnlTop.setBackground(new java.awt.Color(255, 255, 255));
         pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
@@ -108,15 +173,26 @@ public class TaiKhoan extends javax.swing.JPanel {
         jLabel1.setText("Tìm kiếm :");
         pnlTop.add(jLabel1);
 
-        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        txtTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+                txtTimKiemActionPerformed(evt);
             }
         });
-        pnlTop.add(btnTimKiem);
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyPressed(evt);
+            }
+        });
+        pnlTop.add(txtTimKiem);
 
-        add(pnlTop, java.awt.BorderLayout.NORTH);
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnLamMoi);
 
         tblTaiKhoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,14 +247,27 @@ public class TaiKhoan extends javax.swing.JPanel {
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
         );
 
-        add(pnlCenter, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTKActionPerformed
@@ -193,20 +282,90 @@ public class TaiKhoan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNhapExcelTKActionPerformed
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void btnXuatExcelTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelTKActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXuatExcelTKActionPerformed
 
+    private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String keyword = txtTimKiem.getText().trim();
+            timKiemTaiKhoan(keyword);
+        }
+    }//GEN-LAST:event_txtTimKiemKeyPressed
 
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        listTaiKhoan = taiKhoanBus.getAllTaiKhoan();
+        hienThiListTaiKhoan(listTaiKhoan);
+        txtTimKiem.setText("");
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void xoaTaiKhoan() {
+        int selectedRow = tblTaiKhoan.getSelectedRow();
+        if (selectedRow != -1) {
+            int manv = (int) tblTaiKhoan.getValueAt(selectedRow, 0);
+            taiKhoanBus = new TaiKhoanBUS();
+            boolean thanhCong = taiKhoanBus.xoaTaiKhoan(manv);
+            if (thanhCong) {
+                JOptionPane.showMessageDialog(null, "Xóa tài khoản thành công");
+                listTaiKhoan = taiKhoanBus.getAllTaiKhoan();
+                hienThiListTaiKhoan(listTaiKhoan);
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa tài khoản lỗi");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản để xóa");
+        }
+    }
+    
+    private TaiKhoanDTO selectTaiKhoan() {
+        int selectedRow = tblTaiKhoan.getSelectedRow();
+        TaiKhoanDTO result = null;
+        if (selectedRow != -1) {
+            int manv = (int) tblTaiKhoan.getValueAt(selectedRow, 0);
+            taiKhoanBus = new TaiKhoanBUS();
+            result = taiKhoanBus.selectByID(manv);
+        }
+        return result;
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnThemTK) {
+            chonNhanVien = new ChonNhanVien();
+            chonNhanVien.setLocationRelativeTo(null);
+            chonNhanVien.setVisible(true);
+        } else if (e.getSource() == btnXoaTK) {
+            xoaTaiKhoan();
+        } else if (e.getSource() == btnSuaTK) {
+            if (selectTaiKhoan() != null) {
+                suaTaiKhoan = new SuaTaiKhoan(this, selectTaiKhoan());
+                suaTaiKhoan.setLocationRelativeTo(null);
+                suaTaiKhoan.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản");
+            }
+        } else if (e.getSource() == btnXuatExcelTK) {
+            XuatExcel xuatExcel = new XuatExcel();
+            try {
+                xuatExcel.exportJTableToExcel(tblTaiKhoan);
+                JOptionPane.showMessageDialog(null, "Xuất thành công");
+            } catch (IOException ex) {
+                Logger.getLogger(TaiKhoan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnNhapExcelTK;
     private javax.swing.JButton btnSuaTK;
     private javax.swing.JButton btnThemTK;
-    private javax.swing.JTextField btnTimKiem;
     private javax.swing.JButton btnXoaTK;
     private javax.swing.JButton btnXuatExcelTK;
     private javax.swing.JLabel jLabel1;
@@ -214,5 +373,6 @@ public class TaiKhoan extends javax.swing.JPanel {
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlTop;
     private javax.swing.JTable tblTaiKhoan;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

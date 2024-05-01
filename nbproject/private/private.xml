@@ -11,42 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/PhieuNhapDAO.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/PhieuXuat.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeTongQuan.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Login.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeDoanhThuTungNam.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKe.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/Chart.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/BlankChart/SeriesSize.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/NhaCungCap.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/LabelColor.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeKhachHang.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/BlankChart/BlankPlotChatRender.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ProductStatistics.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/NCCap/ThemNCCap.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Main.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/LegendItem.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeDoanhThu.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/BuildTable.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/ModelChart.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/BUS/PhieuNhapBUS.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/ThemSanPham.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/KhachHang.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Panel/TaoPhieuXuatt.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/ShowCBB.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/PhieuXuatDAO.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeDoanhThuTungThang.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Panel/TaoPhieuNhap.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/BUS/KhachHangBUS.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/BlankChart/BlankPlotChart.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeTonKho.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/TaiKhoan.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/PXuat/ChonKhachHang.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/ModelLegend.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeNhaCungCap.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Component/Chart/BarChart/BlankChart/NiceScale.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -1,27 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DTO;
 
 import java.util.Date;
 import java.util.Objects;
 
 public class NhanVienDTO {
-
     private int manv;
     private String hoten;
     private int gioitinh;
-    private String sdt;
     private Date ngaysinh;
-    private int trangthai;
+    private String sdt;
     private String email;
-
+    private int trangthai;
+    
     public NhanVienDTO() {
+    }
+    
+    //của NhanVienDAO
+    public NhanVienDTO(int madm, String tennv, int gioitinh, Date ngaysinh, String sdt, String email, int trangthai) {
+        this.manv = madm;
+        this.hoten = tennv;
+        this.gioitinh = gioitinh;
+        this.ngaysinh = ngaysinh;
+        this.sdt = sdt;
+        this.email = email;
+        this.trangthai = trangthai;
+    }
+    
+    //của GUI.NVien
+    public NhanVienDTO(String hoten, int gioitinh, Date ngaysinh, String sdt, String email, int trangthai) {
+        this.hoten = hoten;
+        this.gioitinh = gioitinh;
+        this.ngaysinh = ngaysinh;
+        this.sdt = sdt;
+        this.email = email;
+        this.trangthai = trangthai;
     }
 
     public NhanVienDTO(int manv, String hoten, int gioitinh, Date ngaysinh, String sdt, int trangthai, String email) {
-        this.manv = manv; 
+        this.manv = manv;
         this.hoten = hoten;
         this.gioitinh = gioitinh;
         this.ngaysinh = ngaysinh;
@@ -29,7 +46,6 @@ public class NhanVienDTO {
         this.trangthai = trangthai;
         this.email = email;
     }
-
 
     public int getManv() {
         return manv;

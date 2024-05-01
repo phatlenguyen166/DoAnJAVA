@@ -97,7 +97,7 @@ public final class Main extends javax.swing.JFrame {
 
     public void setThongTinNhanVien(TaiKhoanDTO taiKhoan) {
         nhanVienBUS = new NhanVienBUS();
-        NhanVienDTO NhanVien = nhanVienBUS.selectThongTinNhanVienByMaNV(taiKhoan.getManv());
+        NhanVienDTO NhanVien = nhanVienBUS.selectByID(taiKhoan.getManv());
         lblTenNhanVien.setText(NhanVien.getHoten());
         TaiKhoanBUS taiKhoanBUS = new TaiKhoanBUS();
         String tenChucVuc = taiKhoanBUS.selectTenChucVu(taiKhoan.getManhomquyen());

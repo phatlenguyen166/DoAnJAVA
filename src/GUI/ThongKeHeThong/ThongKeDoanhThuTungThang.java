@@ -1,3 +1,4 @@
+
 package GUI.ThongKeHeThong;
 
 import BUS.ThongKeBUS;
@@ -23,7 +24,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 /**
  *
  * @author duong
@@ -32,14 +32,13 @@ public class ThongKeDoanhThuTungThang extends javax.swing.JPanel {
 
     ThongKeBUS thongkeBUS;
     ArrayList<ThongKeTheoThangDTO> listtkThang;
-    Chart chart;
+    Chart  chart;
 
     public ThongKeDoanhThuTungThang() {
         initComponents();
         thongkeBUS = new ThongKeBUS();
         loadThongKeThang(yearchooser.getYear());
     }
-
     public class Formater {
 
         public static String FormatVND(double vnd) {
@@ -52,18 +51,14 @@ public class ThongKeDoanhThuTungThang extends javax.swing.JPanel {
             return formatDate.format(thoigian);
         }
     }
-
-    public void loadThongKeThang(int nam) {
+   public void loadThongKeThang(int nam) {
         ArrayList<ThongKeTheoThangDTO> list = thongkeBUS.getThongKeTheoThang(nam);
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
         pnlChart.removeAll();
         chart = new Chart();
-//        chart.addLegend("Vốn", new Color(245, 189, 135));
-//        chart.addLegend("Doanh thu", new Color(135, 189, 245));
-//        chart.addLegend("Lợi nhuận", new Color(189, 135, 245));
-        chart.addLegend("Vốn", new Color(221, 160, 221));
-        chart.addLegend("Doanh thu", new Color(255, 228, 225));
-        chart.addLegend("Lợi nhuận", new Color(255,127,80));
+        chart.addLegend("Vốn", new Color(37,150,190));
+        chart.addLegend("Doanh thu", new Color(21, 135, 15));
+        chart.addLegend("Lợi nhuận", new Color(238, 82, 60));
         for (int i = 0; i < list.size(); i++) {
             chart.addData(new ModelChart("Tháng " + (i + 1), new double[]{list.get(i).getChiphi(), list.get(i).getDoanhthu(), list.get(i).getLoinhuan()}));
         }
@@ -79,8 +74,8 @@ public class ThongKeDoanhThuTungThang extends javax.swing.JPanel {
             });
         }
 
-    }
 
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -153,10 +148,10 @@ public class ThongKeDoanhThuTungThang extends javax.swing.JPanel {
     private void btnexportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexportActionPerformed
         // TODO add your handling code here:
         try {
-            JTableExporter.exportJTableToExcel(tblThongKe);
-        } catch (IOException ex) {
-            Logger.getLogger(ThongKeDoanhThuTungThang.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                JTableExporter.exportJTableToExcel(tblThongKe);
+            } catch (IOException ex) {
+                Logger.getLogger(ThongKeDoanhThuTungThang.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }//GEN-LAST:event_btnexportActionPerformed
 
     private void yearchooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_yearchooserPropertyChange
@@ -165,59 +160,60 @@ public class ThongKeDoanhThuTungThang extends javax.swing.JPanel {
         loadThongKeThang(nam);
     }//GEN-LAST:event_yearchooserPropertyChange
 
+    
     public class JTableExporter {
 
-        public static void exportJTableToExcel(JTable table) throws IOException {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Chọn đường dẫn lưu file Excel");
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");
-            fileChooser.setFileFilter(filter);
-            fileChooser.setAcceptAllFileFilterUsed(false);
+    public static void exportJTableToExcel(JTable table) throws IOException {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn đường dẫn lưu file Excel");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("XLSX files", "xlsx");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
 
-            int userChoice = fileChooser.showSaveDialog(null);
-            if (userChoice == JFileChooser.APPROVE_OPTION) {
-                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-                if (!filePath.toLowerCase().endsWith(".xlsx")) {
-                    filePath += ".xlsx";
-                }
+        int userChoice = fileChooser.showSaveDialog(null);
+        if (userChoice == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if (!filePath.toLowerCase().endsWith(".xlsx")) {
+                filePath += ".xlsx";
+            }
 
-                TableModel model = table.getModel();
-                Workbook workbook = new XSSFWorkbook();
-                Sheet sheet = workbook.createSheet("Sheet1");
+            TableModel model = table.getModel();
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Sheet1");
 
-                // Create header row
-                Row headerRow = sheet.createRow(0);
-                for (int i = 0; i < model.getColumnCount(); i++) {
-                    Cell headerCell = headerRow.createCell(i);
-                    headerCell.setCellValue(model.getColumnName(i));
-                }
+            // Create header row
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                Cell headerCell = headerRow.createCell(i);
+                headerCell.setCellValue(model.getColumnName(i));
+            }
 
-                // Create data rows
-                for (int i = 0; i < model.getRowCount(); i++) {
-                    Row dataRow = sheet.createRow(i + 1);
-                    for (int j = 0; j < model.getColumnCount(); j++) {
-                        Cell dataCell = dataRow.createCell(j);
-                        Object value = model.getValueAt(i, j);
-                        if (value != null) {
-                            dataCell.setCellValue(value.toString());
-                        }
+            // Create data rows
+            for (int i = 0; i < model.getRowCount(); i++) {
+                Row dataRow = sheet.createRow(i + 1);
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    Cell dataCell = dataRow.createCell(j);
+                    Object value = model.getValueAt(i, j);
+                    if (value != null) {
+                        dataCell.setCellValue(value.toString());
                     }
                 }
-
-                // Resize all columns to fit the content size
-                for (int i = 0; i < model.getColumnCount(); i++) {
-                    sheet.autoSizeColumn(i);
-                }
-
-                // Write the output to a file
-                try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
-                    workbook.write(fileOut);
-                }
-
-                workbook.close();
             }
+
+            // Resize all columns to fit the content size
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            // Write the output to a file
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                workbook.write(fileOut);
+            }
+
+            workbook.close();
         }
     }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnexport;
     private javax.swing.JPanel jPanel1;

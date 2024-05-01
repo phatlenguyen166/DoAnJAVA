@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DTO;
 
 import java.util.Objects;
 
-/**
- *
- * @author robot
- */
 public class TaiKhoanDTO {
     private int manv;
     private String username;
@@ -18,7 +11,14 @@ public class TaiKhoanDTO {
     private int trangthai;
 
     public TaiKhoanDTO() {
-        
+    }
+    
+    //của GUI.TKhoan
+    public TaiKhoanDTO(String username, String matkhau, int maNhomquyen, int trangthai) {
+        this.username = username;
+        this.matkhau = matkhau;
+        this.manhomquyen = maNhomquyen;
+        this.trangthai = trangthai;
     }
     
     public TaiKhoanDTO(int manv, String username, String matkhau, int manhomquyen, int trangthai) {

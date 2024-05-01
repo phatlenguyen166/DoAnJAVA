@@ -1,51 +1,118 @@
 package GUI;
 
+import BUS.NhanVienBUS;
+import DAO.NhanVienDAO;
+import DTO.NhanVienDTO;
+import GUI.NVien.ChiTietNhanVien;
+import GUI.NVien.SuaNhanVien;
+import GUI.NVien.ThemNhanVien;
+import javax.swing.*;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
-/**
- *
- * @author ADMIN
- */
-public class NhanVien extends javax.swing.JPanel {
+public class NhanVien extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form NhanVien
      */
-    Color BackgroundColor = new Color(240, 247, 250);
+    DefaultTableModel tblModel;
+    NhanVienBUS nhanVienBus = new NhanVienBUS();
+    NhanVienDAO nhanVienDAO;
+    ThemNhanVien themNhanVien;
+    SuaNhanVien suaNhanVien;
+    ChiTietNhanVien chiTietNhanVien;
+    public ArrayList<NhanVienDTO> listNhanVien = nhanVienBus.getAllNhanVien();
+    
     public NhanVien() {
         initComponents();
+        addIcon();
         tblNhanVien.setFocusable(false);     
         tblNhanVien.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         tblNhanVien.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblNhanVien.setFocusable(false);
         tblNhanVien.setAutoCreateRowSorter(true);
-        addIcon();
         
-        pnlCenter.setBackground(BackgroundColor);
-        pnlCenter.setBorder(new EmptyBorder(20,0,0,0));
-        this.setBorder(new EmptyBorder(10,10,10,10));
-        this.setOpaque(false);
-     
+        btnThemNV.addActionListener(this);
+        btnSuaNV.addActionListener(this);
+        btnXoaNV.addActionListener(this);
+        btnChiTietNV.addActionListener(this);
+        btnNhapExcelNV.addActionListener(this);
+        btnXuatExcelNV.addActionListener(this);
+        
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(1200, 800));
+        this.add(pnlTop, BorderLayout.NORTH);
+        this.add(pnlCenter, BorderLayout.CENTER);
 
-  
-        
+        hienThiListNhanVien(listNhanVien);
     }
-    private void addIcon(){
-            btnThemNV.setIcon(new FlatSVGIcon("./icon/add.svg"));
-            btnSuaNV.setIcon(new FlatSVGIcon("./icon/edit.svg"));
-            btnXoaNV.setIcon(new FlatSVGIcon("./icon/delete.svg"));
-            btnNhapExcelNV.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
-            btnXuatExcelNV.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
+    
+    private void timKiemNhanVien(String keyword) {
+        ArrayList<NhanVienDTO> ketQuaTimKiem = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenNhanVien = (String) model.getValueAt(i, 1);
+            if (tenNhanVien.toLowerCase().contains(keyword.toLowerCase())) {
+                ketQuaTimKiem.add(nhanVienBus.selectByID((int) model.getValueAt(i, 0)));
+            }
         }
+        hienThiListNhanVien(ketQuaTimKiem);
+    }
+    
+    public void hienThiListNhanVien(ArrayList<NhanVienDTO> listNhanVien) {
+        nhanVienBus = new NhanVienBUS();
+        DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
+        model.setRowCount(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        for (NhanVienDTO nhanVien : listNhanVien) {
+            String gioitinh;
+            if (nhanVien.getGioitinh() == 1) {
+                gioitinh = "Nam";
+            }
+            else {
+                gioitinh = "Nữ";
+            }
+            String ngaySinhFormatted = sdf.format(nhanVien.getNgaysinh());
+            Object[] row = {
+                nhanVien.getManv(),
+                nhanVien.getHoten(),
+                gioitinh,
+                ngaySinhFormatted,
+                nhanVien.getSdt(),
+                nhanVien.getEmail()};
+            model.addRow(row);
+        }
+        
+        // Tạo renderer để hiển thị nội dung ở giữa ô
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblNhanVien.getColumnCount(); i++) {
+            tblNhanVien.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+    
+    private void addIcon(){
+        btnThemNV.setIcon(new FlatSVGIcon("./icon/add.svg"));
+        btnSuaNV.setIcon(new FlatSVGIcon("./icon/edit.svg"));
+        btnXoaNV.setIcon(new FlatSVGIcon("./icon/delete.svg"));
+        btnChiTietNV.setIcon(new FlatSVGIcon("./icon/detail.svg"));
+        btnNhapExcelNV.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
+        btnXuatExcelNV.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,10 +126,12 @@ public class NhanVien extends javax.swing.JPanel {
         btnThemNV = new javax.swing.JButton();
         btnSuaNV = new javax.swing.JButton();
         btnXoaNV = new javax.swing.JButton();
+        btnChiTietNV = new javax.swing.JButton();
         btnNhapExcelNV = new javax.swing.JButton();
         btnXuatExcelNV = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnTimKiem = new javax.swing.JTextField();
+        txtTimKiem = new javax.swing.JTextField();
+        btnLamMoi = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
@@ -74,6 +143,11 @@ public class NhanVien extends javax.swing.JPanel {
         pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
 
         btnThemNV.setText("Thêm");
+        btnThemNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemNVActionPerformed(evt);
+            }
+        });
         pnlTop.add(btnThemNV);
 
         btnSuaNV.setText("Sửa");
@@ -91,6 +165,14 @@ public class NhanVien extends javax.swing.JPanel {
             }
         });
         pnlTop.add(btnXoaNV);
+
+        btnChiTietNV.setText("Chi tiết");
+        btnChiTietNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChiTietNVActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnChiTietNV);
 
         btnNhapExcelNV.setText("Nhập excel");
         btnNhapExcelNV.addActionListener(new java.awt.event.ActionListener() {
@@ -111,14 +193,27 @@ public class NhanVien extends javax.swing.JPanel {
         jLabel1.setText("Tìm kiếm :");
         pnlTop.add(jLabel1);
 
-        btnTimKiem.setMinimumSize(new java.awt.Dimension(200, 30));
-        btnTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        txtTimKiem.setMinimumSize(new java.awt.Dimension(200, 30));
+        txtTimKiem.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+                txtTimKiemActionPerformed(evt);
             }
         });
-        pnlTop.add(btnTimKiem);
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyPressed(evt);
+            }
+        });
+        pnlTop.add(txtTimKiem);
+
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+        pnlTop.add(btnLamMoi);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
 
@@ -139,7 +234,7 @@ public class NhanVien extends javax.swing.JPanel {
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,16 +260,103 @@ public class NhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXuatExcelNVActionPerformed
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void btnChiTietNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietNVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnChiTietNVActionPerformed
+
+    private void btnThemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemNVActionPerformed
+
+    private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String keyword = txtTimKiem.getText().trim();
+            timKiemNhanVien(keyword);
+        }
+    }//GEN-LAST:event_txtTimKiemKeyPressed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        listNhanVien = nhanVienBus.getAllNhanVien();
+        hienThiListNhanVien(listNhanVien);
+        txtTimKiem.setText("");
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void xoaNhanVien() {
+        int selectedRow = tblNhanVien.getSelectedRow();
+        if (selectedRow != -1) {
+            int maNV = (int) tblNhanVien.getValueAt(selectedRow, 0);
+            nhanVienBus = new NhanVienBUS();
+            boolean thanhCong = nhanVienBus.xoaNhanVien(maNV);
+            if (thanhCong) {
+                JOptionPane.showMessageDialog(null, "Xóa nhân viên thành công");
+                listNhanVien = nhanVienBus.getAllNhanVien();
+                hienThiListNhanVien(listNhanVien);
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa nhân viên lỗi");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên để xóa");
+        }
+    }
+    
+    private NhanVienDTO selectNhanVien() {
+        int selectedRow = tblNhanVien.getSelectedRow();
+        NhanVienDTO result = null;
+        if (selectedRow != -1) {
+            int manv = (int) tblNhanVien.getValueAt(selectedRow, 0);
+            nhanVienBus = new NhanVienBUS();
+            result = nhanVienBus.selectByID(manv);
+        }
+        return result;
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnThemNV) {
+            themNhanVien = new ThemNhanVien();
+            themNhanVien.setLocationRelativeTo(null);
+            themNhanVien.setVisible(true);
+        } else if (e.getSource() == btnXoaNV) {
+            xoaNhanVien();
+        } else if (e.getSource() == btnSuaNV) {
+            if (selectNhanVien() != null) {
+                suaNhanVien = new SuaNhanVien(this,selectNhanVien());
+                suaNhanVien.setLocationRelativeTo(null);
+                suaNhanVien.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên");
+            }
+        } else if (e.getSource() == btnXuatExcelNV) {
+            XuatExcel xuatExcel = new XuatExcel();
+            try {
+                xuatExcel.exportJTableToExcel(tblNhanVien);
+                JOptionPane.showMessageDialog(null, "Xuất thành công");
+            } catch (IOException ex) {
+                Logger.getLogger(NhanVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (e.getSource() == btnChiTietNV) {
+            if (selectNhanVien() != null) {
+                chiTietNhanVien = new ChiTietNhanVien(selectNhanVien());
+                chiTietNhanVien.setLocationRelativeTo(null);
+                chiTietNhanVien.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên");
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChiTietNV;
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnNhapExcelNV;
     private javax.swing.JButton btnSuaNV;
     private javax.swing.JButton btnThemNV;
-    private javax.swing.JTextField btnTimKiem;
     private javax.swing.JButton btnXoaNV;
     private javax.swing.JButton btnXuatExcelNV;
     private javax.swing.JLabel jLabel1;
@@ -182,5 +364,6 @@ public class NhanVien extends javax.swing.JPanel {
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlTop;
     private javax.swing.JTable tblNhanVien;
+    private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

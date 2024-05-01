@@ -87,9 +87,9 @@ public class ThongKeDoanhThuTungNam extends javax.swing.JPanel {
         pnlChart.removeAll();
         Chart chart;
         chart = new Chart();
-        chart.addLegend("Vốn", new Color(245, 189, 135));
-        chart.addLegend("Doanh thu", new Color(135, 189, 245));
-        chart.addLegend("Lợi nhuận", new Color(189, 135, 245));
+        chart.addLegend("Vốn", new Color(37,150,190));
+        chart.addLegend("Doanh thu", new Color(21, 135, 15));
+        chart.addLegend("Lợi nhuận", new Color(238, 82, 60));
         for (ThongKeDoanhThuDTO i : listtkNam) {
             chart.addData(new ModelChart("Năm " + i.getThoigian(), new double[]{i.getVon(), i.getDoanhthu(), i.getLoinhuan()}));
         }
