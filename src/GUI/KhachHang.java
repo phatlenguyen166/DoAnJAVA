@@ -79,7 +79,6 @@ private void timKiemKhachHang(String keyword) {
     public void hienThiListKhachHang(ArrayList<KhachHangDTO> listKhachHang) {
         khachHangBUS = new KhachHangBUS();
         khachHangDAO = new KhachHangDAO();
-        listKhachHang = khachHangBUS.getAllKhachHang();
         DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
         model.setRowCount(0);
         for (KhachHangDTO khachHang : listKhachHang) {
