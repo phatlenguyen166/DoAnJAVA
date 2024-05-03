@@ -19,6 +19,10 @@ public class NhaCungCapDAO {
     public NhaCungCapDAO() {
     }
 
+    public static NhaCungCapDAO getInstance() {
+        return new NhaCungCapDAO();
+    }
+
     public ArrayList<NhaCungCapDTO> getAllNhaCungCap() {
         ArrayList<NhaCungCapDTO> listNhaCungCap = new ArrayList<>();
         connection = MySQLConnection.getConnection();

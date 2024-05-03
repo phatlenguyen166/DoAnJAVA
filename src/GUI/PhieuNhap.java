@@ -1,6 +1,7 @@
 package GUI;
 
 import BUS.NhaCungCapBUS;
+import BUS.NhanVienBUS;
 import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DAO.NhaCungCapDAO;
@@ -9,6 +10,7 @@ import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import DTO.TaiKhoanDTO;
 import GUI.Component.BuildTable;
+import GUI.Component.Export.JTableExporter;
 import GUI.Component.ShowCBB;
 import GUI.Main;
 import GUI.PNhap.ChiTietPhieuNhap;
@@ -23,6 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,18 +34,11 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-/**
- *
- * @author ADMIN
- */
 public class PhieuNhap extends javax.swing.JPanel implements ActionListener, PropertyChangeListener, KeyListener, ItemListener {
 
     PhieuNhapBUS phieuNhapBUS = new PhieuNhapBUS();
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
+    NhanVienBUS nhanVienBUS = new NhanVienBUS();
     PhieuNhapDAO phieuNhapDAO = new PhieuNhapDAO();
     TaoPhieuNhap tpn = new TaoPhieuNhap();
     NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
@@ -66,16 +62,19 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         tblPhieuNhap.setAutoCreateRowSorter(true);
         taoPhieuNhap = new TaoPhieuNhap(); // Khởi tạo đối tượng TaoPhieuNhap
         nhaCungCapBUS = new NhaCungCapBUS();
-
+        nhanVienBUS = new NhanVienBUS();
+        
         btnChiTietPN.addActionListener(this);
         comboboxNCC.addItemListener(this);
+        cbxNhanVien.addItemListener(this);
         datengaybatdau.addPropertyChangeListener(this);
         datengayketthuc.addPropertyChangeListener(this);
         txtminprice.addKeyListener(this);
         txtmaxprice.addKeyListener(this);
 
         showCBB.CBBNhaCungCap(comboboxNCC);
-
+        showCBB.CBBNhanVienNhap(cbxNhanVien);
+        
         // Khởi tạo tblModel
         tblModel = (DefaultTableModel) tblPhieuNhap.getModel();
         this.selectedPNproducts = phieuNhapBUS.getAllPhieuNhap();
@@ -87,8 +86,14 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         txtTimKiem.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                ArrayList<PhieuNhapDTO> rs = phieuNhapBUS.search(txtTimKiem.getText());
-                loadDataTalbe(rs);
+                Fillter();
+            }
+        });
+        btnXuatExcelPN.addActionListener((ActionEvent e) -> {
+            try {
+                JTableExporter.exportJTableToExcel(tblPhieuNhap);
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(PhieuNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
         });
 
@@ -110,13 +115,15 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
         btnChiTietPN.addActionListener(this);
         comboboxNCC.addItemListener(this);
+        cbxNhanVien.addItemListener(this);
         datengaybatdau.addPropertyChangeListener(this);
         datengayketthuc.addPropertyChangeListener(this);
         txtminprice.addKeyListener(this);
         txtmaxprice.addKeyListener(this);
 
         showCBB.CBBNhaCungCap(comboboxNCC);
-
+        showCBB.CBBNhanVienNhap(cbxNhanVien);
+        
         // Khởi tạo tblModel
         tblModel = (DefaultTableModel) tblPhieuNhap.getModel();
         this.selectedPNproducts = phieuNhapBUS.getAllPhieuNhap();
@@ -128,8 +135,14 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         txtTimKiem.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                ArrayList<PhieuNhapDTO> rs = phieuNhapBUS.search(txtTimKiem.getText());
-                loadDataTalbe(rs);
+                Fillter();
+            }
+        });
+        btnXuatExcelPN.addActionListener((ActionEvent e) -> {
+            try {
+                JTableExporter.exportJTableToExcel(tblPhieuNhap);
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(PhieuNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
         });
 
@@ -143,11 +156,6 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -364,17 +372,6 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         }
     }//GEN-LAST:event_btnHuyPhieuActionPerformed
 
-    // Thêm bộ lắng nghe cho combobox
-//    public void itemStateChanged(ItemEvent e) {
-//        if (e.getStateChange() == ItemEvent.SELECTED) {
-//            String selectedNcc = (String) comboboxNCC.getSelectedItem();
-//            if (!selectedNcc.equals("Tất cả")) {
-//                loadDataTalbe(phieuNhapBUS.filterNCC(selectedNcc)); // Lọc dữ liệu theo nhà cung cấp đã chọn
-//            } else {
-//                loadDataTalbe(phieuNhapBUS.getAllPhieuNhap()); // Hiển thị lại toàn bộ dữ liệu nếu chọn "Tất cả"
-//            }
-//        }
-//    }
     //HÀM HỦY PHIẾU NHẬP
     public void DeletePhieuNhap() {
         taoPhieuNhap = new TaoPhieuNhap();
@@ -451,13 +448,14 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         tblModel.setRowCount(0); // Xóa tất cả các hàng trong bảng
         int i = 1;
         for (PhieuNhapDTO pn : listphieunhap) {
-            String TenNcc = nhaCungCapDAO.selectById(pn.getManhacungcap()).getTenncc();
+            String TenNcc = nhaCungCapBUS.selectByID(pn.getManhacungcap()).getTenncc();
+            String TenNv = nhanVienBUS.selectByID(pn.getMaNV()).getHoten();
             DecimalFormat decimalFormat = new DecimalFormat("#,### đ"); // Khởi tạo một đối tượng DecimalFormat
             Object[] rowData = {
                 i++,
                 pn.getMaphieunhap(),
                 TenNcc,
-                pn.getMaNV(),
+                TenNv,
                 pn.getThoigiantao(),
                 decimalFormat.format(pn.getTongTien())
             };
@@ -500,7 +498,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getSource() == comboboxNCC) {
+        if (e.getSource() == comboboxNCC || e.getSource() == cbxNhanVien) {
             Fillter();
         }
     }
@@ -536,16 +534,18 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
             ArrayList<PhieuNhapDTO> listphieu = new ArrayList<>();
             //int type = search.cbxChoose.getSelectedIndex();
             String selectedNcc = (String) comboboxNCC.getSelectedItem();
+            String selectedNv = (String) cbxNhanVien.getSelectedItem();
             int mancc = comboboxNCC.getSelectedIndex() == 0 ? 0 : phieuNhapBUS.getMancc(selectedNcc);
-//            int manv = cbxNhanVien.getSelectedIndex() == 0 ? 0 : nvBUS.getByIndex(cbxNhanVien.getSelectedIndex() - 1).getManv();
-            int manv = 1;
-            //String input = search.txtSearchForm.getText() != null ? search.txtSearchForm.getText() : "";
+            int manv = cbxNhanVien.getSelectedIndex() == 0 ? 0 : phieuNhapBUS.getManv(selectedNv);
+
             Date time_start = datengaybatdau.getDate() != null ? datengaybatdau.getDate() : new Date(0);
             Date time_end = datengayketthuc.getDate() != null ? datengayketthuc.getDate() : new Date(System.currentTimeMillis());
             String min_price = String.valueOf(txtminprice.getText());
             String max_price = txtmaxprice.getText();
             listphieu = phieuNhapBUS.fillerPhieuNhap(mancc, manv, time_start, time_end, min_price, max_price);
-            loadDataTalbe(listphieu);
+            String searchText = txtTimKiem.getText();
+            ArrayList<PhieuNhapDTO> rs = phieuNhapBUS.search(searchText, listphieu); //lọc theo ô tìm kiếm
+            loadDataTalbe(rs);
         }
     }
 

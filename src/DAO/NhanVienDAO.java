@@ -15,12 +15,19 @@ import javax.swing.JOptionPane;
 
 public class NhanVienDAO {
 
+    
+
     Connection connection;
     PreparedStatement pst;
 
     public NhanVienDAO() {
     }
-
+    
+    public static NhanVienDAO getInstance() {
+        return new NhanVienDAO();
+    }
+    
+    
     public ArrayList<NhanVienDTO> getAllNhanVien() {
         ArrayList<NhanVienDTO> listNhanVien = new ArrayList<>();
         connection = MySQLConnection.getConnection();

@@ -1,11 +1,14 @@
 package GUI;
 
 import BUS.KhachHangBUS;
+import BUS.NhanVienBUS;
 import BUS.PhieuXuatBUS;
 import DAO.PhieuXuatDAO;
 import DTO.ChiTietPhieuXuatDTO;
 import DTO.PhieuNhapDTO;
 import DTO.PhieuXuatDTO;
+import DTO.TaiKhoanDTO;
+import GUI.Component.Export.JTableExporter;
 import GUI.Component.ShowCBB;
 import GUI.PXuat.ChiTietPhieuXuat;
 import GUI.Panel.TaoPhieuNhap;
@@ -20,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,68 +36,124 @@ import javax.swing.table.DefaultTableModel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 /**
  *
  * @author ADMIN
  */
-public class PhieuXuat extends javax.swing.JPanel implements ActionListener, PropertyChangeListener, KeyListener, ItemListener{
+public class PhieuXuat extends javax.swing.JPanel implements ActionListener, PropertyChangeListener, KeyListener, ItemListener {
+
     private DefaultTableModel tblModel;
     KhachHangBUS khachHangBUS;
+    NhanVienBUS nhanVienBUS;
     PhieuXuat phieuXuat;
     TaoPhieuNhap taoPhieuNhap;
     PhieuXuatDAO phieuXuatDAO;
     ChiTietPhieuXuatDTO chiTietPhieuXuatDTO;
     ChiTietPhieuXuat chiTietPhieuXuat;
-    ShowCBB showCBB = new ShowCBB();    
+    ShowCBB showCBB = new ShowCBB();
     PhieuXuatBUS phieuXuatBUS = new PhieuXuatBUS();
     ArrayList<PhieuXuatDTO> selectedPXproducts;
-    
+
     /**
      * Creates new form PhieuXuat
      */
     public PhieuXuat() {
         initComponents();
         addIcon();
-        tblPhieuxuat.setFocusable(false);     
+        tblPhieuxuat.setFocusable(false);
         tblPhieuxuat.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         tblPhieuxuat.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblPhieuxuat.setFocusable(false);
         tblPhieuxuat.setAutoCreateRowSorter(true);
-        
+
         tblModel = (DefaultTableModel) tblPhieuxuat.getModel();
         this.selectedPXproducts = phieuXuatBUS.getAllPhieuXuat();
         loadDataTable(this.selectedPXproducts);
 
         showCBB.CBBKhachHang(comboboxKH);
-        
+        showCBB.CBBNhanVienNhap(comboboxNV);
+
         btnChiTietPX.addActionListener(this);
         btnHuyPX.addActionListener(this);
         comboboxKH.addItemListener(this);
+        comboboxNV.addItemListener(this);
         datengaybatdau.addPropertyChangeListener(this);
         datengayketthuc.addPropertyChangeListener(this);
         txtminprice.addKeyListener(this);
         txtmaxprice.addKeyListener(this);
-        
+
         txtTimKiem.putClientProperty("JTextField.placeholderText", "Tên khách hàng, mã phiếu xuất...");
         txtTimKiem.putClientProperty("JTextField.showClearButton", true);
         txtTimKiem.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
         txtTimKiem.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                ArrayList<PhieuXuatDTO> rs = phieuXuatBUS.search(txtTimKiem.getText());
-                loadDataTable(rs);
+                Fillter();
             }
         });
-    
-    }
-    private void addIcon(){
-            btnThemPX.setIcon(new FlatSVGIcon("./icon/add.svg"));
-            btnChiTietPX.setIcon(new FlatSVGIcon("./icon/edit.svg"));
-            btnHuyPX.setIcon(new FlatSVGIcon("./icon/cancel.svg"));
-            btnXuatExcelPX.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
+        btnXuatExcelPX.addActionListener((ActionEvent e) -> {
+            try {
+                JTableExporter.exportJTableToExcel(tblPhieuxuat);
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(PhieuXuat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        });
 
-        }
+    }
+    TaiKhoanDTO taiKhoanDTO;
+
+    public PhieuXuat(TaiKhoanDTO taiKhoanDTO) {
+        initComponents();
+        addIcon();
+        this.taiKhoanDTO = taiKhoanDTO;
+        tblPhieuxuat.setFocusable(false);
+        tblPhieuxuat.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
+        tblPhieuxuat.getColumnModel().getColumn(1).setPreferredWidth(180);
+        tblPhieuxuat.setFocusable(false);
+        tblPhieuxuat.setAutoCreateRowSorter(true);
+
+        tblModel = (DefaultTableModel) tblPhieuxuat.getModel();
+        this.selectedPXproducts = phieuXuatBUS.getAllPhieuXuat();
+        loadDataTable(this.selectedPXproducts);
+
+        showCBB.CBBKhachHang(comboboxKH);
+        showCBB.CBBNhanVienNhap(comboboxNV);
+        btnChiTietPX.addActionListener(this);
+        btnHuyPX.addActionListener(this);
+        comboboxKH.addItemListener(this);
+        comboboxNV.addItemListener(this);
+        datengaybatdau.addPropertyChangeListener(this);
+        datengayketthuc.addPropertyChangeListener(this);
+        txtminprice.addKeyListener(this);
+        txtmaxprice.addKeyListener(this);
+
+        txtTimKiem.putClientProperty("JTextField.placeholderText", "Tên khách hàng, mã phiếu xuất...");
+        txtTimKiem.putClientProperty("JTextField.showClearButton", true);
+        txtTimKiem.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
+        txtTimKiem.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                Fillter();
+            }
+        });
+        btnXuatExcelPX.addActionListener((ActionEvent e) -> {
+            try {
+                JTableExporter.exportJTableToExcel(tblPhieuxuat);
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(PhieuXuat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        });
+
+    }
+
+    private void addIcon() {
+        btnThemPX.setIcon(new FlatSVGIcon("./icon/add.svg"));
+        btnChiTietPX.setIcon(new FlatSVGIcon("./icon/edit.svg"));
+        btnHuyPX.setIcon(new FlatSVGIcon("./icon/cancel.svg"));
+        btnXuatExcelPX.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,7 +179,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         comboboxKH = new javax.swing.JComboBox<>();
         txtnhacungcap1 = new javax.swing.JLabel();
         txtnhacungcap2 = new javax.swing.JLabel();
-        comboboxNCC2 = new javax.swing.JComboBox<>();
+        comboboxNV = new javax.swing.JComboBox<>();
         txtnhacungcap3 = new javax.swing.JLabel();
         txtnhacungcap4 = new javax.swing.JLabel();
         txtmaxprice = new javax.swing.JTextField();
@@ -202,7 +262,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
 
         txtnhacungcap2.setText("Từ ngày");
 
-        comboboxNCC2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        comboboxNV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
 
         txtnhacungcap3.setText("Đến ngày");
 
@@ -227,7 +287,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
                                     .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtnhacungcap2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtnhacungcap1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboboxNCC2, javax.swing.GroupLayout.Alignment.TRAILING, 0, 248, Short.MAX_VALUE))
+                                    .addComponent(comboboxNV, javax.swing.GroupLayout.Alignment.TRAILING, 0, 248, Short.MAX_VALUE))
                                 .addComponent(txtnhacungcap3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(txtnhacungcap4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -245,7 +305,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboboxNCC2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboboxNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(txtnhacungcap2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,7 +374,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         pnlLoc.setVisible(false);
         pnlTop.setVisible(false);
         // Tạo một thể hiện của panel từ file java khác
-        TaoPhieuXuatt taoPhieuXuat = new TaoPhieuXuatt();
+        TaoPhieuXuatt taoPhieuXuat = new TaoPhieuXuatt(taiKhoanDTO);
 
         // Thêm taoPhieuNhap vào mainContentPN
         mainContentPX.add(taoPhieuXuat);
@@ -326,24 +386,26 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
     }//GEN-LAST:event_btnThemPXActionPerformed
 
     //HÀM HIỆN PHIẾU XUẤT LÊN BẢNG
-    public void loadDataTable(ArrayList<PhieuXuatDTO> ListPhieuXuat){
+    public void loadDataTable(ArrayList<PhieuXuatDTO> ListPhieuXuat) {
         tblModel.setRowCount(0); // Xóa tất cả các hàng trong bảng
         khachHangBUS = new KhachHangBUS();
-    int i = 1;
-    for (PhieuXuatDTO px : ListPhieuXuat) {
-        String TenKhachHang = khachHangBUS.selectByID(px.getMakh()).getHoten();
-        DecimalFormat decimalFormat = new DecimalFormat("#,### đ"); // Khởi tạo một đối tượng DecimalFormat
-        Object[] rowData = {
-            i++,
-            px.getMaphieuxuat(),
-            TenKhachHang,       
-            px.getManv(),          
-            px.getThoigiantao(),
-            decimalFormat.format(px.getTongTien())
-        };
-        tblModel.addRow(rowData); // Thêm hàng mới vào bảng
-    }
-    // Tạo renderer để căn giữa nội dung ở giữa ô
+        nhanVienBUS = new NhanVienBUS();
+        int i = 1;
+        for (PhieuXuatDTO px : ListPhieuXuat) {
+            String TenKhachHang = khachHangBUS.selectByID(px.getMakh()).getHoten();
+            String TenNv = nhanVienBUS.selectByID(px.getManv()).getHoten();
+            DecimalFormat decimalFormat = new DecimalFormat("#,### đ"); // Khởi tạo một đối tượng DecimalFormat
+            Object[] rowData = {
+                i++,
+                px.getMaphieuxuat(),
+                TenKhachHang,
+                TenNv,
+                px.getThoigiantao(),
+                decimalFormat.format(px.getTongTien())
+            };
+            tblModel.addRow(rowData); // Thêm hàng mới vào bảng
+        }
+        // Tạo renderer để căn giữa nội dung ở giữa ô
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -355,19 +417,19 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
 
     //CLICK VÀO BẢNG PHIẾU XUẤT
     private PhieuXuatDTO selectPhieuXuat() {
-    int selectedRow = tblPhieuxuat.getSelectedRow();
-    PhieuXuatDTO result = null;
-    if (selectedRow != -1) {
-        //int mapnColumnIndex = taoPhieuNhap.getColumnIndexByName("Mã xuất phiếu", tblPhieuNhap); // Sử dụng đối tượng taoPhieuNhap để gọi phương thức getColumnIndexByName
-        int mapn = (int) tblPhieuxuat.getValueAt(selectedRow, 1);
-        phieuXuatBUS = new PhieuXuatBUS();
-        result = phieuXuatBUS.selectByID(mapn);   
+        int selectedRow = tblPhieuxuat.getSelectedRow();
+        PhieuXuatDTO result = null;
+        if (selectedRow != -1) {
+            //int mapnColumnIndex = taoPhieuNhap.getColumnIndexByName("Mã xuất phiếu", tblPhieuNhap); // Sử dụng đối tượng taoPhieuNhap để gọi phương thức getColumnIndexByName
+            int mapn = (int) tblPhieuxuat.getValueAt(selectedRow, 1);
+            phieuXuatBUS = new PhieuXuatBUS();
+            result = phieuXuatBUS.selectByID(mapn);
+        }
+        return result;
     }
-    return result;
-}
-    
+
     //HÀM HỦY PHIẾU NHẬP
-    public void DeletePhieuXuat(){
+    public void DeletePhieuXuat() {
         taoPhieuNhap = new TaoPhieuNhap();
         int selectedRow = tblPhieuxuat.getSelectedRow();
         if (selectedRow != -1) {
@@ -375,19 +437,19 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
             int maspColumnIndex = taoPhieuNhap.getColumnIndexByName("Mã xuất phiếu", tblPhieuxuat);
             int mapx = (int) tblPhieuxuat.getValueAt(selectedRow, maspColumnIndex);
             boolean thanhcong = phieuXuatBUS.DeletePhieuXuat(mapx);
-            if(thanhcong){
+            if (thanhcong) {
                 phieuXuatBUS = new PhieuXuatBUS();
                 JOptionPane.showMessageDialog(null, "Xóa phiếu thành công");
                 selectedPXproducts = phieuXuatBUS.getAllPhieuXuat();
                 loadDataTable(selectedPXproducts);
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Xóa sản phẩm lỗi");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phảm để xóa");
         }
-        }
-    
+    }
+
     //CLICK
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -399,17 +461,17 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
-        } else if(e.getSource() == btnHuyPX){
+        } else if (e.getSource() == btnHuyPX) {
             int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn hủy phiếu nhập này?", "Xác nhận hủy", JOptionPane.YES_NO_OPTION);
             if (choice == JOptionPane.YES_OPTION) {
                 DeletePhieuXuat();
             }
         }
     }
-    
-        @Override
+
+    @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getSource() == comboboxKH) {
+        if (e.getSource() == comboboxKH || e.getSource() == comboboxNV) {
             Fillter();
         }
     }
@@ -445,17 +507,18 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
             phieuXuatBUS = new PhieuXuatBUS();
             ArrayList<PhieuXuatDTO> listphieu = new ArrayList<>();
             String selectedKH = (String) comboboxKH.getSelectedItem();
+            String selectedNv = (String) comboboxNV.getSelectedItem();
             int makh = comboboxKH.getSelectedIndex() == 0 ? 0 : phieuXuatBUS.getMakh(selectedKH);
-            System.out.println("ma kh" + makh);
-            //int manv = cbxNhanVien.getSelectedIndex() == 0 ? 0 : nvBUS.getByIndex(cbxNhanVien.getSelectedIndex() - 1).getManv();
-            int manv = 1;
-            //String input = search.txtSearchForm.getText() != null ? search.txtSearchForm.getText() : "";
+            int manv = comboboxNV.getSelectedIndex() == 0 ? 0 : phieuXuatBUS.getManv(selectedNv);
+
             Date time_start = datengaybatdau.getDate() != null ? datengaybatdau.getDate() : new Date(0);
             Date time_end = datengayketthuc.getDate() != null ? datengayketthuc.getDate() : new Date(System.currentTimeMillis());
             String min_price = String.valueOf(txtminprice.getText());
             String max_price = txtmaxprice.getText();
             listphieu = phieuXuatBUS.fillerPhieuXuat(makh, manv, time_start, time_end, min_price, max_price);
-            loadDataTable(listphieu);
+            String searchText = txtTimKiem.getText();
+            ArrayList<PhieuXuatDTO> rs = phieuXuatBUS.search(searchText, listphieu); //lọc theo ô tìm kiếm
+            loadDataTable(rs);
         }
     }
 
@@ -481,14 +544,14 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         }
         return true;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTietPX;
     private javax.swing.JButton btnHuyPX;
     private javax.swing.JButton btnThemPX;
     private javax.swing.JButton btnXuatExcelPX;
     private javax.swing.JComboBox<String> comboboxKH;
-    private javax.swing.JComboBox<String> comboboxNCC2;
+    private javax.swing.JComboBox<String> comboboxNV;
     private com.toedter.calendar.JDateChooser datengaybatdau;
     private com.toedter.calendar.JDateChooser datengayketthuc;
     private javax.swing.JLabel jLabel1;

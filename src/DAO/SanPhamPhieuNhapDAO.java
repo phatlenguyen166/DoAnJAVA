@@ -9,9 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SanPhamPhieuNhapDAO {
-    public SanPhamPhieuNhapDAO(){
-        
+
+    public SanPhamPhieuNhapDAO() {
+
     }
+
     // Phương thức để lấy danh sách sản phẩm từ cơ sở dữ liệu
     public static ArrayList<SanPhamDTO> getListSanPham() {
         ArrayList<SanPhamDTO> list = new ArrayList<>();
@@ -31,13 +33,12 @@ public class SanPhamPhieuNhapDAO {
             }
             rs.close();
             ps.close();
-            //MySQLConnection.closeConnection(conn); // Đóng kết nối sau khi sử dụng xong
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     // Hàm để lấy danh sách sản phẩm với điều kiện masp = masp
     public static ArrayList<SanPhamDTO> getListSanPham(int masp) {
         ArrayList<SanPhamDTO> list = new ArrayList<>();
@@ -61,7 +62,6 @@ public class SanPhamPhieuNhapDAO {
             }
             rs.close();
             ps.close();
-            //MySQLConnection.closeConnection(conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }

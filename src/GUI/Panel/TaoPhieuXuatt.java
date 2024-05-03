@@ -7,18 +7,24 @@ package GUI.Panel;
 import config.MySQLConnection;
 import java.sql.PreparedStatement;
 import BUS.KhachHangBUS;
+import BUS.NhaCungCapBUS;
+import BUS.NhanVienBUS;
 import BUS.SanPhamBUS;
 import BUS.SanPhamPhieuNhapBUS;
+import DAO.ChiTietPhieuNhapDAO;
 import DAO.ChiTietPhieuXuatDAO;
 import DAO.LoaiDAO;
 import DAO.NhaCungCapDAO;
+import DAO.PhieuNhapDAO;
 import DAO.PhieuXuatDAO;
+import DAO.SanPhamPhieuNhapDAO;
 import DAO.ThuongHieuDAO;
 import DAO.XuatXuDAO;
 import DTO.ChiTietPhieuXuatDTO;
 import DTO.KhachHangDTO;
 import DTO.PhieuXuatDTO;
 import DTO.SanPhamDTO;
+import DTO.TaiKhoanDTO;
 import javax.swing.table.DefaultTableModel;
 import GUI.Component.BuildTable;
 import GUI.Main;
@@ -68,6 +74,7 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
     ChonKhachHang chonKhachHang;
     Main main;
     
+    //NhanVienBUS nhanVienBUS = new NhanVienBUS();
     private ArrayList<SanPhamDTO> selectedProducts = new ArrayList<>();
     ArrayList<SanPhamDTO> listpr = new ArrayList<>();
     private TaoPhieuNhap taoPhieuNhap;
@@ -121,6 +128,57 @@ public class TaoPhieuXuatt extends javax.swing.JPanel implements MouseListener, 
                 buildTable.updateTableProducts(tblsoluongsanpham, rs);
             }
         });
+        
+    }
+    NhanVienBUS nhanVienBUS = new NhanVienBUS();
+    TaiKhoanDTO taiKhoanDTO;
+    public TaoPhieuXuatt(TaiKhoanDTO taiKhoanDTO) {
+        this.taiKhoanDTO = taiKhoanDTO;
+        initComponents();
+        btnsuasanpham.setVisible(false);
+        btnxoasanpham.setVisible(false);
+        BuildTable buildTable = new BuildTable();
+        phieuXuatDAO = new PhieuXuatDAO();
+        sanPhamPhieuNhapBUS = new SanPhamPhieuNhapBUS();
+        khachHangBUS = new KhachHangBUS();
+        listpr = sanPhamPhieuNhapBUS.getListSanPham();
+        buildTable.updateTableProducts(tblsoluongsanpham, listpr);
+        tblsoluongsanpham.addMouseListener(this);
+        
+        // Tạo mã phiếu xuat mới
+        int soLuongPhieuXuatDaTao = phieuXuatDAO.getLatestMaPhieuXuat(); 
+        int maPhieuXuat = ++soLuongPhieuXuatDaTao;
+        txtmaphieuxuat.setText("PX" + (maPhieuXuat));
+        txtmaphieuxuat.setEditable(false);
+        txtkhachhang.setEditable(false);
+        txttensanpham.setEditable(false);
+        txtnhanvienxuat.setEditable(false);
+        txtmasanphampx.setEditable(false);
+        txtsoluongton.setEditable(false);
+        txtgiaxuat.setEditable(false);
+        
+        tblsoluongsanpham.setDefaultEditor(Object.class, null);
+        tblsoluongsanpham.setFocusable(false);
+        tblthongtinspdathempx.setDefaultEditor(Object.class, null);
+        tblthongtinspdathempx.setFocusable(false);
+        
+        btnchonkhachhang.addActionListener(this);
+        btnxuathang.addActionListener(this);
+        tblsoluongsanpham.addMouseListener(this);
+        tblthongtinspdathempx.addMouseListener(this);
+        
+        txttimkiem.putClientProperty("JTextField.placeholderText", "Tên sản phẩm, mã sản phẩm...");
+        txttimkiem.putClientProperty("JTextField.showClearButton", true);
+        txttimkiem.putClientProperty("JTextField.leadingIcon", new FlatSVGIcon("./icon/search.svg"));
+        txttimkiem.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                sanPhamBUS = new SanPhamBUS();
+                ArrayList<SanPhamDTO> rs = sanPhamBUS.search(txttimkiem.getText());
+                buildTable.updateTableProducts(tblsoluongsanpham, rs);
+            }
+        });
+        txtnhanvienxuat.setText(nhanVienBUS.selectByID(taiKhoanDTO.getManv()).getHoten());
         
     }
 

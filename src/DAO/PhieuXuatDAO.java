@@ -1,17 +1,13 @@
 package DAO;
 
 import DTO.PhieuXuatDTO;
-import com.itextpdf.text.log.Logger;
 import config.MySQLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static java.time.Instant.now;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import static java.time.LocalDateTime.now;
-import java.util.Date;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 
@@ -19,6 +15,10 @@ public class PhieuXuatDAO {
 
     private Connection connection;
     private PreparedStatement ps;
+
+    public static PhieuXuatDAO getInstance() {
+        return new PhieuXuatDAO();
+    }
 
     public PhieuXuatDAO() {
         connection = MySQLConnection.getConnection();
@@ -57,7 +57,7 @@ public class PhieuXuatDAO {
 
     public ArrayList<PhieuXuatDTO> getAllPhieuXuat() {
         ArrayList<PhieuXuatDTO> listPhieuXuat = new ArrayList<>();
-        String sql = "SELECT * FROM phieuxuat WHERE trangthai = 1"; 
+        String sql = "SELECT * FROM phieuxuat WHERE trangthai = 1";
         try {
             ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -113,7 +113,7 @@ public class PhieuXuatDAO {
         }
         return result;
     }
-    
+
     //Lẫy mã phiếu nhập
     public int getLatestMaPhieuXuat() {
         // Truy vấn cơ sở dữ liệu để lấy mã phiếu nhập lớn nhất đã được tạo
@@ -127,20 +127,20 @@ public class PhieuXuatDAO {
         }
         return 0;
     }
-    
-    public boolean DeletePhieuXuat(int mapx){
+
+    public boolean DeletePhieuXuat(int mapx) {
         boolean thanhcong = false;
-        try{
+        try {
             connection = MySQLConnection.getConnection();
             String sql = "UPDATE phieuxuat SET trangthai = 0 WHERE maphieuxuat = ?";
             ps = (PreparedStatement) connection.prepareStatement(sql);
             ps.setInt(1, mapx);
             int result = ps.executeUpdate();
-            if(result > 0){
+            if (result > 0) {
                 thanhcong = true;
             }
             MySQLConnection.closeConnection(connection);
-        } catch(SQLException ex){
+        } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return thanhcong;

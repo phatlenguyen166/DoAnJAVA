@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author this pc
- */
 public class ChiTietPhieuNhapDAO {
 
     Connection connection;
     PreparedStatement ps;
+
+    public static ChiTietPhieuNhapDAO getInstance() {
+        return new ChiTietPhieuNhapDAO();
+    }
 
     public ChiTietPhieuNhapDAO() {
 
@@ -41,9 +41,7 @@ public class ChiTietPhieuNhapDAO {
                     ps.executeUpdate();
                 }
             }
-            //MySQLConnection.closeConnection(connection);
         } catch (SQLException ex) {
-            //Logger.getLogger(ChiTietPhieuNhapDAO.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Lỗi SQL");
         }
     }
@@ -62,8 +60,6 @@ public class ChiTietPhieuNhapDAO {
                 System.out.println(soluongton);
                 ps.executeUpdate(); // Thực hiện cập nhật
             }
-            // MySQLConnection.closeConnection(connection);
-            //System.out.println(chiTiet);
         } catch (SQLException e) {
             // Xử lý ngoại lệ
             e.printStackTrace();
@@ -71,23 +67,26 @@ public class ChiTietPhieuNhapDAO {
     }
 
     public ArrayList<ChiTietPhieuNhapDTO> selectAll(String t) {
+        connection = MySQLConnection.getConnection();
         ArrayList<ChiTietPhieuNhapDTO> result = new ArrayList<>();
-        String sql = "SELECT * FROM ctphieunhap WHERE maphieunhap = ?";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, t);
-            ResultSet rs = (ResultSet) ps.executeQuery();
-            while (rs.next()) {
-                int maphieu = rs.getInt("maphieunhap");
-                int maphienbansp = rs.getInt("maphienbansp");
-                int dongia = rs.getInt("dongia");
-                int soluong = rs.getInt("soluong");
-                int phuongthucnhap = rs.getInt("hinhthucnhap");
-                ChiTietPhieuNhapDTO ctphieu = new ChiTietPhieuNhapDTO(maphieu, maphienbansp, soluong, dongia);
-                result.add(ctphieu);
+        if (connection != null) {
+            String sql = "SELECT * FROM ctphieunhap WHERE maphieunhap = ?";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setString(1, t);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    int maphieu = rs.getInt("maphieunhap");
+                    int masp = rs.getInt("masp");
+                    int dongia = rs.getInt("dongia");
+                    int soluong = rs.getInt("soluong");
+                    ChiTietPhieuNhapDTO ctphieu = new ChiTietPhieuNhapDTO(maphieu, masp, soluong, dongia);
+                    result.add(ctphieu);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Lỗi SQL: " + ex.getMessage());
             }
-        } catch (SQLException ex) {
-            //Logger.getLogger(ChiTietPhieuNhapDAO.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Lỗi SQL");
+        } else {
+            JOptionPane.showMessageDialog(null, "Không thể kết nối đến cơ sở dữ liệu");
         }
         return result;
     }
@@ -107,7 +106,6 @@ public class ChiTietPhieuNhapDAO {
                 int dongia = rs.getInt("dongia");
                 result = new ChiTietPhieuNhapDTO(maphieunhap, masp, soluong, dongia);
             }
-            //MySQLConnection.closeConnection(connection);
         } catch (SQLException e) {
         }
         return result;
@@ -130,7 +128,6 @@ public class ChiTietPhieuNhapDAO {
                 result.add(ctphieu);
                 System.out.println(result);
             }
-            //MySQLConnection.closeConnection(connection);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Lỗi SQL");
             ex.printStackTrace(); // In ra lỗi

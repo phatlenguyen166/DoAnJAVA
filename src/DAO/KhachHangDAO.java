@@ -19,6 +19,10 @@ public class KhachHangDAO {
     public KhachHangDAO() {
     }
 
+    public static KhachHangDAO getInstance() {
+        return new KhachHangDAO();
+    }
+
     public ArrayList<KhachHangDTO> getAllKhachHang() {
         ArrayList<KhachHangDTO> listKhachHang = new ArrayList<>();
         connection = MySQLConnection.getConnection();
@@ -97,7 +101,7 @@ public class KhachHangDAO {
             connection = MySQLConnection.getConnection();
             String query = "UPDATE khachhang SET tenkhachhang=?, diachi=? , sdt=? WHERE makh=?";
             pst = connection.prepareStatement(query);
-            pst.setString(1, khachHangDTO.getHoten());            
+            pst.setString(1, khachHangDTO.getHoten());
             pst.setString(2, khachHangDTO.getDiachi());
             pst.setString(3, khachHangDTO.getSdt());
             pst.setInt(4, khachHangDTO.getMaKH());
@@ -136,7 +140,7 @@ public class KhachHangDAO {
                 int ma = rs.getInt("makh");
                 String ten = rs.getString("tenkhachhang");
                 String diachi = rs.getString("diachi");
-                                String sdt = rs.getString("sdt");
+                String sdt = rs.getString("sdt");
                 result = new KhachHangDTO(ma, ten, diachi, sdt);
             }
             MySQLConnection.closeConnection(connection);

@@ -9,6 +9,7 @@ package DTO;
  * @author ADMIN
  */
 public class ChiTietPhieuNhapDTO {
+
     private int maphieunhap;
     private int masp;
     private int soluong;

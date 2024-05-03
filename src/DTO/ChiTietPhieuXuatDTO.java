@@ -9,6 +9,7 @@ package DTO;
  * @author ADMIN
  */
 public class ChiTietPhieuXuatDTO {
+
     private int maphieuxuat;
     private int masp;
     private int soluong;
@@ -55,5 +56,5 @@ public class ChiTietPhieuXuatDTO {
     public void setDongia(int dongia) {
         this.dongia = dongia;
     }
-    
+
 }

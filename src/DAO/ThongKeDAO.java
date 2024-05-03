@@ -3,6 +3,7 @@ package DAO;
 import DTO.ThongKe.ThongKeDoanhThuDTO; //tk theo nam
 import DTO.ThongKe.ThongKeTheoThangDTO; //tk theo thang
 import DTO.ThongKe.ThongKeKhachHangDTO;
+import DTO.ThongKe.ThongKeNccDTO;
 import DTO.ThongKeSanPhamBanChayDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -255,6 +256,44 @@ public class ThongKeDAO {
                 int loinhuan = doanhthu - chiphi;
                 ThongKeTheoThangDTO thongke = new ThongKeTheoThangDTO(thang, chiphi, doanhthu, loinhuan);
                 result.add(thongke);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ArrayList<ThongKeNccDTO> getThongKeNhaCungCap(String text, Date timeStart, Date timeEnd) {
+        ArrayList<ThongKeNccDTO> result = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeEnd.getTime());
+        // Đặt giá trị cho giờ, phút, giây và mili giây của Calendar
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        try {
+            Connection con = MySQLConnection.getConnection();
+            String sql = "SELECT nhacungcap.manhacungcap, nhacungcap.tennhacungcap, COUNT(phieunhap.maphieunhap) AS soluong, IFNULL(SUM(phieunhap.tongtien), 0) AS total "
+                    + "FROM nhacungcap, phieunhap "
+                    + "WHERE nhacungcap.manhacungcap = phieunhap.manhacungcap AND phieunhap.thoigian BETWEEN ? AND ? "
+                    + "GROUP BY nhacungcap.manhacungcap, nhacungcap.tennhacungcap "
+                    + "HAVING ( nhacungcap.tennhacungcap LIKE ? OR nhacungcap.manhacungcap LIKE ? ) AND soluong > 0";
+
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setTimestamp(1, new Timestamp(timeStart.getTime()));
+            pst.setTimestamp(2, new Timestamp(calendar.getTimeInMillis()));
+            pst.setString(3, "%" + text + "%");
+            pst.setString(4, "%" + text + "%");
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int manhacungcap = rs.getInt("manhacungcap");
+                String tennhacungcap = rs.getString("tennhacungcap");
+                int soluong = rs.getInt("soluong");
+                long tongtien = rs.getInt("total");
+                ThongKeNccDTO x = new ThongKeNccDTO(manhacungcap, tennhacungcap, soluong, tongtien);
+                result.add(x);
             }
         } catch (SQLException e) {
             e.printStackTrace();

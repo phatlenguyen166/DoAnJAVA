@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
  * @author ADMIN
  */
 public class PhieuXuatDTO {
+
     private int maphieuxuat;
     private Timestamp thoigiantao;
     private long tongTien;
@@ -78,7 +79,7 @@ public class PhieuXuatDTO {
     public void setTrangthai(int trangthai) {
         this.trangthai = trangthai;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

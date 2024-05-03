@@ -117,7 +117,6 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener {
             }
         });
     }
-    
     NhanVienBUS nhanVienBUS = new NhanVienBUS();
     TaiKhoanDTO taiKhoanDTO;
     public TaoPhieuNhap(TaiKhoanDTO taiKhoanDTO) {

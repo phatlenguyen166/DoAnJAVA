@@ -620,7 +620,7 @@ public final class Main extends javax.swing.JFrame {
 
     private void btnPhieuXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhieuXuatActionPerformed
         // TODO add your handling code here:
-        phieuXuat = new PhieuXuat();
+        phieuXuat = new PhieuXuat(taiKhoanDTO);
         addTaskBar(mainContent2, phieuXuat);
     }//GEN-LAST:event_btnPhieuXuatActionPerformed
 

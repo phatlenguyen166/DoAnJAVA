@@ -20,6 +20,10 @@ public class PhieuNhapDAO {
     private Connection connection;
     private PreparedStatement ps;
 
+    public static PhieuNhapDAO getInstance() {
+        return new PhieuNhapDAO();
+    }
+
     // Phương thức để lấy thời gian hiện tại
     private LocalDateTime getCurrentDateTime() {
         return LocalDateTime.now();
@@ -127,11 +131,11 @@ public class PhieuNhapDAO {
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1); // Trả về mã phiếu nhập lớn nhất
+                return rs.getInt(1);
             }
         } catch (SQLException ex) {
         }
-        return 0; // Trả về 0 nếu không có mã phiếu nhập nào tồn tại
+        return 0;
     }
 
     public boolean DeletePhieuNhap(int mapn) {

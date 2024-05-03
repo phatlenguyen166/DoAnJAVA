@@ -13,9 +13,10 @@ import java.sql.Date;
  * @author ADMIN
  */
 public class PhieuNhapDTO {
+
     private int maphieunhap;
     //private Timestamp thoigiantao;
-     private Timestamp thoigiantao;
+    private Timestamp thoigiantao;
     private int manhacungcap;
     private int manv; //Them manv
     private long tongTien;
@@ -44,7 +45,7 @@ public class PhieuNhapDTO {
     public int getManhacungcap() {
         return manhacungcap;
     }
-    
+
     public int getMaNV() {
         return manv;
     }
@@ -68,7 +69,7 @@ public class PhieuNhapDTO {
     public void setManhacungcap(int manhacungcap) {
         this.manhacungcap = manhacungcap;
     }
-    
+
     public void setMaNV(int manv) {
         this.manv = manv;
     }
@@ -80,9 +81,7 @@ public class PhieuNhapDTO {
     public void setTrangthai(int trangthai) {
         this.trangthai = trangthai;
     }
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -110,5 +109,4 @@ public class PhieuNhapDTO {
         return "PhieuNhapDTO{" + "maphieunhap=" + maphieunhap + ", thoigiantao=" + thoigiantao + ", manhacungcap=" + manhacungcap + ", manv =" + manv + ", tongTien=" + tongTien + ", trangthai=" + trangthai + '}';
     }
 
-    
 }

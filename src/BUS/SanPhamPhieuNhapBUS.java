@@ -8,7 +8,7 @@ import DTO.SanPhamDTO;
 import java.util.ArrayList;
 
 public class SanPhamPhieuNhapBUS {
-    SanPhamPhieuNhapDAO sanPhamPhieuNhapDAO = new SanPhamPhieuNhapDAO();
+    //SanPhamPhieuNhapDAO sanPhamPhieuNhapDAO = new SanPhamPhieuNhapDAO();
     ChiTietPhieuNhapDAO chiTietPhieuNhapDAO = new ChiTietPhieuNhapDAO();
     public SanPhamPhieuNhapBUS() {
     }
@@ -20,7 +20,6 @@ public class SanPhamPhieuNhapBUS {
     public static ArrayList<SanPhamDTO> getListSanPham(int masp) {
         return SanPhamPhieuNhapDAO.getListSanPham(masp);
     }
-    
     
     public ChiTietPhieuNhapDTO selectByID(int mapn){
         return chiTietPhieuNhapDAO.selectByID(mapn);

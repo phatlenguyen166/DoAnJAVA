@@ -181,7 +181,7 @@
                                               <Component id="txtnhacungcap" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                               <Component id="txtnhacungcap2" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                               <Component id="txtnhacungcap1" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
-                                              <Component id="comboboxNCC2" alignment="1" pref="248" max="32767" attributes="0"/>
+                                              <Component id="comboboxNV" alignment="1" pref="248" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="txtnhacungcap3" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                                       </Group>
@@ -206,7 +206,7 @@
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="comboboxNCC2" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="comboboxNV" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="txtnhacungcap2" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -256,7 +256,7 @@
                     <Property name="text" type="java.lang.String" value="T&#x1eeb; ng&#xe0;y"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboboxNCC2">
+                <Component class="javax.swing.JComboBox" name="comboboxNV">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">

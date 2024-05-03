@@ -6,6 +6,7 @@ package GUI.Component;
 
 import BUS.KhachHangBUS;
 import BUS.NhaCungCapBUS;
+import BUS.NhanVienBUS;
 import DTO.KhachHangDTO;
 import DTO.NhaCungCapDTO;
 import DTO.NhanVienDTO;
@@ -20,11 +21,24 @@ public class ShowCBB {
 
     NhaCungCapBUS nhaCungCapBUS = new NhaCungCapBUS();
     KhachHangBUS khachHangBUS = new KhachHangBUS();
-    //NhanVienBUS nhanVienBUS = new NhanVienBUS(); chưa import nhanvien
+    NhanVienBUS nhanVienBUS = new NhanVienBUS(); 
     public ShowCBB() {
 
-    }
+    }   
+    public void CBBNhanVienNhap(JComboBox<String> comboBox){
+        ArrayList<NhanVienDTO> nhanVienList = nhanVienBUS.getAllNhanVien();
+        ArrayList<String> tenNhanVienList = new ArrayList<>();
 
+        for (NhanVienDTO nhanVien : nhanVienList) {
+            tenNhanVienList.add(nhanVien.getHoten());
+        }
+
+        for (String tenNhanVien : tenNhanVienList) {
+            comboBox.addItem(tenNhanVien);
+        }
+    }
+    
+    
     public void CBBNhaCungCap(JComboBox<String> comboBox) {
         // Gọi phương thức getAllNhaCungCap từ nhaCungCapBUS để lấy danh sách nhà cung cấp từ cơ sở dữ liệu
         ArrayList<NhaCungCapDTO> nhaCungCapList = nhaCungCapBUS.getAllNhaCungCap();
@@ -53,17 +67,5 @@ public class ShowCBB {
         }
     }
     
-    //Đợi import nhân viên
-//    public void CBBNhanVienNhap(JComboBox<String> comboBox){
-//        ArrayList<NhanVienDTO> nhanVienList = nhanVienBUS.getAllNhanVien();
-//        ArrayList<String> tenNhanVienList = new ArrayList<>();
-//
-//        for (NhanVienDTO nhanVien : nhanVienList) {
-//            tenNhanVienList.add(nhanVien.getHoten());
-//        }
-//        // Thêm từng tên nhà cung cấp vào ComboBox
-//        for (String tenNhanVien : tenNhanVienList) {
-//            comboBox.addItem(tenNhanVien);
-//        }
-//    }
+    
 }

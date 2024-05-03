@@ -3,6 +3,7 @@ package BUS;
 import DAO.ThongKeDAO;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
 import DTO.ThongKe.ThongKeKhachHangDTO;
+import DTO.ThongKe.ThongKeNccDTO;
 //import DTO.ThongKe.ThongKeNhaCungCapDTO;
 import DTO.ThongKe.ThongKeTheoThangDTO;
 import DTO.ThongKeSanPhamBanChayDTO;
@@ -39,11 +40,21 @@ public class ThongKeBUS {
     public ArrayList<ThongKeSanPhamBanChayDTO> getThongKeSanPhamBanChay() {
         return thongkeDAO.getListSanPhamBanChay();
     }
-    
-    public ArrayList<ThongKeSanPhamBanChayDTO> getThongKeSanPhamBanChay(int thang,int nam) {
-        return thongkeDAO.getListSanPhamBanChay(thang,nam);
+
+    public ArrayList<ThongKeSanPhamBanChayDTO> getThongKeSanPhamBanChay(int thang, int nam) {
+        return thongkeDAO.getListSanPhamBanChay(thang, nam);
     }
+
     public ArrayList<ThongKeSanPhamBanChayDTO> getTop5SanPhamBanChay() {
         return thongkeDAO.getTop5SanPhamBanChay();
     }
+
+    public ArrayList<ThongKeNccDTO> getAllNhaCungCap() {
+        return thongkeDAO.getThongKeNhaCungCap("", new Date(0), new Date(System.currentTimeMillis()));
+    }
+
+    public ArrayList<ThongKeNccDTO> locNhaCungCap(String text, Date start, Date end) {
+        return thongkeDAO.getThongKeNhaCungCap(text, start, end);
+    }
+
 }

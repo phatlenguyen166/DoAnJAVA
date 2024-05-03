@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package BUS;
+
 import DAO.ChiTietPhieuXuatDAO;
 import DAO.PhieuXuatDAO;
 import DTO.ChiTietPhieuXuatDTO;
@@ -12,53 +13,65 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-/**
- *
- * @author this pc
- */
+
 public class PhieuXuatBUS {
+
     PhieuXuatDAO phieuXuatDAO = new PhieuXuatDAO();
     KhachHangBUS khachHangBUS = new KhachHangBUS();
+    NhanVienBUS nhanVienBUS = new NhanVienBUS();
     ChiTietPhieuXuatDAO chiTietPhieuXuatDAO = new ChiTietPhieuXuatDAO();
-    ArrayList<PhieuXuatDTO> listPhieu = getAllPhieuXuat();
+
     ArrayList<PhieuXuatDTO> selectedPXproducts;
-    
+
     public PhieuXuatBUS() {
     }
-    
-    public ArrayList<PhieuXuatDTO> getAllPhieuXuat(){
-        return phieuXuatDAO.getAllPhieuXuat();
-    }   
 
-     
-    public PhieuXuatDTO selectByID(int mapn){
+    public ArrayList<PhieuXuatDTO> getAllPhieuXuat() {
+        return phieuXuatDAO.getAllPhieuXuat();
+    }
+
+    public PhieuXuatDTO selectByID(int mapn) {
         return phieuXuatDAO.selectById(mapn);
     }
-    
-    public ArrayList<ChiTietPhieuXuatDTO> getAllChiTietPhieuXuat(int mapn){
+
+    public ArrayList<ChiTietPhieuXuatDTO> getAllChiTietPhieuXuat(int mapn) {
         return chiTietPhieuXuatDAO.getAllChiTietPhieuXuat(mapn);
     }
-    
-    public boolean DeletePhieuXuat(int mapx){
+
+    public boolean DeletePhieuXuat(int mapx) {
         return phieuXuatDAO.DeletePhieuXuat(mapx);
     }
-    
-    public int getMakh(String tenKH){
+
+    public int getMakh(String tenKH) {
         int makh = -1;
         // Kiểm tra nhaCungCapBUS không null trước khi sử dụng
         if (khachHangBUS != null) {
             this.selectedPXproducts = getAllPhieuXuat();
-            for (PhieuXuatDTO checkphieunhap : this.selectedPXproducts) {
-                String tenKhachHang = (String) khachHangBUS.selectByID(checkphieunhap.getMakh()).getHoten();
+            for (PhieuXuatDTO checkphieuxuat : this.selectedPXproducts) {
+                String tenKhachHang = (String) khachHangBUS.selectByID(checkphieuxuat.getMakh()).getHoten();
                 if (tenKhachHang != null && tenKH.equals(tenKhachHang)) {
-                    makh = checkphieunhap.getMakh();
+                    makh = checkphieuxuat.getMakh();
                 }
             }
         }
         return makh;
     }
-    
-    public ArrayList<PhieuXuatDTO> search(String text) {
+    public int getManv(String tenNv) {
+        int manv = -1;
+        // Kiểm tra nhaCungCapBUS không null trước khi sử dụng
+        if (nhanVienBUS != null) {
+            this.selectedPXproducts = getAllPhieuXuat();
+            for (PhieuXuatDTO checkphieuxuat : this.selectedPXproducts) {
+                String tennhanVien = (String) nhanVienBUS.selectByID(checkphieuxuat.getManv()).getHoten();
+                if (tennhanVien != null && tenNv.equals(tennhanVien)) {
+                    manv = checkphieuxuat.getManv();
+                }
+            }
+        }
+        return manv;
+    }
+
+    public ArrayList<PhieuXuatDTO> search(String text, ArrayList<PhieuXuatDTO> listPhieu) {
         text = text.toLowerCase();
         String tenKH = "";
         khachHangBUS = new KhachHangBUS();
@@ -66,14 +79,14 @@ public class PhieuXuatBUS {
         for (PhieuXuatDTO i : listPhieu) {
             tenKH = khachHangBUS.selectByID(i.getMakh()).getHoten();
             //int manv = nhaCungCapBUS.selectByID(i.getMaNV()). select đến tên nhân viên tại đây
-            if (Integer.toString(i.getMaphieuxuat()).toLowerCase().contains(text) 
+            if (Integer.toString(i.getMaphieuxuat()).toLowerCase().contains(text)
                     || tenKH.toLowerCase().contains(text)) {
                 result.add(i);
             }
         }
         return result;
     }
-    
+
     public ArrayList<PhieuXuatDTO> fillerPhieuXuat(int makh, int manv, Date time_s, Date time_e, String price_minnn, String price_maxxx) {
         Long price_min = !price_minnn.equals("") ? Long.valueOf(price_minnn) : 0L;
         Long price_max = !price_maxxx.equals("") ? Long.valueOf(price_maxxx) : Long.MAX_VALUE;
@@ -85,7 +98,7 @@ public class PhieuXuatBUS {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        
+
         Timestamp time_end = new Timestamp(calendar.getTimeInMillis());
         ArrayList<PhieuXuatDTO> result = new ArrayList<>();
         this.selectedPXproducts = getAllPhieuXuat();
@@ -93,12 +106,13 @@ public class PhieuXuatBUS {
             String tongTienStr = String.valueOf(phieuXuat.getTongTien()).replaceAll("[.,đ]", "").trim();
             long tongTien = Long.parseLong(tongTienStr);
             System.out.println("giá tiền" + tongTien);
-            if( (makh == 0 || phieuXuat.getMakh()== makh) 
-                    && (phieuXuat.getThoigiantao().compareTo(time_start) >= 0) 
-                    && (phieuXuat.getThoigiantao().compareTo(time_end) <= 0) 
-                    && (tongTien >= price_min && tongTien <= price_max)){
-                            result.add(phieuXuat);
-                        }
+            if ((makh == 0 || phieuXuat.getMakh() == makh)
+                    &&(manv == 0 || phieuXuat.getManv()== manv)
+                    && (phieuXuat.getThoigiantao().compareTo(time_start) >= 0)
+                    && (phieuXuat.getThoigiantao().compareTo(time_end) <= 0)
+                    && (tongTien >= price_min && tongTien <= price_max)) {
+                result.add(phieuXuat);
+            }
         }
         return result;
     }
