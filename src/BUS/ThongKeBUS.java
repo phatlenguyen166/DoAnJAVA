@@ -7,6 +7,7 @@ import DTO.ThongKe.ThongKeNccDTO;
 //import DTO.ThongKe.ThongKeNhaCungCapDTO;
 import DTO.ThongKe.ThongKeTheoThangDTO;
 import DTO.ThongKeSanPhamBanChayDTO;
+import DTO.ThongKeTrongThangDTO;
 import GUI.ThongKeHeThong.ThongKeSanPhamBanChay;
 //import DTO.ThongKe.ThongKeTonKhoDTO;
 //import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
@@ -57,4 +58,7 @@ public class ThongKeBUS {
         return thongkeDAO.getThongKeNhaCungCap(text, start, end);
     }
 
+    public ArrayList<ThongKeTrongThangDTO> getThongKeTungNgayTrongThang(int thang, int nam) {
+        return thongkeDAO.getThongKeTungNgayTrongThang(thang, nam);
+    }
 }

@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI.ThongKeHeThong;
+import GUI.ThongKeHeThong.ThongKeDoanhThuPnl.ThongKeTrongThang;
+import GUI.ThongKeHeThong.ThongKeDoanhThuPnl.ThongKeTuNgayDenNgay;
 import GUI.ThongKeHeThong.ThongKeDoanhThuTungNam;
 
 /**
@@ -16,10 +18,14 @@ public class ThongKeDoanhThu extends javax.swing.JPanel {
      */
     ThongKeDoanhThuTungNam thongKeDoanhThuTungNam = new ThongKeDoanhThuTungNam();
     ThongKeDoanhThuTungThang thongKeDoanhThuTungThang = new ThongKeDoanhThuTungThang();
+    ThongKeTrongThang thongKeTrongThang = new ThongKeTrongThang();
+    ThongKeTuNgayDenNgay thongKeTuNgayDenNgay = new ThongKeTuNgayDenNgay();
     public ThongKeDoanhThu() {
         initComponents();
         ThongKeDoanhThu.addTab("Thống kê theo năm", thongKeDoanhThuTungNam);
         ThongKeDoanhThu.addTab("Thống kê từng tháng trong năm", thongKeDoanhThuTungThang);
+        ThongKeDoanhThu.addTab("Thống kê trong tháng ", thongKeTrongThang);
+        ThongKeDoanhThu.addTab("Thống kê từ ngày đến ngày", thongKeTuNgayDenNgay);
     }
 
     /**
