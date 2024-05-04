@@ -8,7 +8,6 @@ import DTO.ThongKe.ThongKeNccDTO;
 import DTO.ThongKe.ThongKeTheoThangDTO;
 import DTO.ThongKeSanPhamBanChayDTO;
 import DTO.ThongKeTrongThangDTO;
-import GUI.ThongKeHeThong.ThongKeSanPhamBanChay;
 //import DTO.ThongKe.ThongKeTonKhoDTO;
 //import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
 import java.util.ArrayList;

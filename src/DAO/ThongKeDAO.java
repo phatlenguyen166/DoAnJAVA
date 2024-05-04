@@ -187,8 +187,8 @@ public class ThongKeDAO {
                      )
                      SELECT 
                        years.year AS nam,
-                       COALESCE(SUM(ctphieunhap.dongia), 0) AS chiphi, 
-                       COALESCE(SUM(ctphieuxuat.dongia), 0) AS doanhthu
+                       COALESCE(SUM(ctphieunhap.dongia*ctphieunhap.soluong), 0) AS chiphi, 
+                       COALESCE(SUM(ctphieuxuat.dongia*ctphieuxuat.soluong), 0) AS doanhthu
                      FROM years
                      LEFT JOIN phieuxuat ON YEAR(phieuxuat.thoigian) = years.year
                      LEFT JOIN ctphieuxuat ON phieuxuat.maphieuxuat = ctphieuxuat.maphieuxuat
@@ -225,8 +225,8 @@ public class ThongKeDAO {
         try {
             Connection con = MySQLConnection.getConnection();
             String sql = "SELECT months.month AS thang, \n"
-                    + "       COALESCE(SUM(ctphieunhap.dongia), 0) AS chiphi,\n"
-                    + "       COALESCE(SUM(ctphieuxuat.dongia), 0) AS doanhthu\n"
+                    + "       COALESCE(SUM(ctphieunhap.dongia*ctphieunhap.soluong), 0) AS chiphi,\n"
+                    + "       COALESCE(SUM(ctphieuxuat.dongia*ctphieuxuat.soluong), 0) AS doanhthu\n"
                     + "FROM (\n"
                     + "       SELECT 1 AS month\n"
                     + "       UNION ALL SELECT 2\n"

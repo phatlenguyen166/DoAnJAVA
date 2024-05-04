@@ -71,20 +71,20 @@ INSERT INTO `khachhang` (`makh`, `tenkhachhang`, `diachi`, `sdt`, `trangthai`, `
 (2, 'Trần Nhất Nhất', '205 Trần Hưng Đạo, Phường 10, Quận 5, Thành phố Hồ Chí Minh', '0123456789', 1, '2024-03-19 09:52:29'),
 (3, 'Hoàng Gia Bo', 'Khoa Trường, Hoài Ân, Bình Định', '0987654321', 1, '2024-03-19 09:52:29'),
 (4, 'Hồ Minh Hưng', 'Khoa Trường, Hoài Ân, Bình Định', '0867987456', 1, '2024-03-19 09:52:29'),
-(29, 'Nguyễn Thị Minh Anh', '123 Phố Huế, Quận Hai Bà Trưng, Hà Nội', '0935123456', 1, '2024-03-23 17:59:57'),
-(30, 'Trần Đức Minh', '789 Đường Lê Hồng Phong, Thành phố Đà Nẵng', '0983456789', 1, '2024-03-23 18:08:12'),
-(31, 'Lê Hải Yến', '456 Tôn Thất Thuyết, Quận 4, Thành phố Hồ Chí Minh', '0977234567', 1, '2024-03-23 18:08:47'),
-(32, 'Phạm Thanh Hằng', '102 Lê Duẩn, Thành phố Hải Phòng', '0965876543', 1, '2024-03-23 18:12:59'),
-(33, 'Hoàng Đức Anh', '321 Lý Thường Kiệt, Thành phố Cần Thơ', '0946789012', 1, '2024-03-23 18:13:47'),
-(34, 'Ngô Thanh Tùng', '987 Trần Hưng Đạo, Quận 1, Thành phố Hồ Chí Minh', '0912345678', 1, '2024-03-23 18:14:12'),
-(35, 'Võ Thị Kim Ngân', '555 Nguyễn Văn Linh, Quận Nam Từ Liêm, Hà Nội', '0916789123', 1, '2024-03-23 18:15:11'),
-(36, 'Đỗ Văn Tú', '777 Hùng Vương, Thành phố Huế', '0982345678', 1, '2024-03-23 18:15:56'),
-(37, 'Lý Thanh Trúc', '888 Nguyễn Thái Học, Quận Ba Đình, Hà Nội', '0982123456', 1, '2024-03-23 18:16:22'),
-(38, 'Bùi Văn Hoàng', '222 Đường 2/4, Thành phố Nha Trang', '0933789012', 1, '2024-03-23 18:16:53'),
-(39, 'Lê Văn Thành', '23 Đường 3 Tháng 2, Quận 10, TP. Hồ Chí Minh', '0933456789', 1, '2024-03-23 18:17:46'),
-(40, 'Nguyễn Thị Lan Anh', '456 Lê Lợi, Quận 1, TP. Hà Nội', '0965123456', 1, '2024-03-23 18:18:10'),
-(41, 'Phạm Thị Mai', '234 Lê Hồng Phong, Quận 5, TP. Hồ Chí Minh', '0946789012', 1, '2024-03-23 18:18:34'),
-(42, 'Hoàng Văn Nam', ' 567 Phố Huế, Quận Hai Bà Trưng, Hà Nội', '0912345678', 1, '2024-03-23 18:19:16');
+(5, 'Nguyễn Thị Minh Anh', '123 Phố Huế, Quận Hai Bà Trưng, Hà Nội', '0935123456', 1, '2024-03-23 17:59:57'),
+(6, 'Trần Đức Minh', '789 Đường Lê Hồng Phong, Thành phố Đà Nẵng', '0983456789', 1, '2024-03-23 18:08:12'),
+(7, 'Lê Hải Yến', '456 Tôn Thất Thuyết, Quận 4, Thành phố Hồ Chí Minh', '0977234567', 1, '2024-03-23 18:08:47'),
+(8, 'Phạm Thanh Hằng', '102 Lê Duẩn, Thành phố Hải Phòng', '0965876543', 1, '2024-03-23 18:12:59'),
+(9, 'Hoàng Đức Anh', '321 Lý Thường Kiệt, Thành phố Cần Thơ', '0946789012', 1, '2024-03-23 18:13:47'),
+(10, 'Ngô Thanh Tùng', '987 Trần Hưng Đạo, Quận 1, Thành phố Hồ Chí Minh', '0912345678', 1, '2024-03-23 18:14:12'),
+(11, 'Võ Thị Kim Ngân', '555 Nguyễn Văn Linh, Quận Nam Từ Liêm, Hà Nội', '0916789123', 1, '2024-03-23 18:15:11'),
+(12, 'Đỗ Văn Tú', '777 Hùng Vương, Thành phố Huế', '0982345678', 1, '2024-03-23 18:15:56'),
+(13, 'Lý Thanh Trúc', '888 Nguyễn Thái Học, Quận Ba Đình, Hà Nội', '0982123456', 1, '2024-03-23 18:16:22'),
+(14, 'Bùi Văn Hoàng', '222 Đường 2/4, Thành phố Nha Trang', '0933789012', 1, '2024-03-23 18:16:53'),
+(15, 'Lê Văn Thành', '23 Đường 3 Tháng 2, Quận 10, TP. Hồ Chí Minh', '0933456789', 1, '2024-03-23 18:17:46'),
+(16, 'Nguyễn Thị Lan Anh', '456 Lê Lợi, Quận 1, TP. Hà Nội', '0965123456', 1, '2024-03-23 18:18:10'),
+(17, 'Phạm Thị Mai', '234 Lê Hồng Phong, Quận 5, TP. Hồ Chí Minh', '0946789012', 1, '2024-03-23 18:18:34'),
+(18, 'Hoàng Văn Nam', ' 567 Phố Huế, Quận Hai Bà Trưng, Hà Nội', '0912345678', 1, '2024-03-23 18:19:16');
 
 -- --------------------------------------------------------
 
@@ -179,10 +179,10 @@ CREATE TABLE `nhanvien` (
 
 INSERT INTO `nhanvien` (`manv`, `hoten`, `gioitinh`, `ngaysinh`, `sdt`, `email`, `trangthai`) VALUES
 (1, 'Lê Nguyễn Hoàng Phát', 1, '2004-03-16', '0338641606', 'phat@gmail.com', 1),
-(4, 'Phạm Thiên Phúc', 1, '2004-04-17', '0932831928', 'phuc@gmail.com', 1),
-(5, 'Phạm Thanh Sự', 1, '2004-03-20', '0932831928', 'su@gmail.com', 1),
-(6, 'Dương Minh Trí', 1, '2004-04-17', '0932831928', 'tri@gmail.com', 1),
-(7, 'Đoàn Ánh Dương', 1, '2004-03-16', '0338641606', 'duong@gmail.com', 1);
+(2, 'Phạm Thiên Phúc', 1, '2004-04-17', '0932831928', 'phuc@gmail.com', 1),
+(3, 'Phạm Thanh Sự', 1, '2004-03-20', '0932831928', 'su@gmail.com', 1),
+(4, 'Dương Minh Trí', 1, '2004-04-17', '0932831928', 'tri@gmail.com', 1),
+(5, 'Đoàn Ánh Dương', 1, '2004-03-16', '0338641606', 'duong@gmail.com', 1);
 
 -- --------------------------------------------------------
 

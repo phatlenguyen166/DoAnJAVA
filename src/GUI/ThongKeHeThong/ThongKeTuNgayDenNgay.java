@@ -1,4 +1,3 @@
-
 package GUI.ThongKeHeThong.ThongKeDoanhThuPnl;
 
 import BUS.ThongKeBUS;
@@ -18,17 +17,18 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ThongKeTuNgayDenNgay extends javax.swing.JPanel {
+
     ThongKeDAO thongKeDAO;
     ThongKeBUS thongKeBUS;
     DefaultTableModel tblModel;
     Formater formater = new Formater();
+
     public ThongKeTuNgayDenNgay() {
         initComponents();
-        
-        tblModel = (DefaultTableModel) tblthongkengay.getModel(); 
-        
+
+        tblModel = (DefaultTableModel) tblthongkengay.getModel();
+
         startdate.addPropertyChangeListener("date", e -> {
             Date date = (Date) e.getNewValue();
             try {
@@ -45,7 +45,7 @@ public class ThongKeTuNgayDenNgay extends javax.swing.JPanel {
             } catch (ParseException ex) {
             }
         });
-        
+
         btnthongke.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,7 +84,6 @@ public class ThongKeTuNgayDenNgay extends javax.swing.JPanel {
         });
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,10 +107,14 @@ public class ThongKeTuNgayDenNgay extends javax.swing.JPanel {
 
         jLabel1.setText("Từ ngày");
         pnltop.add(jLabel1);
+
+        startdate.setPreferredSize(new java.awt.Dimension(150, 22));
         pnltop.add(startdate);
 
         jLabel2.setText("Đến ngày");
         pnltop.add(jLabel2);
+
+        enddate.setPreferredSize(new java.awt.Dimension(150, 22));
         pnltop.add(enddate);
 
         btnthongke.setText("Thống kê");
@@ -176,20 +179,20 @@ public class ThongKeTuNgayDenNgay extends javax.swing.JPanel {
         }
         return true;
     }
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); // Định dạng ngày/tháng/năm
 
     public void loadThongKeTungNgayTrongThang(String start, String end) {
         ArrayList<ThongKeTrongThangDTO> list = thongKeDAO.getThongKeTuNgayDenNgay(start, end);
         tblModel.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             tblModel.addRow(new Object[]{
-                list.get(i).getNgay(), formater.FormatVND(list.get(i).getChiphi()), formater.FormatVND(list.get(i).getDoanhthu()), formater.FormatVND(list.get(i).getLoinhuan())
+                dateFormat.format(list.get(i).getNgay()), formater.FormatVND(list.get(i).getChiphi()), formater.FormatVND(list.get(i).getDoanhthu()), formater.FormatVND(list.get(i).getLoinhuan())
             });
         }
         formater.setColumnAlignment(tblthongkengay);
     }
-    
-    
-    
+
+
     private void btnthongkeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthongkeActionPerformed
     }//GEN-LAST:event_btnthongkeActionPerformed
 

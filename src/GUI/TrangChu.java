@@ -1,4 +1,9 @@
-package GUI;/*
+package GUI;
+
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
@@ -14,9 +19,13 @@ public class TrangChu extends javax.swing.JPanel {
      */
     public TrangChu() {
         initComponents();
-        jLabel2.setHorizontalAlignment(javax.swing.JLabel.CENTER);
-        jLabel2.setVerticalAlignment(javax.swing.JLabel.CENTER);
         
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/imgTrangChu.jpg"));
+
+//        Image scaledImage = icon.getImage().getScaledInstance(pnlCenter.getWidth(),  pnlCenter.getHeight(), Image.SCALE_SMOOTH);
+        // Đặt ảnh vào JLabel
+        Image scaledImg = icon.getImage().getScaledInstance(1200, 800, Image.SCALE_SMOOTH);
+        pnlCenter.setIcon(new ImageIcon(scaledImg));
     }
 
     /**
@@ -28,29 +37,25 @@ public class TrangChu extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        pnlCenter = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1200, 800));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("HỆ THỐNG QUẢN LÍ KHO GIÀY NHÓM 5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel pnlCenter;
     // End of variables declaration//GEN-END:variables
 }

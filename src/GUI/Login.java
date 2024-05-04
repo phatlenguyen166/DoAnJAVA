@@ -69,8 +69,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtTenDangNhap.setText("phat");
-        txtMatKhau.setText("123");
+        txtTenDangNhap.setText("hoangphat");
+        txtMatKhau.setText("123123");
     }
 
     private void btnLogInMouseEntered(java.awt.event.MouseEvent evt) {
