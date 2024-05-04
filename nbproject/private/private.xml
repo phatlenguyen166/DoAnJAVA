@@ -15,9 +15,12 @@
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/TrangChu.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SanPham.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/PhieuXuat.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/icon/warning.png</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/config/MySQLConnection.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Login.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeDoanhThuTungNam.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/img/imgTrangChu.jpg</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/icon/refresh.svg</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/PXuat/ChiTietPhieuXuat.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Panel/TaoPhieuXuatt.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/ThemSanPham.java</file>
@@ -27,6 +30,7 @@
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeTrongThang.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/img/logoLogin.png</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DTO/PhieuXuatDTO.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/ThongKeDAO.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeTuNgayDenNgay.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/Main.java</file>
         </group>
