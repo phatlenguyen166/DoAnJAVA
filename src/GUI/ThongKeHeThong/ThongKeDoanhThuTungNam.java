@@ -66,9 +66,9 @@ public class ThongKeDoanhThuTungNam extends javax.swing.JPanel {
             Object[] row
                     = {
                         i.getThoigian(),
-                        i.getVon(),
-                        i.getDoanhthu(),
-                        i.getLoinhuan()
+                        Formater.FormatVND(i.getVon()),
+                        Formater.FormatVND(i.getDoanhthu()),
+                        Formater.FormatVND(i.getLoinhuan())
                     };
             model.addRow(row);
             k++;
