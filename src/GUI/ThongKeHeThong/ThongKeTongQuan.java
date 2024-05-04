@@ -4,24 +4,77 @@
  */
 package GUI.ThongKeHeThong;
 
+import BUS.ThongKeBUS;
+import DTO.ThongKeSanPhamBanChayDTO;
+import DTO.ThongKeTrongThangDTO;
+import GUI.Component.Formater;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import org.apache.poi.examples.xssf.usermodel.LineChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
  * @author phatl
  */
+
 public class ThongKeTongQuan extends javax.swing.JPanel {
 
     /**
      * Creates new form ThongKeTongQuan
      */
+    Formater formater = new Formater();
     public ThongKeTongQuan() {
         initComponents();
         this.setOpaque(false);
         this.setBorder(new EmptyBorder(10, 10, 10, 10));
         tblThongKe.setFocusable(false);
         tblThongKe.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
+        LineChartExample lineChart = new LineChartExample();
+        pnlCenter.add(lineChart,BorderLayout.CENTER);
+        hienThiDuLieuTable();
+    }
+    ThongKeBUS thongKeBUS;
+
+    public void hienThiDuLieuTable() {
+
+        thongKeBUS = new ThongKeBUS();
+
+        ArrayList<ThongKeTrongThangDTO> listDoanhThu = thongKeBUS.getThongKeDoanhThu7NgayGanNhat();
+
+        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
+        model.setRowCount(0);
+        System.out.println("hello");
+        for (ThongKeTrongThangDTO thongKe : listDoanhThu) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Object[] row = {
+                dateFormat.format(thongKe.getNgay()),
+                formater.FormatVND(thongKe.getChiphi()),
+                formater.FormatVND(thongKe.getDoanhthu()),
+                formater.FormatVND(thongKe.getLoinhuan())
+            };
+            model.addRow(row);
+            
+            System.out.println(thongKe.getNgay());
+        }
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Áp dụng renderer cho từng cột trong bảng
+        for (int i = 0; i < tblThongKe.getColumnCount(); i++) {
+            tblThongKe.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
 
     /**
@@ -35,28 +88,31 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
 
         pnlTop = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         pnlCenter = new javax.swing.JPanel();
         pnlTableThongKe = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tblThongKe = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout(10, 10));
 
         pnlTop.setBackground(new java.awt.Color(255, 0, 0));
-        pnlTop.setPreferredSize(new java.awt.Dimension(0, 120));
-        pnlTop.setLayout(new java.awt.GridLayout());
+        pnlTop.setPreferredSize(new java.awt.Dimension(0, 50));
+        pnlTop.setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 68, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
         pnlTop.add(jPanel1);
@@ -69,7 +125,7 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         pnlTop.add(jPanel2);
@@ -82,27 +138,16 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         pnlTop.add(jPanel3);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
 
-        pnlCenter.setBackground(new java.awt.Color(51, 204, 255));
-        pnlCenter.setPreferredSize(new java.awt.Dimension(200, 800));
-
-        javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
-        pnlCenter.setLayout(pnlCenterLayout);
-        pnlCenterLayout.setHorizontalGroup(
-            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
-        );
-        pnlCenterLayout.setVerticalGroup(
-            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
-        );
-
+        pnlCenter.setBackground(new java.awt.Color(255, 255, 255));
+        pnlCenter.setPreferredSize(new java.awt.Dimension(200, 900));
+        pnlCenter.setLayout(new javax.swing.BoxLayout(pnlCenter, javax.swing.BoxLayout.LINE_AXIS));
         add(pnlCenter, java.awt.BorderLayout.CENTER);
 
         pnlTableThongKe.setBackground(new java.awt.Color(0, 204, 0));
@@ -116,22 +161,20 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Ngày", "Vốn", "Doanh thu", "Lợi nhuận"
+                "Ngày", "Chi phí", "Doanh thu", "Lợi nhuận"
             }
         ));
-        jScrollPane1.setViewportView(tblThongKe);
+        jScrollPane2.setViewportView(tblThongKe);
 
         javax.swing.GroupLayout pnlTableThongKeLayout = new javax.swing.GroupLayout(pnlTableThongKe);
         pnlTableThongKe.setLayout(pnlTableThongKeLayout);
         pnlTableThongKeLayout.setHorizontalGroup(
             pnlTableThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
         );
         pnlTableThongKeLayout.setVerticalGroup(
             pnlTableThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTableThongKeLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
         );
 
         add(pnlTableThongKe, java.awt.BorderLayout.SOUTH);
@@ -139,10 +182,11 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlTableThongKe;
     private javax.swing.JPanel pnlTop;

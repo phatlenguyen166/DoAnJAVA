@@ -57,7 +57,6 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
         btnSuaNV.addActionListener(this);
         btnXoaNV.addActionListener(this);
         btnChiTietNV.addActionListener(this);
-        btnNhapExcelNV.addActionListener(this);
         btnXuatExcelNV.addActionListener(this);
 
         setLayout(new BorderLayout());
@@ -118,7 +117,6 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
         btnSuaNV.setIcon(new FlatSVGIcon("./icon/edit.svg"));
         btnXoaNV.setIcon(new FlatSVGIcon("./icon/delete.svg"));
         btnChiTietNV.setIcon(new FlatSVGIcon("./icon/detail.svg"));
-        btnNhapExcelNV.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
         btnXuatExcelNV.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
     }
 
@@ -136,7 +134,6 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
         btnSuaNV = new javax.swing.JButton();
         btnXoaNV = new javax.swing.JButton();
         btnChiTietNV = new javax.swing.JButton();
-        btnNhapExcelNV = new javax.swing.JButton();
         btnXuatExcelNV = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
@@ -182,14 +179,6 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
             }
         });
         pnlTop.add(btnChiTietNV);
-
-        btnNhapExcelNV.setText("Nhập excel");
-        btnNhapExcelNV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhapExcelNVActionPerformed(evt);
-            }
-        });
-        pnlTop.add(btnNhapExcelNV);
 
         btnXuatExcelNV.setText("Xuất excel");
         btnXuatExcelNV.addActionListener(new java.awt.event.ActionListener() {
@@ -260,10 +249,6 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
     private void btnXoaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNVActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaNVActionPerformed
-
-    private void btnNhapExcelNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapExcelNVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNhapExcelNVActionPerformed
 
     private void btnXuatExcelNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelNVActionPerformed
         // TODO add your handling code here:
@@ -363,7 +348,6 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChiTietNV;
     private javax.swing.JButton btnLamMoi;
-    private javax.swing.JButton btnNhapExcelNV;
     private javax.swing.JButton btnSuaNV;
     private javax.swing.JButton btnThemNV;
     private javax.swing.JButton btnXoaNV;

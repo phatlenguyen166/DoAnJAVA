@@ -70,14 +70,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChiTietNVActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnNhapExcelNV">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nh&#x1ead;p excel"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNhapExcelNVActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="btnXuatExcelNV">
           <Properties>
             <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t excel"/>

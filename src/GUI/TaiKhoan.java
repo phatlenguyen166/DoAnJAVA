@@ -113,7 +113,6 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
         btnThemTK.setIcon(new FlatSVGIcon("./icon/add.svg"));
         btnSuaTK.setIcon(new FlatSVGIcon("./icon/edit.svg"));
         btnXoaTK.setIcon(new FlatSVGIcon("./icon/delete.svg"));
-        btnNhapExcelTK.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
         btnXuatExcelTK.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
 
     }
@@ -131,7 +130,6 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
         btnThemTK = new javax.swing.JButton();
         btnSuaTK = new javax.swing.JButton();
         btnXoaTK = new javax.swing.JButton();
-        btnNhapExcelTK = new javax.swing.JButton();
         btnXuatExcelTK = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
@@ -165,14 +163,6 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
             }
         });
         pnlTop.add(btnXoaTK);
-
-        btnNhapExcelTK.setText("Nhập excel");
-        btnNhapExcelTK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNhapExcelTKActionPerformed(evt);
-            }
-        });
-        pnlTop.add(btnNhapExcelTK);
 
         btnXuatExcelTK.setText("Xuất excel");
         btnXuatExcelTK.addActionListener(new java.awt.event.ActionListener() {
@@ -279,10 +269,6 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaTKActionPerformed
 
-    private void btnNhapExcelTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapExcelTKActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNhapExcelTKActionPerformed
-
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
@@ -364,7 +350,6 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
-    private javax.swing.JButton btnNhapExcelTK;
     private javax.swing.JButton btnSuaTK;
     private javax.swing.JButton btnThemTK;
     private javax.swing.JButton btnXoaTK;

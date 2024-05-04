@@ -62,7 +62,7 @@ public class ThongKeBUS {
     public ArrayList<ThongKeNccDTO> getAllNhaCungCap() {
         return thongkeDAO.getThongKeNhaCungCap("", new Date(0), new Date(System.currentTimeMillis()));
     }
-
+    
     public ArrayList<ThongKeNccDTO> locNhaCungCap(String text, Date start, Date end) {
         return thongkeDAO.getThongKeNhaCungCap(text, start, end);
     }
@@ -73,5 +73,9 @@ public class ThongKeBUS {
     
     public ArrayList<ThongKeTrongThangDTO> getThongKeTuNgayDenNgay(String Start, String End) {
         return thongkeDAO.getThongKeTuNgayDenNgay(Start, End);
+    }
+    
+    public ArrayList<ThongKeTrongThangDTO> getThongKeDoanhThu7NgayGanNhat() {
+        return thongkeDAO.getThongKe7NgayGanNhat();
     }
 }
