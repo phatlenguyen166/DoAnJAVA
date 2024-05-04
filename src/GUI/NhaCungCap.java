@@ -19,12 +19,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
-
-public class NhaCungCap extends javax.swing.JPanel implements ActionListener{
+public class NhaCungCap extends javax.swing.JPanel implements ActionListener {
 
     NhaCungCapBUS nhaCungCapBUS = new NhaCungCapBUS();
     NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
@@ -32,15 +31,25 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener{
     SuaNCCap suaNCC;
     ChiTietNCCap chiTietNCC;
     ArrayList<NhaCungCapDTO> listNhaCungCap = nhaCungCapBUS.getAllNhaCungCap();
+
     public NhaCungCap() {
         initComponents();
+
+        Color BackgroundColor = new Color(240, 247, 250);
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        setPreferredSize(new Dimension(1200, 800));
+
+        pnlCenter.setBorder(new EmptyBorder(20, 0, 0, 0));
+
+        pnlCenter.setBackground(BackgroundColor);
         addIcon();
-        tblNhaCC.setFocusable(false);     
+        tblNhaCC.setFocusable(false);
         tblNhaCC.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         tblNhaCC.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblNhaCC.setFocusable(false);
         tblNhaCC.setAutoCreateRowSorter(true);
-        
+
         btnThemNhaCC.addActionListener(this);
         btnSuaNhaCC.addActionListener(this);
         btnXoaNhaCC.addActionListener(this);
@@ -54,29 +63,31 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener{
 
         hienThiListNhaCungCap(listNhaCungCap);
     }
-    private void addIcon(){
-            btnThemNhaCC.setIcon(new FlatSVGIcon("./icon/add.svg"));
-            btnSuaNhaCC.setIcon(new FlatSVGIcon("./icon/edit.svg"));
-            btnXoaNhaCC.setIcon(new FlatSVGIcon("./icon/delete.svg"));
-            btnChiTietNCC.setIcon(new FlatSVGIcon("./icon/detail.svg"));
-            btnXuatExcelNCC.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
 
-        }
-private void timKiemNhaCungCap(String keyword) {
-    ArrayList<NhaCungCapDTO> ketQuaTimKiem = new ArrayList<>();
-    DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
-    for (int i = 0; i < model.getRowCount(); i++) {
-        String tenNhaCungCap = (String) model.getValueAt(i, 1);
-        if (tenNhaCungCap.toLowerCase().contains(keyword.toLowerCase())) {
-            ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm ncc vào danh sách kết quả
-        }
-        String soDienThoai = (String) model.getValueAt(i, 4);
-        if (soDienThoai.contains(keyword)) {
-            ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm nccvào danh sách kết quả
-        }
+    private void addIcon() {
+        btnThemNhaCC.setIcon(new FlatSVGIcon("./icon/add.svg"));
+        btnSuaNhaCC.setIcon(new FlatSVGIcon("./icon/edit.svg"));
+        btnXoaNhaCC.setIcon(new FlatSVGIcon("./icon/delete.svg"));
+        btnChiTietNCC.setIcon(new FlatSVGIcon("./icon/detail.svg"));
+        btnXuatExcelNCC.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
+
     }
-    hienThiListNhaCungCap(ketQuaTimKiem);
-}
+
+    private void timKiemNhaCungCap(String keyword) {
+        ArrayList<NhaCungCapDTO> ketQuaTimKiem = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) tblNhaCC.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenNhaCungCap = (String) model.getValueAt(i, 1);
+            if (tenNhaCungCap.toLowerCase().contains(keyword.toLowerCase())) {
+                ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm ncc vào danh sách kết quả
+            }
+            String soDienThoai = (String) model.getValueAt(i, 4);
+            if (soDienThoai.contains(keyword)) {
+                ketQuaTimKiem.add(nhaCungCapBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm nccvào danh sách kết quả
+            }
+        }
+        hienThiListNhaCungCap(ketQuaTimKiem);
+    }
 
     public void hienThiListNhaCungCap(ArrayList<NhaCungCapDTO> listNhaCungCap) {
         nhaCungCapBUS = new NhaCungCapBUS();
@@ -89,8 +100,7 @@ private void timKiemNhaCungCap(String keyword) {
                 nhaCungCap.getTenncc(),
                 nhaCungCap.getDiachi(),
                 nhaCungCap.getEmail(),
-                nhaCungCap.getSdt(),
-            };
+                nhaCungCap.getSdt(),};
             model.addRow(row);
         }
 
@@ -103,6 +113,7 @@ private void timKiemNhaCungCap(String keyword) {
             tblNhaCC.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
+
     public void hienThiListNhaCungCap() {
         nhaCungCapBUS = new NhaCungCapBUS();
         nhaCungCapDAO = new NhaCungCapDAO();
@@ -115,8 +126,7 @@ private void timKiemNhaCungCap(String keyword) {
                 nhaCungCap.getTenncc(),
                 nhaCungCap.getDiachi(),
                 nhaCungCap.getEmail(),
-                nhaCungCap.getSdt(),
-            };
+                nhaCungCap.getSdt(),};
             model.addRow(row);
         }
 
@@ -129,6 +139,7 @@ private void timKiemNhaCungCap(String keyword) {
             tblNhaCC.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -447,9 +458,8 @@ private void timKiemNhaCungCap(String keyword) {
         // TODO add your handling code here:
         btnXuatExcelNCC.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnXuatExcelNCCMouseExited
-  
-   
-private void xoaNhaCungCap() {
+
+    private void xoaNhaCungCap() {
         int selectedRow = tblNhaCC.getSelectedRow();
         if (selectedRow != -1) {
             int mancc = (int) tblNhaCC.getValueAt(selectedRow, 0);
@@ -488,15 +498,14 @@ private void xoaNhaCungCap() {
         } else if (e.getSource() == btnXoaNhaCC) {
             xoaNhaCungCap();
         } else if (e.getSource() == btnSuaNhaCC) {
-            if (selectNhaCungCap()!= null) {
+            if (selectNhaCungCap() != null) {
                 suaNCC = new SuaNCCap(selectNhaCungCap(), this);
                 suaNCC.setLocationRelativeTo(null);
                 suaNCC.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
             }
-        }
-        else if (e.getSource() == btnXuatExcelNCC) {
+        } else if (e.getSource() == btnXuatExcelNCC) {
             XuatExcel xuatExcel = new XuatExcel();
             try {
                 xuatExcel.exportJTableToExcel(tblNhaCC);
@@ -504,17 +513,17 @@ private void xoaNhaCungCap() {
                 Logger.getLogger(SanPham.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (e.getSource() == btnChiTietNCC) {
-            if (selectNhaCungCap()!= null) {
+            if (selectNhaCungCap() != null) {
                 chiTietNCC = new ChiTietNCCap(selectNhaCungCap());
                 chiTietNCC.setLocationRelativeTo(null);
                 chiTietNCC.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp");
             }
-            
+
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane asd;
     private javax.swing.JButton btnChiTietNCC;

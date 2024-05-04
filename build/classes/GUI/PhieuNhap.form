@@ -22,6 +22,14 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="mainContentPN">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="fa" green="f7" red="f0" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder bottom="10" left="10" right="10" top="10"/>
+          </Border>
+        </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1300, 800]"/>
         </Property>
@@ -101,6 +109,16 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="pnlBottom">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="fa" green="f7" red="f0" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                <EmptyBorder bottom="0" left="0" right="0" top="20"/>
+              </Border>
+            </Property>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>
@@ -111,10 +129,9 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+                      <Component id="pnlLoc" min="-2" pref="276" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlLoc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scpnlshow" pref="854" max="32767" attributes="0"/>
+                      <Component id="scpnlshow" pref="834" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -122,9 +139,8 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pnlLoc" pref="731" max="32767" attributes="0"/>
+                          <Component id="pnlLoc" pref="697" max="32767" attributes="0"/>
                           <Component id="scpnlshow" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -230,7 +246,7 @@
                               <Component id="datengaybatdau" max="32767" attributes="0"/>
                               <Component id="datengayketthuc" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <EmptySpace pref="22" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -261,7 +277,7 @@
                           <Component id="txtnhacungcap1" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtmaxprice" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace pref="184" max="32767" attributes="0"/>
+                          <EmptySpace pref="150" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

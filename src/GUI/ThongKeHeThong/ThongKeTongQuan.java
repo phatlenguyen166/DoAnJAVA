@@ -34,6 +34,9 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlTop = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         pnlCenter = new javax.swing.JPanel();
         pnlTableThongKe = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -43,17 +46,46 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
 
         pnlTop.setBackground(new java.awt.Color(255, 0, 0));
         pnlTop.setPreferredSize(new java.awt.Dimension(0, 120));
+        pnlTop.setLayout(new java.awt.GridLayout());
 
-        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
-        pnlTop.setLayout(pnlTopLayout);
-        pnlTopLayout.setHorizontalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 995, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 331, Short.MAX_VALUE)
         );
-        pnlTopLayout.setVerticalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 120, Short.MAX_VALUE)
         );
+
+        pnlTop.add(jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 331, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
+        pnlTop.add(jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 331, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
+        pnlTop.add(jPanel3);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
 
@@ -107,6 +139,9 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlTableThongKe;

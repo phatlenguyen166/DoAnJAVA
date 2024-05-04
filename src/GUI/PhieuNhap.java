@@ -16,6 +16,7 @@ import GUI.Main;
 import GUI.PNhap.ChiTietPhieuNhap;
 import GUI.Panel.TaoPhieuNhap;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -51,10 +53,15 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
     private PhieuNhap phieuNhap;
     ArrayList<PhieuNhapDTO> selectedPNproducts;
     Main main;
+    Color BackgroundColor = new Color(240, 247, 250);
 
     public PhieuNhap() {
         initComponents();
         addIcon();
+        mainContentPN.setOpaque(false);
+        mainContentPN.setBackground(BackgroundColor);
+        
+        
         tblPhieuNhap.setFocusable(false);
         tblPhieuNhap.setDefaultEditor(Object.class, null);
         tblPhieuNhap.getColumnModel().getColumn(1).setPreferredWidth(180);
@@ -63,7 +70,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         taoPhieuNhap = new TaoPhieuNhap(); // Khởi tạo đối tượng TaoPhieuNhap
         nhaCungCapBUS = new NhaCungCapBUS();
         nhanVienBUS = new NhanVienBUS();
-        
+
         btnChiTietPN.addActionListener(this);
         comboboxNCC.addItemListener(this);
         cbxNhanVien.addItemListener(this);
@@ -74,7 +81,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
         showCBB.CBBNhaCungCap(comboboxNCC);
         showCBB.CBBNhanVienNhap(cbxNhanVien);
-        
+
         // Khởi tạo tblModel
         tblModel = (DefaultTableModel) tblPhieuNhap.getModel();
         this.selectedPNproducts = phieuNhapBUS.getAllPhieuNhap();
@@ -99,12 +106,13 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
     }
     TaiKhoanDTO taiKhoanDTO;
+
     public PhieuNhap(TaiKhoanDTO taiKhoanDTO) {
         initComponents();
         addIcon();
-        
+
         this.taiKhoanDTO = taiKhoanDTO;
-        
+
         tblPhieuNhap.setFocusable(false);
         tblPhieuNhap.setDefaultEditor(Object.class, null);
         tblPhieuNhap.getColumnModel().getColumn(1).setPreferredWidth(180);
@@ -123,7 +131,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
         showCBB.CBBNhaCungCap(comboboxNCC);
         showCBB.CBBNhanVienNhap(cbxNhanVien);
-        
+
         // Khởi tạo tblModel
         tblModel = (DefaultTableModel) tblPhieuNhap.getModel();
         this.selectedPNproducts = phieuNhapBUS.getAllPhieuNhap();
@@ -188,6 +196,8 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
         setLayout(new java.awt.BorderLayout());
 
+        mainContentPN.setBackground(new java.awt.Color(240, 247, 250));
+        mainContentPN.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainContentPN.setPreferredSize(new java.awt.Dimension(1300, 800));
         mainContentPN.setLayout(new java.awt.BorderLayout());
 
@@ -238,6 +248,9 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         pnlTop.add(txtTimKiem);
 
         mainContentPN.add(pnlTop, java.awt.BorderLayout.NORTH);
+
+        pnlBottom.setBackground(new java.awt.Color(240, 247, 250));
+        pnlBottom.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         tblPhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -299,7 +312,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
                         .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(datengaybatdau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(datengayketthuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pnlLocLayout.setVerticalGroup(
             pnlLocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,7 +341,7 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
                 .addComponent(txtnhacungcap1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtmaxprice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlBottomLayout = new javax.swing.GroupLayout(pnlBottom);
@@ -336,18 +349,16 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         pnlBottomLayout.setHorizontalGroup(
             pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBottomLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scpnlshow, javax.swing.GroupLayout.DEFAULT_SIZE, 854, Short.MAX_VALUE)
+                .addComponent(scpnlshow, javax.swing.GroupLayout.DEFAULT_SIZE, 834, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlBottomLayout.setVerticalGroup(
             pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBottomLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 731, Short.MAX_VALUE)
+                    .addComponent(pnlLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
                     .addComponent(scpnlshow))
                 .addContainerGap())
         );

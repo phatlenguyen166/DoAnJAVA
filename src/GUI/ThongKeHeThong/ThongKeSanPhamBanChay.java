@@ -6,9 +6,13 @@ package GUI.ThongKeHeThong;
 
 import BUS.ThongKeBUS;
 import DTO.ThongKeSanPhamBanChayDTO;
+import GUI.XuatExcel;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -206,6 +210,7 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtNam = new javax.swing.JTextField();
         btnThongKe = new javax.swing.JButton();
+        btnXuatExcel = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
@@ -260,6 +265,14 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
         });
         jPanel1.add(btnThongKe);
 
+        btnXuatExcel.setText("XUẤT EXCEL");
+        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatExcelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnXuatExcel);
+
         add(jPanel1, java.awt.BorderLayout.NORTH);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -271,6 +284,16 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
         // Gọi hàm thống kê với thời gian nhập
         thongKeSanPhamBanChay(thang, nam);
     }//GEN-LAST:event_btnThongKeActionPerformed
+
+    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
+        // TODO add your handling code here:
+        XuatExcel xuatExcel = new XuatExcel();
+        try {
+            xuatExcel.exportJTableToExcel(tblThongKeSanPham);
+        } catch (IOException ex) {
+            Logger.getLogger(ThongKeSanPhamBanChay.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnXuatExcelActionPerformed
 
     public void thongKeSanPhamBanChay(int thang, int nam) {
         // Gọi hàm thống kê sản phẩm bán chạy từ lớp BUS
@@ -297,6 +320,7 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThongKe;
+    private javax.swing.JButton btnXuatExcel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

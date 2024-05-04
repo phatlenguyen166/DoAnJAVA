@@ -9,6 +9,7 @@ import GUI.TKhoan.ThemTaiKhoan;
 import GUI.TKhoan.SuaTaiKhoan;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,21 +37,29 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
     SuaTaiKhoan suaTaiKhoan;
     ChonNhanVien chonNhanVien;
     ArrayList<TaiKhoanDTO> listTaiKhoan = taiKhoanBus.getAllTaiKhoan();
-    
+
     public TaiKhoan() {
         initComponents();
         addIcon();
-        tblTaiKhoan.setFocusable(false);     
+        Color BackgroundColor = new Color(240, 247, 250);
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        setPreferredSize(new Dimension(1200, 800));
+
+        pnlCenter.setBorder(new EmptyBorder(20, 0, 0, 0));
+
+        pnlCenter.setBackground(BackgroundColor);
+        tblTaiKhoan.setFocusable(false);
         tblTaiKhoan.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         tblTaiKhoan.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblTaiKhoan.setFocusable(false);
         tblTaiKhoan.setAutoCreateRowSorter(true);
-        
+
         btnThemTK.addActionListener(this);
         btnSuaTK.addActionListener(this);
         btnXoaTK.addActionListener(this);
         btnXuatExcelTK.addActionListener(this);
-        
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(1200, 800));
         this.add(pnlTop, BorderLayout.NORTH);
@@ -57,7 +67,7 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
 
         hienThiListTaiKhoan(listTaiKhoan);
     }
-    
+
     private void timKiemTaiKhoan(String keyword) {
         ArrayList<TaiKhoanDTO> ketQuaTimKiem = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) tblTaiKhoan.getModel();
@@ -98,15 +108,16 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
             tblTaiKhoan.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
-    
-    private void addIcon(){
-            btnThemTK.setIcon(new FlatSVGIcon("./icon/add.svg"));
-            btnSuaTK.setIcon(new FlatSVGIcon("./icon/edit.svg"));
-            btnXoaTK.setIcon(new FlatSVGIcon("./icon/delete.svg"));
-            btnNhapExcelTK.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
-            btnXuatExcelTK.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
 
-        }
+    private void addIcon() {
+        btnThemTK.setIcon(new FlatSVGIcon("./icon/add.svg"));
+        btnSuaTK.setIcon(new FlatSVGIcon("./icon/edit.svg"));
+        btnXoaTK.setIcon(new FlatSVGIcon("./icon/delete.svg"));
+        btnNhapExcelTK.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
+        btnXuatExcelTK.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,6 +142,7 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
 
         setPreferredSize(new java.awt.Dimension(1200, 800));
         setRequestFocusEnabled(false);
+        setLayout(new java.awt.BorderLayout());
 
         pnlTop.setBackground(new java.awt.Color(255, 255, 255));
         pnlTop.setPreferredSize(new java.awt.Dimension(1200, 70));
@@ -194,6 +206,8 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
         });
         pnlTop.add(btnLamMoi);
 
+        add(pnlTop, java.awt.BorderLayout.NORTH);
+
         tblTaiKhoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", null, null, null},
@@ -251,23 +265,10 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTKActionPerformed
@@ -322,7 +323,7 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn tài khoản để xóa");
         }
     }
-    
+
     private TaiKhoanDTO selectTaiKhoan() {
         int selectedRow = tblTaiKhoan.getSelectedRow();
         TaiKhoanDTO result = null;
@@ -333,7 +334,7 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
         }
         return result;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnThemTK) {
@@ -360,7 +361,7 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
             }
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnNhapExcelTK;

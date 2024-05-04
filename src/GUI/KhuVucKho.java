@@ -6,6 +6,8 @@ import DTO.KhuVucKhoDTO;
 import GUI.KhuVucKhoOpTions.SuaKhuVucKho;
 import GUI.KhuVucKhoOpTions.ThemKhuVucKho;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +36,7 @@ public class KhuVucKho extends javax.swing.JPanel {
     KhuVucKhoDAO khuVucKhoDAO;
     KhuVucKhoBUS khuVucKhoBUS;
     SuaKhuVucKho suaKhuVucKho;
+    Color BackgroundColor = new Color(240, 247, 250);
 
     public KhuVucKho() {
         initComponents();
@@ -44,9 +48,14 @@ public class KhuVucKho extends javax.swing.JPanel {
         tblKho.setFocusable(false);
         tblKho.setAutoCreateRowSorter(true);
         hienThiListKhuVucKho();
-        
-        
-        
+
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        setPreferredSize(new Dimension(1200, 800));
+
+        pnlCenter.setBorder(new EmptyBorder(20, 0, 0, 0));
+
+        pnlCenter.setBackground(BackgroundColor);
     }
 
     private void addIcon() {
@@ -102,7 +111,7 @@ public class KhuVucKho extends javax.swing.JPanel {
         for (int i = 0; i < model.getRowCount(); i++) {
             String tenKhuVucKho = (String) model.getValueAt(i, 1);
             int maKhuVucKho = (int) model.getValueAt(i, 0);
-            
+
             if (tenKhuVucKho.toLowerCase().contains(keyword.toLowerCase())) {
                 ketQuaTimKiem.add(khuVucKhoBUS.selectByID(maKhuVucKho));
             }
@@ -147,7 +156,7 @@ public class KhuVucKho extends javax.swing.JPanel {
         jLabel62 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
         btnLamMoi = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        pnlCenter = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKho = new javax.swing.JTable();
 
@@ -216,7 +225,7 @@ public class KhuVucKho extends javax.swing.JPanel {
 
         add(panelTop, java.awt.BorderLayout.NORTH);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 700));
+        pnlCenter.setPreferredSize(new java.awt.Dimension(1200, 700));
 
         tblKho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -231,20 +240,20 @@ public class KhuVucKho extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblKho);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
+        pnlCenter.setLayout(pnlCenterLayout);
+        pnlCenterLayout.setHorizontalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCenterLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlCenterLayout.setVerticalGroup(
+            pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
         );
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        add(pnlCenter, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemKhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKhoActionPerformed
@@ -320,9 +329,9 @@ public class KhuVucKho extends javax.swing.JPanel {
     private javax.swing.JButton btnXoaKho;
     private javax.swing.JButton btnXuatExcelKho;
     private javax.swing.JLabel jLabel62;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelTop;
+    private javax.swing.JPanel pnlCenter;
     private javax.swing.JTable tblKho;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables

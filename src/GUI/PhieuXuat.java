@@ -190,6 +190,8 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
 
         setLayout(new java.awt.BorderLayout());
 
+        mainContentPX.setBackground(new java.awt.Color(240, 247, 250));
+        mainContentPX.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainContentPX.setPreferredSize(new java.awt.Dimension(1300, 800));
         mainContentPX.setLayout(new java.awt.BorderLayout());
 
@@ -240,6 +242,9 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         pnlTop.add(txtTimKiem);
 
         mainContentPX.add(pnlTop, java.awt.BorderLayout.NORTH);
+
+        pnlBottom.setBackground(new java.awt.Color(240, 247, 250));
+        pnlBottom.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
         tblPhieuxuat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -293,7 +298,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
                         .addComponent(txtnhacungcap5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(datengaybatdau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(datengayketthuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         pnlLocLayout.setVerticalGroup(
             pnlLocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +327,7 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
                 .addComponent(txtnhacungcap1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtmaxprice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlBottomLayout = new javax.swing.GroupLayout(pnlBottom);
@@ -330,19 +335,17 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         pnlBottomLayout.setHorizontalGroup(
             pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBottomLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scpnltable, javax.swing.GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE)
+                .addComponent(scpnltable, javax.swing.GroupLayout.DEFAULT_SIZE, 899, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlBottomLayout.setVerticalGroup(
             pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBottomLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnlBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
-                    .addComponent(scpnltable))
+                    .addComponent(scpnltable)
+                    .addComponent(pnlLoc, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE))
                 .addContainerGap())
         );
 

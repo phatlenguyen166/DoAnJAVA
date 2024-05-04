@@ -19,11 +19,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
-public class KhachHang extends javax.swing.JPanel implements ActionListener{
+public class KhachHang extends javax.swing.JPanel implements ActionListener {
 
     KhachHangBUS khachHangBUS = new KhachHangBUS();
     KhachHangDAO khachHangDAO = new KhachHangDAO();
@@ -31,10 +31,19 @@ public class KhachHang extends javax.swing.JPanel implements ActionListener{
     SuaKHang suaKH;
     ChiTietKHang chiTietKH;
     ArrayList<KhachHangDTO> listKhachHang = khachHangBUS.getAllKhachHang();
-    
+
     public KhachHang() {
         initComponents();
         addIcon();
+        Color BackgroundColor = new Color(240, 247, 250);
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        setPreferredSize(new Dimension(1200, 800));
+
+        pnlCenter.setBorder(new EmptyBorder(20, 0, 0, 0));
+
+        pnlCenter.setBackground(BackgroundColor);
+
         tblKhachHang.setFocusable(false);
         tblKhachHang.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         tblKhachHang.getColumnModel().getColumn(1).setPreferredWidth(180);
@@ -54,28 +63,31 @@ public class KhachHang extends javax.swing.JPanel implements ActionListener{
 
         hienThiListKhachHang(listKhachHang);
     }
-    private void addIcon(){
-            btnThemKH.setIcon(new FlatSVGIcon("./icon/add.svg"));
-            btnSuaKH.setIcon(new FlatSVGIcon("./icon/edit.svg"));
-            btnXoaKH.setIcon(new FlatSVGIcon("./icon/delete.svg"));
-            btnChiTietKH.setIcon(new FlatSVGIcon("./icon/detail.svg"));
-            btnXuatExcel1KH.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
-        }
-private void timKiemKhachHang(String keyword) {
-    ArrayList<KhachHangDTO> ketQuaTimKiem = new ArrayList<>();
-    DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
-    for (int i = 0; i < model.getRowCount(); i++) {
-        String tenKhachHang = (String) model.getValueAt(i, 1);
-        if (tenKhachHang.toLowerCase().contains(keyword.toLowerCase())) {
-            ketQuaTimKiem.add(khachHangBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm khách hàng vào danh sách kết quả
-        }
-        String soDienThoai = (String) model.getValueAt(i, 3);
-        if (soDienThoai.contains(keyword)) {
-            ketQuaTimKiem.add(khachHangBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm khách hàng vào danh sách kết quả
-        }
+
+    private void addIcon() {
+        btnThemKH.setIcon(new FlatSVGIcon("./icon/add.svg"));
+        btnSuaKH.setIcon(new FlatSVGIcon("./icon/edit.svg"));
+        btnXoaKH.setIcon(new FlatSVGIcon("./icon/delete.svg"));
+        btnChiTietKH.setIcon(new FlatSVGIcon("./icon/detail.svg"));
+        btnXuatExcel1KH.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
     }
-    hienThiListKhachHang(ketQuaTimKiem);
-}
+
+    private void timKiemKhachHang(String keyword) {
+        ArrayList<KhachHangDTO> ketQuaTimKiem = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenKhachHang = (String) model.getValueAt(i, 1);
+            if (tenKhachHang.toLowerCase().contains(keyword.toLowerCase())) {
+                ketQuaTimKiem.add(khachHangBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm khách hàng vào danh sách kết quả
+            }
+            String soDienThoai = (String) model.getValueAt(i, 3);
+            if (soDienThoai.contains(keyword)) {
+                ketQuaTimKiem.add(khachHangBUS.selectByID((int) model.getValueAt(i, 0))); // Thêm khách hàng vào danh sách kết quả
+            }
+        }
+        hienThiListKhachHang(ketQuaTimKiem);
+    }
+
     public void hienThiListKhachHang(ArrayList<KhachHangDTO> listKhachHang) {
         khachHangBUS = new KhachHangBUS();
         khachHangDAO = new KhachHangDAO();
@@ -100,6 +112,7 @@ private void timKiemKhachHang(String keyword) {
             tblKhachHang.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
+
     public void hienThiListKhachHang() {
         khachHangBUS = new KhachHangBUS();
         khachHangDAO = new KhachHangDAO();
@@ -125,6 +138,7 @@ private void timKiemKhachHang(String keyword) {
             tblKhachHang.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -327,7 +341,7 @@ private void timKiemKhachHang(String keyword) {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void btnThemKHMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemKHMouseEntered
-          btnThemKH.setBackground(Color.GRAY);
+        btnThemKH.setBackground(Color.GRAY);
     }//GEN-LAST:event_btnThemKHMouseEntered
 
     private void btnThemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKHActionPerformed
@@ -438,8 +452,8 @@ private void timKiemKhachHang(String keyword) {
             btnXuatExcel1KH.setBackground(Color.BLUE);
         }
     }//GEN-LAST:event_btnXuatExcel1KHMouseClicked
- 
-       private void xoaKhachHang() {
+
+    private void xoaKhachHang() {
         int selectedRow = tblKhachHang.getSelectedRow();
         if (selectedRow != -1) {
             int maKH = (int) tblKhachHang.getValueAt(selectedRow, 0);
@@ -470,7 +484,6 @@ private void timKiemKhachHang(String keyword) {
         return result;
     }
 
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnThemKH) {
             themKH = new ThemKHang(this);
@@ -479,7 +492,7 @@ private void timKiemKhachHang(String keyword) {
         } else if (e.getSource() == btnXoaKH) {
             xoaKhachHang();
         } else if (e.getSource() == btnSuaKH) {
-            if (selectKhachHang()!= null) {
+            if (selectKhachHang() != null) {
                 suaKH = new SuaKHang(selectKhachHang(), this);
                 suaKH.setLocationRelativeTo(null);
                 suaKH.setVisible(true);
@@ -487,24 +500,23 @@ private void timKiemKhachHang(String keyword) {
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng");
             }
-        }
-        else if (e.getSource() == btnXuatExcel1KH) {
+        } else if (e.getSource() == btnXuatExcel1KH) {
             XuatExcel xuatExcel = new XuatExcel();
             try {
                 xuatExcel.exportJTableToExcel(tblKhachHang);
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(KhachHang.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (e.getSource() == btnChiTietKH) {
-            if (selectKhachHang()!= null) {
+            if (selectKhachHang() != null) {
                 chiTietKH = new ChiTietKHang(selectKhachHang());
                 chiTietKH.setLocationRelativeTo(null);
                 chiTietKH.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng");
             }
-            
+
         }
     }
 

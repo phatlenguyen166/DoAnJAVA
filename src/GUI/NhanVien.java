@@ -9,6 +9,7 @@ import GUI.NVien.ThemNhanVien;
 import javax.swing.*;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,23 +35,31 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
     SuaNhanVien suaNhanVien;
     ChiTietNhanVien chiTietNhanVien;
     public ArrayList<NhanVienDTO> listNhanVien = nhanVienBus.getAllNhanVien();
-    
+
     public NhanVien() {
         initComponents();
         addIcon();
-        tblNhanVien.setFocusable(false);     
+        Color BackgroundColor = new Color(240, 247, 250);
+        this.setOpaque(false);
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
+        setPreferredSize(new Dimension(1200, 800));
+
+        pnlCenter.setBorder(new EmptyBorder(20, 0, 0, 0));
+
+        pnlCenter.setBackground(BackgroundColor);
+        tblNhanVien.setFocusable(false);
         tblNhanVien.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         tblNhanVien.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblNhanVien.setFocusable(false);
         tblNhanVien.setAutoCreateRowSorter(true);
-        
+
         btnThemNV.addActionListener(this);
         btnSuaNV.addActionListener(this);
         btnXoaNV.addActionListener(this);
         btnChiTietNV.addActionListener(this);
         btnNhapExcelNV.addActionListener(this);
         btnXuatExcelNV.addActionListener(this);
-        
+
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(1200, 800));
         this.add(pnlTop, BorderLayout.NORTH);
@@ -57,7 +67,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
 
         hienThiListNhanVien(listNhanVien);
     }
-    
+
     private void timKiemNhanVien(String keyword) {
         ArrayList<NhanVienDTO> ketQuaTimKiem = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
@@ -69,7 +79,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
         }
         hienThiListNhanVien(ketQuaTimKiem);
     }
-    
+
     public void hienThiListNhanVien(ArrayList<NhanVienDTO> listNhanVien) {
         nhanVienBus = new NhanVienBUS();
         DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
@@ -79,8 +89,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
             String gioitinh;
             if (nhanVien.getGioitinh() == 1) {
                 gioitinh = "Nam";
-            }
-            else {
+            } else {
                 gioitinh = "Nữ";
             }
             String ngaySinhFormatted = sdf.format(nhanVien.getNgaysinh());
@@ -93,7 +102,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
                 nhanVien.getEmail()};
             model.addRow(row);
         }
-        
+
         // Tạo renderer để hiển thị nội dung ở giữa ô
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,8 +112,8 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
             tblNhanVien.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
-    
-    private void addIcon(){
+
+    private void addIcon() {
         btnThemNV.setIcon(new FlatSVGIcon("./icon/add.svg"));
         btnSuaNV.setIcon(new FlatSVGIcon("./icon/edit.svg"));
         btnXoaNV.setIcon(new FlatSVGIcon("./icon/delete.svg"));
@@ -112,7 +121,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
         btnNhapExcelNV.setIcon(new FlatSVGIcon("./icon/import_excel.svg"));
         btnXuatExcelNV.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -304,7 +313,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên để xóa");
         }
     }
-    
+
     private NhanVienDTO selectNhanVien() {
         int selectedRow = tblNhanVien.getSelectedRow();
         NhanVienDTO result = null;
@@ -315,7 +324,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
         }
         return result;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnThemNV) {
@@ -326,7 +335,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
             xoaNhanVien();
         } else if (e.getSource() == btnSuaNV) {
             if (selectNhanVien() != null) {
-                suaNhanVien = new SuaNhanVien(this,selectNhanVien());
+                suaNhanVien = new SuaNhanVien(this, selectNhanVien());
                 suaNhanVien.setLocationRelativeTo(null);
                 suaNhanVien.setVisible(true);
             } else {
