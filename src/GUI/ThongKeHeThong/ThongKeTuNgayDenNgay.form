@@ -40,11 +40,6 @@
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="startdate">
-              <Properties>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 22]"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -52,11 +47,6 @@
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="enddate">
-              <Properties>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[150, 22]"/>
-                </Property>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnthongke">
               <Properties>

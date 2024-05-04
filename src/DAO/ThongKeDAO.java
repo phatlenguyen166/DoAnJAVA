@@ -5,6 +5,7 @@ import DTO.ThongKe.ThongKeTheoThangDTO; //tk theo thang
 import DTO.ThongKe.ThongKeKhachHangDTO;
 import DTO.ThongKe.ThongKeNccDTO;
 import DTO.ThongKeSanPhamBanChayDTO;
+import DTO.ThongKeTonKhoDTO;
 import DTO.ThongKeTrongThangDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -356,12 +357,22 @@ public class ThongKeDAO {
             String setStar = "SET @start_date = '" + star + "'";
             String setEnd = "SET @end_date = '" + end + "'  ;";
 
+            String dateDiffQuery = "SELECT DATEDIFF('" + end + "', '" + star + "') AS days_difference;";
+            PreparedStatement pstDiff = con.prepareStatement(dateDiffQuery);
+            ResultSet rsDiff = pstDiff.executeQuery();
+            int dateDiff = 0;
+            if (rsDiff.next()) {
+                dateDiff = rsDiff.getInt("days_difference");
+            }
+            rsDiff.close();
+            pstDiff.close();
+
             String numbersQuery = "";
-            for (int i = 0; i <= 364; i++) {
-                numbersQuery += "SELECT " + i + " AS number";
-                if (i < 364) {
+            for (int i = 0; i <= dateDiff; i++) {
+                if (i > 0) {
                     numbersQuery += " UNION ALL ";
                 }
+                numbersQuery += "SELECT DATE_ADD('" + star + "', INTERVAL " + i + " DAY) AS date";
             }
 
             String sqlSelect = "SELECT \n"
@@ -369,11 +380,7 @@ public class ThongKeDAO {
                     + "    COALESCE(SUM(phieuxuat.tongtien), 0) AS doanhthu,\n"
                     + "    COALESCE(SUM(chiphi), 0) AS chiphi\n"
                     + "FROM \n"
-                    + "    (\n"
-                    + "        SELECT DATE_ADD(@start_date, INTERVAL c.number DAY) AS date\n"
-                    + "        FROM (" + numbersQuery + ") AS c\n"
-                    + "        WHERE DATE_ADD(@start_date, INTERVAL c.number DAY) <= @end_date\n"
-                    + "    ) AS dates\n"
+                    + "    (" + numbersQuery + ") AS dates\n"
                     + "LEFT JOIN phieuxuat ON DATE(phieuxuat.thoigian) = dates.date\n"
                     + "LEFT JOIN (\n"
                     + "            SELECT ctphieuxuat.maphieuxuat,\n"
@@ -405,4 +412,97 @@ public class ThongKeDAO {
         }
         return result;
     }
+
+    public ArrayList<ThongKeTonKhoDTO> getThongKeTonKho(String text, Date timeStart, Date timeEnd) {
+        ArrayList<ThongKeTonKhoDTO> result = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeEnd.getTime());
+        // Đặt giá trị cho giờ, phút, giây và mili giây của Calendar
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        try {
+            Connection conn = MySQLConnection.getConnection();
+            String query
+                    = """
+                WITH nhap AS (
+                    SELECT 
+                        sanpham.masp, 
+                        SUM(ctphieunhap.soluong) AS sl_nhap
+                    FROM 
+                        ctphieunhap
+                    LEFT JOIN 
+                        sanpham ON sanpham.masp = ctphieunhap.masp
+                    LEFT JOIN phieunhap ON phieunhap.maphieunhap = ctphieunhap.maphieunhap
+                    WHERE 
+                        phieunhap.thoigian BETWEEN ? AND ?
+                    GROUP BY 
+                        sanpham.masp
+                ),
+                xuat AS (
+                    SELECT 
+                        sanpham.masp, 
+                        SUM(ctphieuxuat.soluong) AS sl_xuat
+                    FROM 
+                        ctphieuxuat
+                    LEFT JOIN 
+                        sanpham ON sanpham.masp = ctphieuxuat.masp
+                    LEFT JOIN phieuxuat ON phieuxuat.maphieuxuat = ctphieuxuat.maphieuxuat
+                    WHERE 
+                        phieuxuat.thoigian BETWEEN ? AND ?
+                    GROUP BY 
+                        sanpham.masp
+                ),
+                temp_table AS (
+                    SELECT 
+                        sanpham.masp, 
+                        sanpham.tensp, 
+                        sanpham.size, 
+                        COALESCE(nhap.sl_nhap, 0) AS soluongnhap, 
+                        COALESCE(xuat.sl_xuat, 0) AS soluongxuat, 
+                        COALESCE(sanpham.soluongton, 0) AS soluongton
+                    FROM 
+                        sanpham
+                    LEFT JOIN nhap ON sanpham.masp = nhap.masp
+                    LEFT JOIN xuat ON sanpham.masp = xuat.masp
+                )
+                SELECT 
+                    * 
+                FROM 
+                    temp_table
+                WHERE 
+                    masp LIKE ? OR tensp LIKE ?
+                ORDER BY 
+                    masp;
+            """;
+
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setTimestamp(1, new Timestamp(timeStart.getTime()));
+            pst.setTimestamp(2, new Timestamp(calendar.getTimeInMillis()));
+            pst.setTimestamp(3, new Timestamp(timeStart.getTime()));
+            pst.setTimestamp(4, new Timestamp(calendar.getTimeInMillis()));
+            pst.setString(5, "%" + text + "%");
+            pst.setString(6, "%" + text + "%");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int masp = rs.getInt("masp");
+                String tensp = rs.getString("tensp");
+                int size = rs.getInt("size");
+                int soluongnhap = rs.getInt("soluongnhap");
+                int soluongxuat = rs.getInt("soluongxuat");
+                int soluongton = rs.getInt("soluongton");
+                ThongKeTonKhoDTO p = new ThongKeTonKhoDTO(masp, tensp, size, soluongnhap, soluongxuat, soluongton);
+                result.add(p);
+            }
+            rs.close();
+            pst.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

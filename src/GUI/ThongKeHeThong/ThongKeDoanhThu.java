@@ -3,15 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI.ThongKeHeThong;
-
-import GUI.ThongKeHeThong.ThongKeDoanhThuPnl.ThongKeTuNgayDenNgay;
+import GUI.ThongKeHeThong.ThongKeTrongThang;
+import GUI.ThongKeHeThong.ThongKeTuNgayDenNgay;
+import GUI.ThongKeHeThong.ThongKeDoanhThuTungNam;
 
 /**
  *
  * @author phatl
  */
-
-
 public class ThongKeDoanhThu extends javax.swing.JPanel {
 
     /**

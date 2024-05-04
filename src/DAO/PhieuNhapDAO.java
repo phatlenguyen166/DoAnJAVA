@@ -54,12 +54,13 @@ public class PhieuNhapDAO {
             Timestamp timestamp = new Timestamp(parsedDate.getTime());
             // Chèn dữ liệu vào cơ sở dữ liệu
             System.out.println("long time" + timestamp);
-            String sql = "INSERT INTO phieunhap (thoigian, manhacungcap, manv, tongtien, trangthai) VALUES (?, ?, ?, ?, 1)";
+            String sql = "INSERT INTO phieunhap (maphieunhap, thoigian, manhacungcap, manv, tongtien, trangthai) VALUES (?, ?, ?, ?, ?, 1)";
             ps = connection.prepareStatement(sql);
-            ps.setTimestamp(1, phieuNhapDTO.getThoigiantao()); // Sử dụng thời gian đã định dạng thành chuỗi
-            ps.setInt(2, phieuNhapDTO.getManhacungcap());
-            ps.setInt(3, phieuNhapDTO.getMaNV());
-            ps.setLong(4, phieuNhapDTO.getTongTien());
+            ps.setInt(1, phieuNhapDTO.getMaphieunhap());
+            ps.setTimestamp(2, phieuNhapDTO.getThoigiantao()); // Sử dụng thời gian đã định dạng thành chuỗi
+            ps.setInt(3, phieuNhapDTO.getManhacungcap());
+            ps.setInt(4, phieuNhapDTO.getMaNV());
+            ps.setLong(5, phieuNhapDTO.getTongTien());
             ps.executeUpdate();
 
             MySQLConnection.closeConnection(connection);

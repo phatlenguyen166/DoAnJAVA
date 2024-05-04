@@ -13,7 +13,6 @@ import GUI.Component.Chart.BarChart.Chart;
 import GUI.Component.Chart.BarChart.ModelChart;
 import java.awt.Color;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -72,11 +71,11 @@ public class ThongKeTrongThang extends javax.swing.JPanel {
         pnlChart.add(chart);
         pnlChart.repaint();
         pnlChart.validate();
-         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
         tblModel.setRowCount(0);
         for (int i = 0; i < list.size(); i++) {
             tblModel.addRow(new Object[]{
-                dateFormat.format(list.get(i).getNgay()), formater.FormatVND(list.get(i).getChiphi()), formater.FormatVND(list.get(i).getDoanhthu()), formater.FormatVND(list.get(i).getLoinhuan())
+                list.get(i).getNgay(), formater.FormatVND(list.get(i).getChiphi()), formater.FormatVND(list.get(i).getDoanhthu()), formater.FormatVND(list.get(i).getLoinhuan())
             });
         }
         formater.setColumnAlignment(tblthongke);

@@ -33,13 +33,14 @@ public class PhieuXuatDAO {
         try {
             Timestamp currentTime = new Timestamp(now); // Tạo đối tượng Timestamp từ giá trị now
             // Chèn dữ liệu vào cơ sở dữ liệu
-            String sql = "INSERT INTO phieuxuat (thoigian, makh, manv, tongtien, trangthai) VALUES (?, ?, ?, ?, 1)";
+            String sql = "INSERT INTO phieuxuat (maphieuxuat, thoigian, makh, manv, tongtien, trangthai) VALUES (?, ?, ?, ?, ?, 1)";
 
             ps = connection.prepareStatement(sql);
-            ps.setTimestamp(1, currentTime); // Sử dụng currentTime thay vì Timestamp.valueOf(currentTime)
-            ps.setInt(2, phieuXuatDTO.getMakh());
-            ps.setInt(3, phieuXuatDTO.getManv());
-            ps.setLong(4, phieuXuatDTO.getTongTien());
+            ps.setInt(1, phieuXuatDTO.getMaphieuxuat());
+            ps.setTimestamp(2, currentTime); // Sử dụng currentTime thay vì Timestamp.valueOf(currentTime)
+            ps.setInt(3, phieuXuatDTO.getMakh());
+            ps.setInt(4, phieuXuatDTO.getManv());
+            ps.setLong(5, phieuXuatDTO.getTongTien());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -803,7 +803,7 @@ private void updateTotalPrice() {
         int makh = maKH;
             System.out.println("ma" + makh);
         //int makh = 3;  //Lỗi lấy giá trị từ txtkhachhang
-        int manv = 1;
+        int manv = taiKhoanDTO.getManv();
         long tongtien = 0;
         String tongtienStr = txttongtien.getText().replaceAll("[.,đ]", "").trim();
         tongtien = Long.parseLong(tongtienStr);
@@ -867,12 +867,11 @@ private void addChiTietPhieuXuatToDatabase() {
                 } 
                 else if (CreatePhieuXuat()) {
                     // Tạo đối tượng mới của panel PhieuNhap
-                    phieuXuat = new PhieuXuat();
+                    phieuXuat = new PhieuXuat(taiKhoanDTO);
                     main = new Main();
                     // Kiểm tra và hiển thị panel PhieuNhap
                     if (main != null) {
                         main.setPanel(containerpanel, phieuXuat);
-                        JOptionPane.showMessageDialog(null, "Tạo phiếu nhập thành công");
                     } else {
                         System.out.println("Biến main chưa được khởi tạo!");
                     }

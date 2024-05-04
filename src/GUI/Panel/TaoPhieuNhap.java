@@ -167,8 +167,6 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener {
                 buildTable.updateTableProducts(tblsoluongsanpham, rs);
             }
         });
-        
-        
         txtnhanviennhap.setText(nhanVienBUS.selectByID(taiKhoanDTO.getManv()).getHoten());
     }
     
@@ -660,12 +658,11 @@ public class TaoPhieuNhap extends javax.swing.JPanel implements MouseListener {
                     JOptionPane.showMessageDialog(null, "Vui lòng chọn nhà cung cấp");
                 } else if (createPhieuNhap()) {
                     // Tạo đối tượng mới của panel PhieuNhap
-                    PhieuNhap phieunhap = new PhieuNhap();
+                    PhieuNhap phieunhap = new PhieuNhap(taiKhoanDTO);
                     main = new Main();
                     // Kiểm tra và hiển thị panel PhieuNhap
                     if (main != null) {
                         main.setPanel(containerpanel, phieunhap);
-                        JOptionPane.showMessageDialog(null, "Tạo phiếu nhập thành công");
                     } else {
                         System.out.println("Biến main chưa được khởi tạo!");
                     }
