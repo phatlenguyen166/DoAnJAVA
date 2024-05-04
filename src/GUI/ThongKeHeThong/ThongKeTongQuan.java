@@ -42,7 +42,7 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
         tblThongKe.setFocusable(false);
         tblThongKe.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         LineChartExample lineChart = new LineChartExample();
-        pnlCenter.add(lineChart,BorderLayout.CENTER);
+        pnlCenter.add(lineChart);
         hienThiDuLieuTable();
     }
     ThongKeBUS thongKeBUS;

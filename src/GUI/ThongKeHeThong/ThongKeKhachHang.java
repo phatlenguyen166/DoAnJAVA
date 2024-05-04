@@ -6,6 +6,7 @@ package GUI.ThongKeHeThong;
 
 import BUS.ThongKeBUS;
 import DTO.ThongKe.ThongKeKhachHangDTO;
+import GUI.XuatExcel;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -211,6 +213,7 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         jLabel2 = new javax.swing.JLabel();
         pnlStartEnd = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblThongKeKhachHang = new javax.swing.JTable();
@@ -218,7 +221,8 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         setLayout(new java.awt.BorderLayout());
 
         pnlLeft.setBackground(new java.awt.Color(255, 255, 255));
-        pnlLeft.setPreferredSize(new java.awt.Dimension(300, 300));
+        pnlLeft.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlLeft.setPreferredSize(new java.awt.Dimension(285, 300));
 
         jLabel1.setText("Tên khách hàng :");
 
@@ -238,37 +242,49 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
 
         jLabel3.setText("Đến ngày :");
 
+        jButton2.setText("Xuất Excel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlLeftLayout = new javax.swing.GroupLayout(pnlLeft);
         pnlLeft.setLayout(pnlLeftLayout);
         pnlLeftLayout.setHorizontalGroup(
             pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlStartEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtTenKhachHang, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(pnlLeftLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
                 .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(pnlStartEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pnlLeftLayout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         pnlLeftLayout.setVerticalGroup(
             pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLeftLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(52, 52, 52)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTenKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlStartEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         add(pnlLeft, java.awt.BorderLayout.WEST);
@@ -300,8 +316,8 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         pnlCenterLayout.setHorizontalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCenterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,8 +335,19 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane2KeyReleased
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        XuatExcel xuatExcel = new XuatExcel();
+        try {
+            xuatExcel.exportJTableToExcel(tblThongKeKhachHang);
+        } catch (IOException ex) {
+            Logger.getLogger(ThongKeKhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

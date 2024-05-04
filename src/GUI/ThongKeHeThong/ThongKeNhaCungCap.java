@@ -6,6 +6,7 @@ package GUI.ThongKeHeThong;
 
 import BUS.ThongKeBUS;
 import DTO.ThongKe.ThongKeNccDTO;
+import GUI.XuatExcel;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -17,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -215,12 +217,15 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
         PnldateStart = new javax.swing.JPanel();
         PnldateEnd = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblThongKeNcc = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setPreferredSize(new java.awt.Dimension(285, 498));
 
         jLabel1.setText("Tìm kiếm nhà cung cấp");
 
@@ -238,38 +243,48 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
 
         jLabel3.setText("Đến ngày");
 
+        jButton2.setText("Xuất Excel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PnldateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PnldateStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtnhacungcap)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(PnldateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(txtnhacungcap, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                        .addComponent(PnldateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(62, 62, 62)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtnhacungcap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PnldateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PnldateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PanelCenterLayout = new javax.swing.GroupLayout(PanelCenter);
@@ -277,15 +292,13 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
         PanelCenterLayout.setHorizontalGroup(
             PanelCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCenterLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelCenterLayout.setVerticalGroup(
             PanelCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelCenterLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
         );
 
         add(PanelCenter, java.awt.BorderLayout.WEST);
@@ -319,6 +332,16 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
     private void jScrollPane1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jScrollPane1KeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1KeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        XuatExcel xuatExcel = new XuatExcel();
+        try {
+            xuatExcel.exportJTableToExcel(tblThongKeNcc);
+        } catch (IOException ex) {
+            Logger.getLogger(ThongKeNhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
     @Override
     public void actionPerformed(ActionEvent e) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -357,6 +380,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
     private javax.swing.JPanel PanelCenter;
     private javax.swing.JPanel PnldateEnd;
     private javax.swing.JPanel PnldateStart;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
