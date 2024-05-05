@@ -15,6 +15,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,11 +38,11 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
     public ThongKeTongQuan() {
         initComponents();
         this.setOpaque(false);
-        this.setBorder(new EmptyBorder(10, 10, 10, 10));    
+        this.setBorder(new EmptyBorder(10, 10, 10, 10));
         tblThongKe.setFocusable(false);
         tblThongKe.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
         LineChartExample lineChart = new LineChartExample();
-        pnlCenter.add(lineChart,BorderLayout.CENTER);
+        pnlCenter.add(lineChart, BorderLayout.CENTER);
         hienThiDuLieuTable();
         // Lấy số sản phẩm, số khách hàng và số nhân viên từ DAO
         int soSanPham = SanPhamDAO.getInstance().getAllSanPham().size();
@@ -68,8 +69,9 @@ public class ThongKeTongQuan extends javax.swing.JPanel {
     public void hienThiDuLieuTable() {
 
         thongKeBUS = new ThongKeBUS();
-
-        ArrayList<ThongKeTrongThangDTO> listDoanhThu = thongKeBUS.getThongKeDoanhThu7NgayGanNhat();
+        String end = LocalDate.now().minusDays(1).toString(); // Ngày hôm qua
+        String start = LocalDate.now().minusDays(7).toString(); // Ngày 7 ngày trước
+        ArrayList<ThongKeTrongThangDTO> listDoanhThu = thongKeBUS.getThongKeTuNgayDenNgay(start, end);
 
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
         model.setRowCount(0);

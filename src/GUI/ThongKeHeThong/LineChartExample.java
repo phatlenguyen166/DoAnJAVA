@@ -1,6 +1,5 @@
 package GUI.ThongKeHeThong;
 
-
 import GUI.*;
 import BUS.ThongKeBUS;
 import DTO.ThongKeTrongThangDTO;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class LineChartExample extends JPanel {
 
     public LineChartExample() {
@@ -38,21 +36,23 @@ public class LineChartExample extends JPanel {
 
         // Create Panel
         ChartPanel panel = new ChartPanel(chart);
-        this.add(panel,BorderLayout.CENTER);
+        this.add(panel, BorderLayout.CENTER);
     }
 
     private DefaultCategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        
+
         ThongKeBUS thongKeBUS = new ThongKeBUS();
         // Get data from database
-        ArrayList<ThongKeTrongThangDTO> thongKeData = thongKeBUS.getThongKeDoanhThu7NgayGanNhat();
+        String end = LocalDate.now().minusDays(1).toString(); // Ngày hôm qua
+        String start = LocalDate.now().minusDays(7).toString(); // Ngày 7 ngày trước
+        ArrayList<ThongKeTrongThangDTO> thongKeData = thongKeBUS.getThongKeTuNgayDenNgay(start, end);
 
         // Add data to dataset
         for (ThongKeTrongThangDTO item : thongKeData) {
             dataset.addValue(item.getDoanhthu(), "Doanh thu", item.getNgay());
             dataset.addValue(item.getChiphi(), "Chi phí", item.getNgay());
-            dataset.addValue(item.getLoinhuan(), "Lợi nhuận", item.getNgay()); 
+            dataset.addValue(item.getLoinhuan(), "Lợi nhuận", item.getNgay());
         }
 
         return dataset;

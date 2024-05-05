@@ -24,44 +24,6 @@ public class ThongKeDAO {
         return new ThongKeDAO();
     }
 
-    public ArrayList<ThongKeTrongThangDTO> getThongKe7NgayGanNhat() {
-        ArrayList<ThongKeTrongThangDTO> result = new ArrayList<>();
-        try (Connection con = MySQLConnection.getConnection()) {
-            // Lấy ngày hiện tại
-            LocalDate ngayHienTai = LocalDate.now();
-            System.out.println(ngayHienTai);
-            // Lấy ngày bắt đầu là ngày hiện tại và sau đó lùi lại 6 ngày để lấy tổng cộng 7 ngày
-            LocalDate ngayBatDau = ngayHienTai.minusDays(7);
-
-            // SQL query
-            String sql = "SELECT\n"
-                    + "  DATE(phieuxuat.thoigian) AS ngay,\n"
-                    + "  COALESCE(SUM(phieuxuat.tongtien), 0) AS doanhthu,\n"
-                    + "  COALESCE(SUM(ctphieuxuat.soluong * sanpham.gianhap), 0) AS chiphi\n"
-                    + "FROM phieuxuat\n"
-                    + "LEFT JOIN ctphieuxuat ON phieuxuat.maphieuxuat = ctphieuxuat.maphieuxuat\n"
-                    + "LEFT JOIN sanpham ON ctphieuxuat.masp = sanpham.masp\n"
-                    + "WHERE phieuxuat.thoigian BETWEEN ? AND ?\n"
-                    + "GROUP BY ngay\n"
-                    + "ORDER BY ngay;";
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setDate(1, java.sql.Date.valueOf(ngayBatDau));
-            pst.setDate(2, java.sql.Date.valueOf(ngayHienTai));
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Date ngay = rs.getDate("ngay");
-                int chiphi = rs.getInt("chiphi");
-                int doanhthu = rs.getInt("doanhthu");
-                int loinhuan = doanhthu - chiphi;
-                ThongKeTrongThangDTO thongKeDTO = new ThongKeTrongThangDTO(ngay, chiphi, doanhthu, loinhuan);
-                result.add(thongKeDTO);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
     public ArrayList<ThongKeSanPhamBanChayDTO> getTop5SanPhamBanChay() {
         Connection con = MySQLConnection.getConnection();
         ArrayList<ThongKeSanPhamBanChayDTO> listThongSP = new ArrayList<>();
