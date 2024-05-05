@@ -74,7 +74,7 @@ public class PhieuNhapDAO {
 
     public ArrayList<PhieuNhapDTO> getAllPhieuNhap() {
         ArrayList<PhieuNhapDTO> listPhieuNhap = new ArrayList<>();
-        String sql = "SELECT maphieunhap, thoigian, manhacungcap, manv, tongtien FROM phieunhap WHERE trangthai = 1"; // Lấy những phiếu nhập có trạng thái là 1
+        String sql = "SELECT maphieunhap, thoigian, manhacungcap, manv, tongtien FROM phieunhap WHERE trangthai = 1 ORDER BY maphieunhap DESC"; // Lấy những phiếu nhập có trạng thái là 1
         try {
             connection = MySQLConnection.getConnection();
             ps = connection.prepareStatement(sql);

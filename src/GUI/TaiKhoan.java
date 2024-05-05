@@ -114,7 +114,7 @@ public class TaiKhoan extends javax.swing.JPanel implements ActionListener {
         btnSuaTK.setIcon(new FlatSVGIcon("./icon/edit.svg"));
         btnXoaTK.setIcon(new FlatSVGIcon("./icon/delete.svg"));
         btnXuatExcelTK.setIcon(new FlatSVGIcon("./icon/export_excel.svg"));
-
+        btnLamMoi.setIcon(new FlatSVGIcon("./icon/refresh.svg"));
     }
 
     /**

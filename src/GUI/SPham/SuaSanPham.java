@@ -302,9 +302,7 @@ public class SuaSanPham extends javax.swing.JFrame {
         anhSanPham.setLayout(anhSanPhamLayout);
         anhSanPhamLayout.setHorizontalGroup(
             anhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(anhSanPhamLayout.createSequentialGroup()
-                .addComponent(lblAnhSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lblAnhSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         anhSanPhamLayout.setVerticalGroup(
             anhSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -60,7 +60,7 @@ public class PhieuXuatDAO {
 
     public ArrayList<PhieuXuatDTO> getAllPhieuXuat() {
         ArrayList<PhieuXuatDTO> listPhieuXuat = new ArrayList<>();
-        String sql = "SELECT * FROM phieuxuat WHERE trangthai = 1";
+        String sql = "SELECT * FROM phieuxuat WHERE trangthai = 1 ORDER BY maphieuxuat DESC";
         try {
             ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

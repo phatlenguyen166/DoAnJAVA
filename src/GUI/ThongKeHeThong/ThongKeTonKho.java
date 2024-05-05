@@ -4,6 +4,7 @@ import BUS.ThongKeBUS;
 import DTO.ThongKeTonKhoDTO;
 import GUI.Component.Formater;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -35,6 +36,7 @@ public class ThongKeTonKho extends javax.swing.JPanel implements ActionListener,
         datefrom.addPropertyChangeListener(this);
         dateto.addPropertyChangeListener(this);
         loadDataTable(listTonKho);
+        btnXuatExcel.setBackground(Color.green);
     }
     
     private void loadDataTable(ArrayList<ThongKeTonKhoDTO> list) {
@@ -118,7 +120,7 @@ public class ThongKeTonKho extends javax.swing.JPanel implements ActionListener,
         datefrom = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         dateto = new com.toedter.calendar.JDateChooser();
-        jButton2 = new javax.swing.JButton();
+        btnXuatExcel = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -143,12 +145,16 @@ public class ThongKeTonKho extends javax.swing.JPanel implements ActionListener,
 
         jLabel2.setText("Từ ngày");
 
+        datefrom.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel3.setText("Đến ngày");
 
-        jButton2.setText("Xuất Excel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        dateto.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnXuatExcel.setText("Xuất Excel");
+        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXuatExcelActionPerformed(evt);
             }
         });
 
@@ -166,7 +172,7 @@ public class ThongKeTonKho extends javax.swing.JPanel implements ActionListener,
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlleftLayout.createSequentialGroup()
                         .addGap(78, 78, 78)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         pnlleftLayout.setVerticalGroup(
@@ -185,7 +191,7 @@ public class ThongKeTonKho extends javax.swing.JPanel implements ActionListener,
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dateto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(618, Short.MAX_VALUE))
         );
 
@@ -194,9 +200,9 @@ public class ThongKeTonKho extends javax.swing.JPanel implements ActionListener,
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnXuatExcelActionPerformed
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -233,9 +239,9 @@ public class ThongKeTonKho extends javax.swing.JPanel implements ActionListener,
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnXuatExcel;
     private com.toedter.calendar.JDateChooser datefrom;
     private com.toedter.calendar.JDateChooser dateto;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

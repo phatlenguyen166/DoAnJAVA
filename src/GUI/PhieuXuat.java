@@ -62,7 +62,6 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         addIcon();
         tblPhieuxuat.setFocusable(false);
         tblPhieuxuat.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
-        tblPhieuxuat.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblPhieuxuat.setFocusable(false);
         tblPhieuxuat.setAutoCreateRowSorter(true);
 
@@ -108,7 +107,6 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         this.taiKhoanDTO = taiKhoanDTO;
         tblPhieuxuat.setFocusable(false);
         tblPhieuxuat.setDefaultEditor(Object.class, null); // set ko cho sửa dữ liệu trên table
-        tblPhieuxuat.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblPhieuxuat.setFocusable(false);
         tblPhieuxuat.setAutoCreateRowSorter(true);
 
@@ -255,6 +253,10 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
             }
         ));
         scpnltable.setViewportView(tblPhieuxuat);
+        if (tblPhieuxuat.getColumnModel().getColumnCount() > 0) {
+            tblPhieuxuat.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblPhieuxuat.getColumnModel().getColumn(1).setPreferredWidth(50);
+        }
 
         pnlLoc.setBackground(new java.awt.Color(255, 255, 255));
         pnlLoc.setPreferredSize(new java.awt.Dimension(270, 700));
@@ -274,6 +276,10 @@ public class PhieuXuat extends javax.swing.JPanel implements ActionListener, Pro
         txtnhacungcap4.setText("Khách hàng");
 
         txtnhacungcap5.setText("Từ số tiền (VND)");
+
+        datengaybatdau.setBackground(new java.awt.Color(255, 255, 255));
+
+        datengayketthuc.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlLocLayout = new javax.swing.GroupLayout(pnlLoc);
         pnlLoc.setLayout(pnlLocLayout);

@@ -64,7 +64,6 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         
         tblPhieuNhap.setFocusable(false);
         tblPhieuNhap.setDefaultEditor(Object.class, null);
-        tblPhieuNhap.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblPhieuNhap.setFocusable(false);
         tblPhieuNhap.setAutoCreateRowSorter(true);
         taoPhieuNhap = new TaoPhieuNhap(); // Khởi tạo đối tượng TaoPhieuNhap
@@ -115,7 +114,6 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
 
         tblPhieuNhap.setFocusable(false);
         tblPhieuNhap.setDefaultEditor(Object.class, null);
-        tblPhieuNhap.getColumnModel().getColumn(1).setPreferredWidth(180);
         tblPhieuNhap.setFocusable(false);
         tblPhieuNhap.setAutoCreateRowSorter(true);
         taoPhieuNhap = new TaoPhieuNhap(); // Khởi tạo đối tượng TaoPhieuNhap
@@ -264,6 +262,10 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
             }
         ));
         scpnlshow.setViewportView(tblPhieuNhap);
+        if (tblPhieuNhap.getColumnModel().getColumnCount() > 0) {
+            tblPhieuNhap.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblPhieuNhap.getColumnModel().getColumn(1).setPreferredWidth(50);
+        }
 
         pnlLoc.setBackground(new java.awt.Color(255, 255, 255));
         pnlLoc.setPreferredSize(new java.awt.Dimension(270, 700));
@@ -288,6 +290,10 @@ public class PhieuNhap extends javax.swing.JPanel implements ActionListener, Pro
         txtnhacungcap4.setText("Nhà cung cấp");
 
         txtnhacungcap5.setText("Từ số tiền (VND)");
+
+        datengaybatdau.setBackground(new java.awt.Color(255, 255, 255));
+
+        datengayketthuc.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlLocLayout = new javax.swing.GroupLayout(pnlLoc);
         pnlLoc.setLayout(pnlLocLayout);

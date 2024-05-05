@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -249,11 +250,11 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Năm : ");
+        jLabel1.setText("Tháng :");
         jPanel1.add(jLabel1);
         jPanel1.add(txtThang);
 
-        jLabel2.setText("Tháng :");
+        jLabel2.setText("Năm :");
         jPanel1.add(jLabel2);
         jPanel1.add(txtNam);
 
@@ -278,11 +279,25 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
-        int thang = Integer.parseInt(txtThang.getText());
-        int nam = Integer.parseInt(txtNam.getText());
-        
-        // Gọi hàm thống kê với thời gian nhập
-        thongKeSanPhamBanChay(thang, nam);
+        try {
+            // Lấy giá trị từ các ô nhập liệu
+            int thang = Integer.parseInt(txtThang.getText());
+            int nam = Integer.parseInt(txtNam.getText());
+
+            // Kiểm tra tính hợp lệ của tháng và năm
+            if (thang < 1 || thang > 12 || nam < 0) {
+                throw new IllegalArgumentException("Tháng và năm nhập vào không hợp lệ.");
+            }
+
+            // Gọi hàm thống kê với thời gian nhập
+            thongKeSanPhamBanChay(thang, nam);
+        } catch (NumberFormatException e) {
+            // Xử lý nếu người dùng nhập không phải số
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập lại tháng và năm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            // Xử lý nếu người dùng nhập tháng và năm không hợp lệ
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed

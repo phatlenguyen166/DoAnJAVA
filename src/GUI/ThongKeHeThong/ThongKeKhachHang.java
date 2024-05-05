@@ -78,6 +78,7 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         });
 
         configureTableColumnSorter(tblThongKeKhachHang, 4, VND_CURRENCY_COMPARATOR);
+        btnXuatExcel.setBackground(Color.green);
     }
 
     public static void configureTableColumnSorter(JTable table, int columnIndex, Comparator<Object> comparator) {
@@ -213,7 +214,7 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         jLabel2 = new javax.swing.JLabel();
         pnlStartEnd = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnXuatExcel = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblThongKeKhachHang = new javax.swing.JTable();
@@ -242,10 +243,10 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
 
         jLabel3.setText("Đến ngày :");
 
-        jButton2.setText("Xuất Excel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXuatExcel.setText("Xuất Excel");
+        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXuatExcelActionPerformed(evt);
             }
         });
 
@@ -264,7 +265,7 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pnlLeftLayout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         pnlLeftLayout.setVerticalGroup(
@@ -283,7 +284,7 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlStartEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(232, Short.MAX_VALUE))
         );
 
@@ -335,7 +336,7 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane2KeyReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
         // TODO add your handling code here:
         XuatExcel xuatExcel = new XuatExcel();
         try {
@@ -343,11 +344,11 @@ public class ThongKeKhachHang extends javax.swing.JPanel implements ActionListen
         } catch (IOException ex) {
             Logger.getLogger(ThongKeKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnXuatExcelActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnXuatExcel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

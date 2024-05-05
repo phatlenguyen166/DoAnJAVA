@@ -60,7 +60,7 @@ public class KhachHang extends javax.swing.JPanel implements ActionListener {
         setPreferredSize(new Dimension(1200, 800));
         this.add(pnlTop, BorderLayout.NORTH);
         this.add(pnlCenter, BorderLayout.CENTER);
-
+        btnLamMoi.setIcon(new FlatSVGIcon("./icon/refresh.svg"));
         hienThiListKhachHang(listKhachHang);
     }
 

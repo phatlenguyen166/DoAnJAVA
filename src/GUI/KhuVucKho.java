@@ -54,7 +54,7 @@ public class KhuVucKho extends javax.swing.JPanel {
         setPreferredSize(new Dimension(1200, 800));
 
         pnlCenter.setBorder(new EmptyBorder(20, 0, 0, 0));
-
+        btnLamMoi.setIcon(new FlatSVGIcon("./icon/refresh.svg"));
         pnlCenter.setBackground(BackgroundColor);
     }
 

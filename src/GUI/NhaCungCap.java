@@ -60,7 +60,7 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener {
         setPreferredSize(new Dimension(1200, 800));
         this.add(pnlTop, BorderLayout.NORTH);
         this.add(pnlCenter, BorderLayout.CENTER);
-
+        btnLamMoi.setIcon(new FlatSVGIcon("./icon/refresh.svg"));
         hienThiListNhaCungCap(listNhaCungCap);
     }
 
@@ -157,7 +157,7 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener {
         btnXuatExcelNCC = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtTimKiem = new javax.swing.JTextField();
-        btnLammoi = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         pnlCenter = new javax.swing.JPanel();
         asd = new javax.swing.JScrollPane();
         tblNhaCC = new javax.swing.JTable();
@@ -285,14 +285,14 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener {
         });
         pnlTop.add(txtTimKiem);
 
-        btnLammoi.setText("làm mới");
-        btnLammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLammoiActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
-        pnlTop.add(btnLammoi);
+        pnlTop.add(btnLamMoi);
 
         add(pnlTop, java.awt.BorderLayout.NORTH);
 
@@ -360,12 +360,12 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener {
         }
     }//GEN-LAST:event_btnThemNhaCCMouseClicked
 
-    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
         listNhaCungCap = nhaCungCapBUS.getAllNhaCungCap();
         hienThiListNhaCungCap(listNhaCungCap);
         txtTimKiem.setText("");
-    }//GEN-LAST:event_btnLammoiActionPerformed
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
         // TODO add your handling code here:
@@ -527,7 +527,7 @@ public class NhaCungCap extends javax.swing.JPanel implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane asd;
     private javax.swing.JButton btnChiTietNCC;
-    private javax.swing.JButton btnLammoi;
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnSuaNhaCC;
     private javax.swing.JButton btnThemNhaCC;
     private javax.swing.JButton btnXoaNhaCC;

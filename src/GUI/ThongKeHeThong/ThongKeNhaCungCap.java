@@ -77,6 +77,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
         });
         
         configureTableColumnSorter(tblThongKeNcc, 4, VND_CURRENCY_COMPARATOR);
+        btnXuatExcel.setBackground(Color.green);
     }
     
     public static void configureTableColumnSorter(JTable table, int columnIndex, Comparator<Object> comparator) {
@@ -217,7 +218,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
         PnldateStart = new javax.swing.JPanel();
         PnldateEnd = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnXuatExcel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblThongKeNcc = new javax.swing.JTable();
 
@@ -243,10 +244,10 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
 
         jLabel3.setText("Đến ngày");
 
-        jButton2.setText("Xuất Excel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnXuatExcel.setText("Xuất Excel");
+        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnXuatExcelActionPerformed(evt);
             }
         });
 
@@ -264,7 +265,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
                     .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -283,7 +284,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PnldateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(220, Short.MAX_VALUE))
         );
 
@@ -333,7 +334,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1KeyReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
         // TODO add your handling code here:
         XuatExcel xuatExcel = new XuatExcel();
         try {
@@ -341,7 +342,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
         } catch (IOException ex) {
             Logger.getLogger(ThongKeNhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnXuatExcelActionPerformed
     @Override
     public void actionPerformed(ActionEvent e) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -380,7 +381,7 @@ public class ThongKeNhaCungCap extends javax.swing.JPanel implements ActionListe
     private javax.swing.JPanel PanelCenter;
     private javax.swing.JPanel PnldateEnd;
     private javax.swing.JPanel PnldateStart;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnXuatExcel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

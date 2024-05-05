@@ -71,7 +71,7 @@ public final class Main extends javax.swing.JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addIconTaskbar();
         addHoverBtn();
-        setTitle("Hệ thống quản lý cửa hàng giày");
+        setTitle("Hệ thống quản lý kho giày");
         JScrollPane scrollPane = new JScrollPane(taskBar);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);

@@ -21,6 +21,10 @@ public class SanPhamDAO {
     public SanPhamDAO() {
     }
 
+    public static SanPhamDAO getInstance() {
+        return new SanPhamDAO();
+    }
+
     public ArrayList<SanPhamDTO> getAllSanPham() {
         ArrayList<SanPhamDTO> listSanPham = new ArrayList<>();
         connection = MySQLConnection.getConnection();

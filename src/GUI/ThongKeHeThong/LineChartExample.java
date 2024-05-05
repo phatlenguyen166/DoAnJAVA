@@ -24,7 +24,7 @@ import java.util.Date;
 public class LineChartExample extends JPanel {
 
     public LineChartExample() {
-
+        this.setLayout(new BorderLayout());
         // Create dataset
         DefaultCategoryDataset dataset = createDataset();
 
@@ -38,7 +38,7 @@ public class LineChartExample extends JPanel {
 
         // Create Panel
         ChartPanel panel = new ChartPanel(chart);
-        this.add(panel);
+        this.add(panel,BorderLayout.CENTER);
     }
 
     private DefaultCategoryDataset createDataset() {

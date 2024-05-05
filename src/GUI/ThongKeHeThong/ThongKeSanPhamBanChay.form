@@ -117,14 +117,14 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="N&#x103;m : "/>
+            <Property name="text" type="java.lang.String" value="Th&#xe1;ng :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtThang">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Th&#xe1;ng :"/>
+            <Property name="text" type="java.lang.String" value="N&#x103;m :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNam">

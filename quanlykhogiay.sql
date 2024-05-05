@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2024 at 09:25 AM
+-- Generation Time: May 05, 2024 at 08:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `quanlycuahanggiay`
+-- Database: `quanlykhogiay`
 --
 
 -- --------------------------------------------------------
@@ -34,6 +34,30 @@ CREATE TABLE `ctphieunhap` (
   `dongia` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ctphieunhap`
+--
+
+INSERT INTO `ctphieunhap` (`maphieunhap`, `masp`, `soluong`, `dongia`) VALUES
+(1, 2, 2, 2600000),
+(1, 3, 12, 1200000),
+(2, 1, 10, 2500000),
+(2, 4, 6, 3400000),
+(3, 12, 5, 1800000),
+(3, 13, 3, 4700000),
+(3, 14, 4, 2300000),
+(3, 15, 2, 3600000),
+(4, 6, 3, 1700000),
+(4, 7, 3, 2100000),
+(4, 8, 6, 3300000),
+(4, 9, 9, 3500000),
+(5, 5, 4, 1700000),
+(5, 10, 7, 1600000),
+(5, 11, 8, 1800000),
+(6, 1, 3, 2500000),
+(6, 2, 3, 2600000),
+(7, 15, 5, 3600000);
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +70,38 @@ CREATE TABLE `ctphieuxuat` (
   `soluong` int(11) NOT NULL DEFAULT 0,
   `dongia` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ctphieuxuat`
+--
+
+INSERT INTO `ctphieuxuat` (`maphieuxuat`, `masp`, `soluong`, `dongia`) VALUES
+(1, 1, 2, 3000000),
+(1, 2, 1, 3100000),
+(2, 15, 1, 3800000),
+(3, 14, 1, 2500000),
+(3, 15, 1, 3800000),
+(4, 3, 1, 1500000),
+(4, 4, 1, 4000000),
+(5, 5, 1, 2100000),
+(5, 14, 1, 2500000),
+(6, 4, 1, 4000000),
+(6, 14, 1, 2500000),
+(7, 1, 1, 3000000),
+(7, 3, 1, 1500000),
+(8, 1, 4, 3000000),
+(8, 4, 2, 4000000),
+(9, 13, 2, 5000000),
+(9, 14, 1, 2500000),
+(10, 12, 2, 1900000),
+(10, 13, 1, 5000000),
+(11, 4, 2, 4000000),
+(11, 12, 1, 1900000),
+(12, 15, 2, 3800000),
+(13, 3, 2, 1500000),
+(13, 5, 2, 2100000),
+(14, 1, 3, 3000000),
+(14, 2, 2, 3100000);
 
 -- --------------------------------------------------------
 
@@ -222,6 +278,19 @@ CREATE TABLE `phieunhap` (
   `trangthai` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`maphieunhap`, `thoigian`, `manhacungcap`, `manv`, `tongtien`, `trangthai`) VALUES
+(1, '2023-12-05 12:38:33', 5, 1, 19600000, 1),
+(2, '2023-12-05 12:38:40', 3, 4, 45400000, 1),
+(3, '2023-12-05 12:45:03', 3, 1, 39500000, 1),
+(4, '2023-12-05 12:45:03', 5, 4, 62700000, 1),
+(5, '2023-12-05 12:46:03', 7, 4, 32400000, 1),
+(6, '2024-05-05 13:24:47', 7, 1, 15300000, 1),
+(7, '2024-05-05 13:24:58', 1, 1, 18000000, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -236,6 +305,26 @@ CREATE TABLE `phieuxuat` (
   `makh` int(11) DEFAULT NULL,
   `trangthai` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `phieuxuat`
+--
+
+INSERT INTO `phieuxuat` (`maphieuxuat`, `thoigian`, `tongtien`, `manv`, `makh`, `trangthai`) VALUES
+(1, '2023-12-28 12:46:57', 9100000, 1, 4, 1),
+(2, '2023-12-29 12:47:35', 3800000, 1, 15, 1),
+(3, '2023-12-30 12:49:05', 6300000, 1, 2, 1),
+(4, '2023-12-01 12:49:17', 5500000, 3, 7, 1),
+(5, '2023-12-02 12:50:23', 4600000, 1, 18, 1),
+(6, '2023-12-03 12:50:38', 6500000, 1, 17, 1),
+(7, '2023-12-04 12:50:52', 4500000, 3, 16, 1),
+(8, '2024-04-28 13:25:29', 20000000, 3, 5, 1),
+(9, '2024-04-29 13:25:45', 12500000, 1, 1, 1),
+(10, '2024-04-30 13:26:00', 8800000, 3, 1, 1),
+(11, '2024-05-01 13:26:41', 9900000, 1, 5, 1),
+(12, '2024-05-02 13:26:53', 7600000, 3, 3, 1),
+(13, '2024-05-03 13:27:03', 7200000, 1, 14, 1),
+(14, '2024-05-04 13:27:17', 15200000, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -263,7 +352,21 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`masp`, `tensp`, `size`, `hinhanh`, `xuatxu`, `loai`, `thuonghieu`, `khuvuckho`, `soluongton`, `trangthai`, `gianhap`, `giaxuat`) VALUES
-(1, 'Nike Air', 41, './img/nike_air.png', 3, 1, 2, 1, 0, 1, 1200000, 1700000);
+(1, 'Nike Air Zoom Pegasus', 41, 'Nike-Air-Zoom-Pegasus.png', 3, 1, 2, 1, 3, 1, 2500000, 3000000),
+(2, 'Nike Pegasus 40', 43, 'Nike-Pegasus-40.png', 3, 1, 2, 2, 2, 1, 2600000, 3100000),
+(3, 'Puma Carina Street', 38, 'Puma-Carina-Street', 1, 2, 3, 3, 8, 1, 1200000, 1500000),
+(4, 'Adidas Supernova Solution', 44, 'Adidas-Supernova-Solution.png\r\n', 3, 1, 1, 4, 0, 1, 3400000, 4000000),
+(5, 'Nike Air Winflo', 40, 'Nike-Air-Winflo.png', 2, 1, 2, 1, 1, 1, 1700000, 2100000),
+(6, 'Puma Suede', 41, 'Puma-Suede.png', 1, 2, 3, 2, 3, 1, 1700000, 2000000),
+(7, 'Adidas SWITCH RUN', 42, 'adidas-SWITCH-RUN.png', 3, 1, 1, 4, 3, 1, 2100000, 2400000),
+(8, 'Nike Air zoom', 38, 'Nike-Air-zoom.png', 3, 1, 2, 3, 6, 1, 3300000, 3500000),
+(9, 'Nike Pegasus', 45, 'Nike-Pegasus.png', 1, 2, 2, 2, 9, 1, 3500000, 3800000),
+(10, 'Puma RS-Z AS', 41, 'Puma-RS-Z-AS.png', 1, 2, 3, 2, 7, 1, 1600000, 1800000),
+(11, 'Adidas ULTRABOOST LIGHT', 44, 'Adidas-ULTRABOOST-LIGHT.png', 3, 1, 1, 1, 8, 1, 1800000, 2000000),
+(12, 'Puma Caven', 38, 'Puma-Caven.png', 2, 2, 3, 2, 2, 1, 1800000, 1900000),
+(13, 'Adidas ADIZERO TAKUMI SEN 10', 45, 'adidas-ADIZERO-TAKUMI-SEN-10.png', 3, 1, 1, 4, 0, 1, 4700000, 5000000),
+(14, 'Puma White Black', 40, 'Puma-White-Black.png', 1, 2, 3, 3, 0, 1, 2300000, 2500000),
+(15, 'Air Max Pulse', 41, 'air-max-90-ltr-older-shoes-9xnt2B.png', 3, 2, 2, 2, 3, 1, 3600000, 3800000);
 
 -- --------------------------------------------------------
 
@@ -284,11 +387,11 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`manv`, `matkhau`, `manhomquyen`, `tendangnhap`, `trangthai`) VALUES
-(1, '123', 5, 'phat', 1),
-(4, '123', 2, 'phuc', 1),
-(5, '123', 3, 'su', 1),
-(6, '123', 4, 'tri', 1),
-(7, '123', 1, '123', 1);
+(1, '123123', 5, 'hoangphat', 1),
+(2, '123123', 2, 'thienphuc', 1),
+(3, '123123', 3, 'thanhsu', 1),
+(4, '123123', 4, 'minhtri', 1),
+(5, '123123', 1, 'anhduong', 1);
 
 -- --------------------------------------------------------
 
@@ -309,8 +412,7 @@ CREATE TABLE `thuonghieu` (
 INSERT INTO `thuonghieu` (`mathuonghieu`, `tenthuonghieu`, `trangthai`) VALUES
 (1, 'Adidas', 1),
 (2, 'Nike', 1),
-(3, 'Puma', 1),
-(4, 'thuongdinh', 0);
+(3, 'Puma', 1);
 
 -- --------------------------------------------------------
 
@@ -441,13 +543,13 @@ ALTER TABLE `xuatxu`
 -- AUTO_INCREMENT for table `ctphieunhap`
 --
 ALTER TABLE `ctphieunhap`
-  MODIFY `maphieunhap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `maphieunhap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `ctphieuxuat`
 --
 ALTER TABLE `ctphieuxuat`
-  MODIFY `maphieuxuat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `maphieuxuat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
@@ -477,7 +579,7 @@ ALTER TABLE `nhacungcap`
 -- AUTO_INCREMENT for table `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `nhomquyen`
@@ -489,25 +591,25 @@ ALTER TABLE `nhomquyen`
 -- AUTO_INCREMENT for table `phieunhap`
 --
 ALTER TABLE `phieunhap`
-  MODIFY `maphieunhap` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `maphieunhap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `phieuxuat`
 --
 ALTER TABLE `phieuxuat`
-  MODIFY `maphieuxuat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `maphieuxuat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `masp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `masp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `manv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `thuonghieu`

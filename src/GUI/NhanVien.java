@@ -64,6 +64,7 @@ public class NhanVien extends javax.swing.JPanel implements ActionListener {
         this.add(pnlTop, BorderLayout.NORTH);
         this.add(pnlCenter, BorderLayout.CENTER);
 
+        btnLamMoi.setIcon(new FlatSVGIcon("./icon/refresh.svg"));
         hienThiListNhanVien(listNhanVien);
     }
 
