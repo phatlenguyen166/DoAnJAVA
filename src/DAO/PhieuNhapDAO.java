@@ -1,5 +1,6 @@
 package DAO;
 
+import DTO.ChiTietPhieuNhapDTO;
 import DTO.PhieuNhapDTO;
 import config.MySQLConnection;
 import java.sql.Timestamp;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -140,20 +142,40 @@ public class PhieuNhapDAO {
     }
 
     public boolean DeletePhieuNhap(int mapn) {
-        boolean thanhcong = false;
+        boolean thanhCong = false;
+        Connection connection = null;
+        PreparedStatement psDeletePhieuNhap = null;
+        PreparedStatement psDeleteChiTietPhieuNhap = null;
+
         try {
             connection = MySQLConnection.getConnection();
-            String sql = "UPDATE phieunhap SET trangthai = 0 WHERE maphieunhap = ?";
-            ps = (PreparedStatement) connection.prepareStatement(sql);
-            ps.setInt(1, mapn);
-            int result = ps.executeUpdate();
-            if (result > 0) {
-                thanhcong = true;
-            }
 
+            // Lấy danh sách các sản phẩm trong phiếu nhập
+            ArrayList<ChiTietPhieuNhapDTO> listPn = ChiTietPhieuNhapDAO.getInstance().selectAll(Integer.toString(mapn));
+
+            // Xóa chi tiết phiếu nhập
+            String sqlDeleteChiTietPhieuNhap = "DELETE FROM ctphieunhap WHERE maphieunhap = ?";
+            psDeleteChiTietPhieuNhap = connection.prepareStatement(sqlDeleteChiTietPhieuNhap);
+            psDeleteChiTietPhieuNhap.setInt(1, mapn);
+            int rowsDeletedChiTiet = psDeleteChiTietPhieuNhap.executeUpdate();
+
+            // Xóa phiếu nhập
+            String sqlDeletePhieuNhap = "DELETE FROM phieunhap WHERE maphieunhap = ?";
+            psDeletePhieuNhap = connection.prepareStatement(sqlDeletePhieuNhap);
+            psDeletePhieuNhap.setInt(1, mapn);
+            int rowsDeletedPhieuNhap = psDeletePhieuNhap.executeUpdate();
+
+            if (rowsDeletedPhieuNhap > 0 && rowsDeletedChiTiet > 0) {
+                // Cập nhật số lượng tồn của các sản phẩm
+                for (ChiTietPhieuNhapDTO chiTiet : listPn) {
+                    ChiTietPhieuNhapDAO.getInstance().updateSoluongton(chiTiet.getMasp(), -chiTiet.getSoluong());
+                }
+                thanhCong = true;
+            }
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return thanhcong;
+        return thanhCong;
     }
+
 }

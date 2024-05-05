@@ -1,5 +1,7 @@
 package DAO;
 
+import DTO.ChiTietPhieuNhapDTO;
+import DTO.ChiTietPhieuXuatDTO;
 import DTO.PhieuXuatDTO;
 import config.MySQLConnection;
 import java.sql.Connection;
@@ -130,20 +132,38 @@ public class PhieuXuatDAO {
     }
 
     public boolean DeletePhieuXuat(int mapx) {
-        boolean thanhcong = false;
+        boolean thanhCong = false;
+        PreparedStatement psDeletePhieuXuat = null;
+        PreparedStatement psDeleteChiTietPhieuXuat = null;
+
         try {
             connection = MySQLConnection.getConnection();
-            String sql = "UPDATE phieuxuat SET trangthai = 0 WHERE maphieuxuat = ?";
-            ps = (PreparedStatement) connection.prepareStatement(sql);
-            ps.setInt(1, mapx);
-            int result = ps.executeUpdate();
-            if (result > 0) {
-                thanhcong = true;
+
+            // Lấy danh sách các sản phẩm trong phiếu nhập
+            ArrayList<ChiTietPhieuXuatDTO> listPn = ChiTietPhieuXuatDAO.getInstance().selectAll(Integer.toString(mapx));
+
+            // Xóa chi tiết phiếu xuất
+            String sqlDeleteChiTietPhieuXuat = "DELETE FROM ctphieuxuat WHERE maphieuxuat = ?";
+            psDeleteChiTietPhieuXuat = connection.prepareStatement(sqlDeleteChiTietPhieuXuat);
+            psDeleteChiTietPhieuXuat.setInt(1, mapx);
+            int rowsDeletedChiTiet = psDeleteChiTietPhieuXuat.executeUpdate();
+
+            // Xóa phiếu xuất
+            String sqlDeletePhieuXuat = "DELETE FROM phieuxuat WHERE maphieuxuat = ?";
+            psDeletePhieuXuat = connection.prepareStatement(sqlDeletePhieuXuat);
+            psDeletePhieuXuat.setInt(1, mapx);
+            int rowsDeletedPhieuXuat = psDeletePhieuXuat.executeUpdate();
+
+            if (rowsDeletedPhieuXuat > 0 && rowsDeletedChiTiet > 0) {
+
+                for (ChiTietPhieuXuatDTO chiTiet : listPn) {
+                    ChiTietPhieuXuatDAO.getInstance().updateSoluongton(chiTiet.getMasp(), -chiTiet.getSoluong());
+                }
+                thanhCong = true;
             }
-            MySQLConnection.closeConnection(connection);
         } catch (SQLException ex) {
-            java.util.logging.Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
-        return thanhcong;
+        return thanhCong;
     }
 }
