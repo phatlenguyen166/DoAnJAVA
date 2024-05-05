@@ -74,5 +74,5 @@ public class ThongKeBUS {
     public ArrayList<ThongKeTrongThangDTO> getThongKeTuNgayDenNgay(String Start, String End) {
         return thongkeDAO.getThongKeTuNgayDenNgay(Start, End);
     }
-    
+
 }

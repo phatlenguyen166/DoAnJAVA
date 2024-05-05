@@ -174,54 +174,54 @@ public class ThongKeDAO {
         return result;
     }
 
-    public ArrayList<ThongKeDoanhThuDTO> getDoanhThuTheoTungNam(int year_start, int year_end) {
-        ArrayList<ThongKeDoanhThuDTO> result = new ArrayList<>();
-        try {
-            Connection con = MySQLConnection.getConnection();
-            String sqlSetStartYear = "SET @start_year = ?;";
-            String sqlSetEndYear = "SET @end_year = ?;";
-            String sqlSelect = """
-                     WITH RECURSIVE years(year) AS (
-                       SELECT @start_year
-                       UNION ALL
-                       SELECT year + 1
-                       FROM years
-                       WHERE year < @end_year
-                     )
-                     SELECT 
-                       years.year AS nam,
-                       COALESCE(SUM(ctphieunhap.dongia*ctphieuxuat.soluong), 0) AS chiphi, 
-                       COALESCE(SUM(ctphieuxuat.dongia*ctphieuxuat.soluong), 0) AS doanhthu
-                     FROM years
-                     LEFT JOIN phieuxuat ON YEAR(phieuxuat.thoigian) = years.year
-                     LEFT JOIN ctphieuxuat ON phieuxuat.maphieuxuat = ctphieuxuat.maphieuxuat
-                     LEFT JOIN sanpham ON sanpham.masp = ctphieuxuat.masp
-                     LEFT JOIN ctphieunhap ON sanpham.masp = ctphieunhap.masp
-                     GROUP BY years.year
-                     ORDER BY years.year;""";
-            PreparedStatement pstStartYear = con.prepareStatement(sqlSetStartYear);
-            PreparedStatement pstEndYear = con.prepareStatement(sqlSetEndYear);
-            PreparedStatement pstSelect = con.prepareStatement(sqlSelect);
+   public ArrayList<ThongKeDoanhThuDTO> getDoanhThuTheoTungNam(int year_start, int year_end) {
+    ArrayList<ThongKeDoanhThuDTO> result = new ArrayList<>();
+    try {
+        Connection con = MySQLConnection.getConnection();
+        String sqlSetStartYear = "SET @start_year = ?;";
+        String sqlSetEndYear = "SET @end_year = ?;";
+        String sqlSelect = """
+                 WITH RECURSIVE years(year) AS (
+                   SELECT @start_year
+                   UNION ALL
+                   SELECT year + 1
+                   FROM years
+                   WHERE year < @end_year
+                 )
+                 SELECT 
+                   years.year AS nam,
+                   COALESCE(SUM(sanpham.giaxuat * ctphieuxuat.soluong), 0) AS chiphi, 
+                   COALESCE(SUM(ctphieuxuat.dongia * ctphieuxuat.soluong), 0) AS doanhthu
+                 FROM years
+                 LEFT JOIN phieuxuat ON YEAR(phieuxuat.thoigian) = years.year
+                 LEFT JOIN ctphieuxuat ON phieuxuat.maphieuxuat = ctphieuxuat.maphieuxuat
+                 LEFT JOIN sanpham ON sanpham.masp = ctphieuxuat.masp
+                 GROUP BY years.year
+                 ORDER BY years.year;""";
+        PreparedStatement pstStartYear = con.prepareStatement(sqlSetStartYear);
+        PreparedStatement pstEndYear = con.prepareStatement(sqlSetEndYear);
+        PreparedStatement pstSelect = con.prepareStatement(sqlSelect);
 
-            pstStartYear.setInt(1, year_start);
-            pstEndYear.setInt(1, year_end);
+        pstStartYear.setInt(1, year_start);
+        pstEndYear.setInt(1, year_end);
 
-            pstStartYear.execute();
-            pstEndYear.execute();
+        pstStartYear.execute();
+        pstEndYear.execute();
 
-            ResultSet rs = pstSelect.executeQuery();
-            while (rs.next()) {
-                int thoigian = rs.getInt("nam");
-                Long chiphi = rs.getLong("chiphi");
-                Long doanhthu = rs.getLong("doanhthu");
-                ThongKeDoanhThuDTO x = new ThongKeDoanhThuDTO(thoigian, chiphi, doanhthu, doanhthu - chiphi);
-                result.add(x);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        ResultSet rs = pstSelect.executeQuery();
+        while (rs.next()) {
+            int thoigian = rs.getInt("nam");
+            Long chiphi = rs.getLong("chiphi");
+            Long doanhthu = rs.getLong("doanhthu");
+            ThongKeDoanhThuDTO x = new ThongKeDoanhThuDTO(thoigian, chiphi, doanhthu, doanhthu - chiphi);
+            result.add(x);
         }
-        return result;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return result;
+}
+
 
     public ArrayList<ThongKeTheoThangDTO> getThongKeTheoThang(int nam) {
         ArrayList<ThongKeTheoThangDTO> result = new ArrayList<>();
