@@ -66,10 +66,11 @@ public class ThongKeDAO {
         Connection con = MySQLConnection.getConnection();
         ArrayList<ThongKeSanPhamBanChayDTO> listThongSP = new ArrayList<>();
         String sql = "SELECT sp.masp, sp.tensp, SUM(ct.soluong) AS soluong_ban "
-                + "FROM sanpham sp "
-                + "JOIN ctphieuxuat ct ON sp.masp = ct.masp "
+                + "FROM sanpham sp, ctphieuxuat ct "
+                + "WHERE sp.masp = ct.masp "
                 + "GROUP BY sp.tensp "
                 + "ORDER BY soluong_ban DESC ";
+
         try {
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
