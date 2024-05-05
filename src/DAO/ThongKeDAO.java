@@ -228,8 +228,8 @@ public class ThongKeDAO {
         try {
             Connection con = MySQLConnection.getConnection();
             String sql = "SELECT months.month AS thang, \n"
-                    + "       COALESCE(SUM(ctphieunhap.dongia*ctphieuxuat.soluong), 0) AS chiphi,\n"
-                    + "       COALESCE(SUM(ctphieuxuat.dongia*ctphieuxuat.soluong), 0) AS doanhthu\n"
+                    + "       COALESCE(SUM(chiphi), 0) AS chiphi,\n"
+                    + "       COALESCE(SUM(phieuxuat.tongtien), 0) AS doanhthu\n"
                     + "FROM (\n"
                     + "       SELECT 1 AS month\n"
                     + "       UNION ALL SELECT 2\n"
@@ -244,12 +244,15 @@ public class ThongKeDAO {
                     + "       UNION ALL SELECT 11\n"
                     + "       UNION ALL SELECT 12\n"
                     + "     ) AS months\n"
-                    + "LEFT JOIN phieuxuat ON MONTH(phieuxuat.thoigian) = months.month AND YEAR(phieuxuat.thoigian) = ? \n"
-                    + "LEFT JOIN ctphieuxuat ON phieuxuat.maphieuxuat = ctphieuxuat.maphieuxuat\n"
-                    + "LEFT JOIN sanpham ON sanpham.masp = ctphieuxuat.masp\n"
-                    + "LEFT JOIN ctphieunhap ON sanpham.masp = ctphieunhap.masp\n"
+                    + "LEFT JOIN phieuxuat ON MONTH(phieuxuat.thoigian) = months.month AND YEAR(phieuxuat.thoigian) = (?)\n"
+                    + "LEFT JOIN (\n"
+                    + "      SELECT ctphieuxuat.maphieuxuat,  SUM(ctphieuxuat.soluong * sanpham.gianhap) AS chiphi\n"
+                    + "          FROM ctphieuxuat\n"
+                    + "          LEFT JOIN sanpham ON ctphieuxuat.masp = sanpham.masp\n"
+                    + "          GROUP BY ctphieuxuat.maphieuxuat\n"
+                    + "      ) AS chi_phi_table ON phieuxuat.maphieuxuat = chi_phi_table.maphieuxuat\n"
                     + "GROUP BY months.month\n"
-                    + "ORDER BY months.month;";
+                    + "ORDER BY months.month";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, nam);
             ResultSet rs = pst.executeQuery();
