@@ -52,6 +52,7 @@ public class SuaSanPham extends javax.swing.JFrame {
     String hinhAnh;
     String img;
     SanPham sp;
+
     public SuaSanPham() {
         initComponents();
         lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -67,7 +68,7 @@ public class SuaSanPham extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    public SuaSanPham(SanPhamDTO sanPhamDTO,SanPham sp) {
+    public SuaSanPham(SanPhamDTO sanPhamDTO, SanPham sp) {
         initComponents();
         this.sp = sp;
         lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -137,59 +138,6 @@ public class SuaSanPham extends javax.swing.JFrame {
             model.addElement(ob);
         }
         comboBox.setModel(model);
-    }
-
-    private void addAnh() {
-        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        int result = fileChooser.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = fileChooser.getSelectedFile();
-            img = (String) selectedFile.getPath();
-            try {
-                BufferedImage img = ImageIO.read(selectedFile);
-
-                if (img != null) {
-                    ImageIcon icon = new ImageIcon(img.getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH));
-                    lblAnhSanPham.removeAll();
-                    lblAnhSanPham.setIcon(icon);
-                    lblAnhSanPham.repaint();
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Selected file is not a valid image.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Error reading image file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    private String copyImageToProductDirectory(String sourceImagePath) {
-        File sourceImageFile = new File(sourceImagePath);
-        String destinationDirectory = "./src/img_product/";
-        File destFolder = new File(destinationDirectory);
-
-        if (!destFolder.exists()) {
-            destFolder.mkdirs();
-        }
-
-        // Lấy tên của ảnh từ đường dẫn của nó
-        String imageName = sourceImageFile.getName();
-
-        // Thêm số ngẫu nhiên vào tên file ảnh để tránh trùng lặp
-        int randomNumber = randomGenerator.nextInt(1000);
-        String[] parts = imageName.split("\\.");
-        String newImageName = parts[0] + "_" + randomNumber + "." + parts[1];
-
-        Path destinationPath = Paths.get(destinationDirectory, newImageName);
-        try {
-            Files.copy(sourceImageFile.toPath(), destinationPath);
-        } catch (IOException ex) {
-            Logger.getLogger(ThemSanPham.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        System.out.println("Image copied successfully to " + destinationPath);
-        return newImageName;
     }
 
     private SanPhamDTO getInfoSanPhamMoi() {
@@ -555,4 +503,58 @@ public class SuaSanPham extends javax.swing.JFrame {
     private javax.swing.JTextField txtSizeSP;
     private javax.swing.JTextField txtTenSP;
     // End of variables declaration//GEN-END:variables
+
+    private void addAnh() {
+        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+            img = (String) selectedFile.getPath();
+            try {
+                BufferedImage img = ImageIO.read(selectedFile);
+
+                if (img != null) {
+                    ImageIcon icon = new ImageIcon(img.getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH));
+                    lblAnhSanPham.removeAll();
+                    lblAnhSanPham.setIcon(icon);
+                    lblAnhSanPham.repaint();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Selected file is not a valid image.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error reading image file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private String copyImageToProductDirectory(String sourceImagePath) {
+        File sourceImageFile = new File(sourceImagePath);
+        String destinationDirectory = "./src/img_product/";
+        File destFolder = new File(destinationDirectory);
+
+        if (!destFolder.exists()) {
+            destFolder.mkdirs();
+        }
+
+        // Lấy tên của ảnh từ đường dẫn của nó
+        String imageName = sourceImageFile.getName();
+
+        // Thêm số ngẫu nhiên vào tên file ảnh để tránh trùng lặp
+        int randomNumber = randomGenerator.nextInt(1000);
+        String[] parts = imageName.split("\\.");
+        String newImageName = parts[0] + "_" + randomNumber + "." + parts[1];
+
+        Path destinationPath = Paths.get(destinationDirectory, newImageName);
+        try {
+            Files.copy(sourceImageFile.toPath(), destinationPath);
+        } catch (IOException ex) {
+            Logger.getLogger(ThemSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Image copied successfully to " + destinationPath);
+        return newImageName;
+    }
+
 }

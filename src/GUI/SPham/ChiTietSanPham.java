@@ -367,18 +367,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        FlatRobotoFont.install();
-//        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-//        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-//        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-//        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-//        FlatIntelliJLaf.setup();
-//        new ThemSanPham().setVisible(true);
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel anhSanPham;

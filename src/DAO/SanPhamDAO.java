@@ -25,32 +25,28 @@ public class SanPhamDAO {
         return new SanPhamDAO();
     }
 
-    public ArrayList<SanPhamDTO> getAllSanPham() {
-        ArrayList<SanPhamDTO> listSanPham = new ArrayList<>();
+     public ArrayList<SanPhamDTO> getAllSanPham() throws SQLException {
+        ArrayList<SanPhamDTO> result = new ArrayList<>();
         connection = MySQLConnection.getConnection();
-        String query = "SELECT * FROM sanpham WHERE trangthai = 1";
-        try {
-            pst = connection.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                SanPhamDTO sanPhamDTO = new SanPhamDTO();
-                sanPhamDTO.setMasp(rs.getInt("masp"));
-                sanPhamDTO.setTensp(rs.getString("tensp"));
-                sanPhamDTO.setSize(rs.getInt("size"));
-                sanPhamDTO.setHinhanh(rs.getString("hinhanh"));
-                sanPhamDTO.setXuatxu(rs.getInt("xuatxu"));
-                sanPhamDTO.setLoai(rs.getInt("loai"));
-                sanPhamDTO.setThuonghieu(rs.getInt("thuonghieu"));
-                sanPhamDTO.setKhuvuckho(rs.getInt("khuvuckho"));
-                sanPhamDTO.setSoluongton(rs.getInt("soluongton"));
-                sanPhamDTO.setGianhap(rs.getInt("gianhap"));
-                sanPhamDTO.setGiaxuat(rs.getInt("giaxuat"));
-                listSanPham.add(sanPhamDTO);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Không thể tải dữ liệu sản phẩm");
+        String sql = "SELECT * FROM sanpham WHERE trangthai = 1";
+        pst = connection.prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            SanPhamDTO sanPhamDTO = new SanPhamDTO();
+            sanPhamDTO.setMasp(rs.getInt("masp"));
+            sanPhamDTO.setTensp(rs.getString("tensp"));
+            sanPhamDTO.setSoluongton(rs.getInt("soluongton"));
+            sanPhamDTO.setSize(rs.getInt("size"));
+            sanPhamDTO.setLoai(rs.getInt("loai"));
+            sanPhamDTO.setHinhanh(rs.getString("hinhanh"));
+            sanPhamDTO.setThuonghieu(rs.getInt("thuonghieu"));
+            sanPhamDTO.setXuatxu(rs.getInt("xuatxu"));
+            sanPhamDTO.setKhuvuckho(rs.getInt("khuvuckho"));
+            sanPhamDTO.setGianhap(rs.getInt("gianhap"));
+            sanPhamDTO.setGiaxuat(rs.getInt("giaxuat"));
+            result.add(sanPhamDTO);
         }
-        return listSanPham;
+        return result;
     }
 
     public boolean themSanPham(SanPhamDTO sanPhamDTO) {

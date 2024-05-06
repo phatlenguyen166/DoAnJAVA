@@ -86,58 +86,6 @@ public class ThemSanPham extends javax.swing.JFrame {
         comboBox.setModel(model);
     }
 
-    private void addAnh() {
-        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        int result = fileChooser.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = fileChooser.getSelectedFile();
-            try {
-                BufferedImage img = ImageIO.read(selectedFile);
-
-                if (img != null) {
-                    ImageIcon icon = new ImageIcon(img.getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH));
-                    lblAnhSanPham.removeAll();
-                    lblAnhSanPham.setIcon(icon);
-                    lblAnhSanPham.repaint();
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Selected file is not a valid image.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (IOException e) {
-               
-            }
-        }
-    }
-
-    private String copyImageToProductDirectory(String sourceImagePath) {
-        File sourceImageFile = new File(sourceImagePath);
-        String destinationDirectory = "./src/img_product/";
-        File destFolder = new File(destinationDirectory);
-
-        if (!destFolder.exists()) {
-            destFolder.mkdirs();
-        }
-
-        // Lấy tên của ảnh từ đường dẫn của nó
-        String imageName = sourceImageFile.getName();
-
-        // Thêm số ngẫu nhiên vào tên file ảnh để tránh trùng lặp
-        int randomNumber = randomGenerator.nextInt(1000);
-        String[] parts = imageName.split("\\.");
-        String newImageName = parts[0] + "_" + randomNumber + "." + parts[1];
-
-        Path destinationPath = Paths.get(destinationDirectory, newImageName);
-        try {
-            Files.copy(sourceImageFile.toPath(), destinationPath);
-        } catch (IOException ex) {
-            Logger.getLogger(ThemSanPham.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        System.out.println("Image copied successfully to " + destinationPath);
-        return newImageName;
-    }
-
     private SanPhamDTO getInfoSanPhamMoi() {
         if (selectedFile == null) {
             JOptionPane.showMessageDialog(null, "vui lòng chọn hình ảnh");
@@ -516,4 +464,56 @@ public class ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JTextField txtSizeSP;
     private javax.swing.JTextField txtTenSP;
     // End of variables declaration//GEN-END:variables
+
+    private void addAnh() {
+        JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+            try {
+                BufferedImage img = ImageIO.read(selectedFile);
+
+                if (img != null) {
+                    ImageIcon icon = new ImageIcon(img.getScaledInstance(lblAnhSanPham.getWidth(), lblAnhSanPham.getHeight(), Image.SCALE_SMOOTH));
+                    lblAnhSanPham.removeAll();
+                    lblAnhSanPham.setIcon(icon);
+                    lblAnhSanPham.repaint();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Selected file is not a valid image.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException e) {
+
+            }
+        }
+    }
+
+    private String copyImageToProductDirectory(String sourceImagePath) {
+        File sourceImageFile = new File(sourceImagePath);
+        String destinationDirectory = "./src/img_product/";
+        File destFolder = new File(destinationDirectory);
+
+        if (!destFolder.exists()) {
+            destFolder.mkdirs();
+        }
+
+        // Lấy tên của ảnh từ đường dẫn của nó
+        String imageName = sourceImageFile.getName();
+
+        // Thêm số ngẫu nhiên vào tên file ảnh để tránh trùng lặp
+        int randomNumber = randomGenerator.nextInt(1000);
+        String[] parts = imageName.split("\\.");
+        String newImageName = parts[0] + "_" + randomNumber + "." + parts[1];
+
+        Path destinationPath = Paths.get(destinationDirectory, newImageName);
+        try {
+            Files.copy(sourceImageFile.toPath(), destinationPath);
+        } catch (IOException ex) {
+            Logger.getLogger(ThemSanPham.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Image copied successfully to " + destinationPath);
+        return newImageName;
+    }
 }
