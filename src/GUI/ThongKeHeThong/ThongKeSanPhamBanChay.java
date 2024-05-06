@@ -28,36 +28,24 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author phatl
  */
-public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
+public final class ThongKeSanPhamBanChay extends javax.swing.JPanel {
 
     /**
      * Creates new form ThongKeSanPhamBanChay
      */
-    ThongKeBUS thongKeBUS;
-
-    public ThongKeSanPhamBanChay() {
-        initComponents();
-        hienThiDuLieuTable();
-        veBieuDoTronTop5();
-    }
-
+    ThongKeBUS thongKeBUS = new ThongKeBUS();
     LocalDate currentDate = LocalDate.now();
     int currentMonth = currentDate.getMonthValue();
     int currentYear = currentDate.getYear();
 
-    private void hienThongKeThangNamHienTai() {
-
-        txtThang.setText(String.valueOf(currentMonth)); // Thiết lập giá trị cho trường tháng
-        txtNam.setText(String.valueOf(currentYear));  // Thiết lập giá trị cho trường năm
-
-        // Gọi hàm thống kê khi khởi động trang
-        hienThiDuLieuTable();
+    public ThongKeSanPhamBanChay() {
+        initComponents();
+        thongKeSanPhamBanChay(currentMonth, currentYear);
     }
 
-    public void hienThiDuLieuTable() {
-        thongKeBUS = new ThongKeBUS();
+    public void thongKeSanPhamBanChay(int thang, int nam) {
 
-        ArrayList<ThongKeSanPhamBanChayDTO> listSanPhamBanChay = thongKeBUS.getThongKeSanPhamBanChay(currentMonth, currentYear);
+        ArrayList<ThongKeSanPhamBanChayDTO> listSanPhamBanChay = thongKeBUS.getThongKeSanPhamBanChay(thang, nam);
 
         DefaultTableModel model = (DefaultTableModel) tblThongKeSanPham.getModel();
         model.setRowCount(0);
@@ -71,70 +59,14 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
             model.addRow(row);
             k++;
         }
+        veBieuDoTronTop5(listSanPhamBanChay);
+        // set dữ liệu ra giữa cột
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        // Áp dụng renderer cho từng cột trong bảng
         for (int i = 0; i < tblThongKeSanPham.getColumnCount(); i++) {
             tblThongKeSanPham.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-    }
 
-    public void veBieuDoTronTop5() {
-        DefaultPieDataset dataset = new DefaultPieDataset();
-
-        // Lấy danh sách tất cả sản phẩm
-        try {
-
-            ArrayList<ThongKeSanPhamBanChayDTO> allSanPham = thongKeBUS.getThongKeSanPhamBanChay(currentMonth, currentYear);
-//            ArrayList<ThongKeSanPhamBanChayDTO> allSanPham = thongKeBUS.getThongKeSanPhamBanChay();
-            int tongSoLuongTop5 = 0;
-
-            // Lấy top 5 sản phẩm và tính tổng số lượng
-            for (int i = 0; i < Math.min(5, allSanPham.size()); i++) {
-                ThongKeSanPhamBanChayDTO sanPham = allSanPham.get(i);
-                dataset.setValue(sanPham.getTenSP(), sanPham.getSoLuongDaBan());
-                tongSoLuongTop5 += sanPham.getSoLuongDaBan();
-            }
-
-            // Tính tổng số lượng các sản phẩm nằm ngoài top 5
-            int tongSoLuongKhac = 0;
-            for (int i = 5; i < allSanPham.size(); i++) {
-                ThongKeSanPhamBanChayDTO sanPham = allSanPham.get(i);
-                tongSoLuongKhac += sanPham.getSoLuongDaBan();
-            }
-
-            // Thêm sản phẩm "Khác" vào biểu đồ nếu tổng số lượng khác 0
-            if (tongSoLuongKhac > 0) {
-                dataset.setValue("Khác", tongSoLuongKhac);
-            }
-
-            // Tạo biểu đồ tròn và cấu hình nó
-            JFreeChart pieChart = ChartFactory.createPieChart(
-                    "Top 5 Sản phẩm bán chạy tháng " + String.valueOf(currentMonth) + "/" + String.valueOf(currentYear), // Tiêu đề biểu đồ
-                    dataset, // Dữ liệu
-                    true, // Hiển thị giá trị phần trăm
-                    true,
-                    false
-            );
-
-            // Tạo plot và cấu hình hiển thị phần trăm
-            PiePlot plot = (PiePlot) pieChart.getPlot();
-            plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: ({2})", new java.text.DecimalFormat("0"), new java.text.DecimalFormat("0%")));
-
-            // Tạo panel để hiển thị biểu đồ
-            ChartPanel chartPanel = new ChartPanel(pieChart);
-            chartPanel.setPreferredSize(new Dimension(500, 300));
-
-            // Thêm panel vào giao diện của bạn
-            pnlChart.removeAll(); // Xóa các component cũ trước khi thêm mới
-            pnlChart.add(chartPanel);
-            pnlChart.revalidate();
-            pnlChart.repaint();
-        } catch (Exception ex) {
-            ex.printStackTrace(); // In ra lỗi nếu có
-            // Xử lý ngoại lệ ở đây nếu cần
-        }
     }
 
     public void veBieuDoTronTop5(ArrayList<ThongKeSanPhamBanChayDTO> listSP) {
@@ -192,11 +124,6 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -309,28 +236,6 @@ public class ThongKeSanPhamBanChay extends javax.swing.JPanel {
             Logger.getLogger(ThongKeSanPhamBanChay.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXuatExcelActionPerformed
-
-    public void thongKeSanPhamBanChay(int thang, int nam) {
-        // Gọi hàm thống kê sản phẩm bán chạy từ lớp BUS
-        ArrayList<ThongKeSanPhamBanChayDTO> listSanPhamBanChay = thongKeBUS.getThongKeSanPhamBanChay(thang, nam);
-
-        // Hiển thị dữ liệu lên bảng
-        DefaultTableModel model = (DefaultTableModel) tblThongKeSanPham.getModel();
-        model.setRowCount(0);
-        int k = 1;
-        for (ThongKeSanPhamBanChayDTO thongKe : listSanPhamBanChay) {
-            Object[] row = {
-                k,
-                thongKe.getTenSP(),
-                thongKe.getSoLuongDaBan()
-            };
-            model.addRow(row);
-            k++;
-        }
-
-        // Vẽ biểu đồ tròn với dữ liệu mới
-        veBieuDoTronTop5(listSanPhamBanChay);
-    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

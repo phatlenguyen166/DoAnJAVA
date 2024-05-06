@@ -147,12 +147,13 @@ public class ThongKeDAO {
         calendar.set(Calendar.MILLISECOND, 0);
         try {
             Connection con = MySQLConnection.getConnection();
-            String sql = "SELECT khachhang.makh, khachhang.tenkhachhang, COUNT(phieuxuat.maphieuxuat) AS soluong, IFNULL(SUM(phieuxuat.tongtien), 0) AS total "
-                    + "FROM khachhang, phieuxuat "
-                    + "WHERE khachhang.makh = phieuxuat.makh AND phieuxuat.thoigian BETWEEN ? AND ? "
-                    + "GROUP BY khachhang.makh, khachhang.tenkhachhang "
-                    + "HAVING ( khachhang.tenkhachhang LIKE ? OR khachhang.makh LIKE ? ) AND soluong > 0";
-
+            String sql = "SELECT kh.makh, kh.tenkhachhang, COUNT(px.maphieuxuat) AS soluong, IFNULL(SUM(px.tongtien), 0) AS total\n"
+                    + "FROM khachhang kh\n"
+                    + "JOIN phieuxuat px ON kh.makh = px.makh\n"
+                    + "WHERE px.thoigian BETWEEN ? AND ?\n"
+                    + "GROUP BY kh.makh, kh.tenkhachhang\n"
+                    + "HAVING (kh.tenkhachhang LIKE ? OR kh.makh LIKE ?) AND soluong > 0\n"
+                    + "ORDER BY total DESC;";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setTimestamp(1, new Timestamp(timeStart.getTime()));
             pst.setTimestamp(2, new Timestamp(calendar.getTimeInMillis()));

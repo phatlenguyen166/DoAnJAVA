@@ -12,14 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeTongQuan.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeTuNgayDenNgay.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/ThongKeDAO.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeDoanhThuTungNam.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/BUS/ThongKeBUS.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/SanPhamDAO.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/NhapExcel.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/KhachHang.java</file>
-            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/LineChartExample.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/XuatExcel.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/SuaSanPham.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/ThemSanPham.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/ThongKeDAO.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeSanPhamBanChay.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/ChiTietSanPham.java</file>
         </group>
     </open-files>
 </project-private>
