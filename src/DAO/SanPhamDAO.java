@@ -1,7 +1,6 @@
 package DAO;
 
 import DTO.SanPhamDTO;
-import DTO.ThuongHieuDTO;
 import config.MySQLConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class SanPhamDAO {

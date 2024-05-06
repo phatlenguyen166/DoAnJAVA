@@ -110,7 +110,6 @@ public class Login extends javax.swing.JFrame {
                     main.setUT();
                     dispose();
                 }
-
             } else {
                 showMessage("Sai tài khoản hoặc mật khẩu");
             }

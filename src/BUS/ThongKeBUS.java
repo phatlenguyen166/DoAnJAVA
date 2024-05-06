@@ -34,21 +34,17 @@ public class ThongKeBUS {
     public ArrayList<ThongKeTonKhoDTO> getThongKeTonKho() {
         return thongkeDAO.getThongKeTonKho("", new Date(0), new Date(System.currentTimeMillis()));
     }
-    
+
     public ArrayList<ThongKeTonKhoDTO> filterTonKho(String text, Date start, Date end) {
         return thongkeDAO.getThongKeTonKho(text, start, end);
     }
-    
+
     public ArrayList<ThongKeDoanhThuDTO> getDoanhThuTheoTungNam(int year_start, int year_end) {
         return this.thongkeDAO.getDoanhThuTheoTungNam(year_start, year_end);
     }
 
     public ArrayList<ThongKeTheoThangDTO> getThongKeTheoThang(int nam) {
         return thongkeDAO.getThongKeTheoThang(nam);
-    }
-
-    public ArrayList<ThongKeSanPhamBanChayDTO> getThongKeSanPhamBanChay() {
-        return thongkeDAO.getListSanPhamBanChay();
     }
 
     public ArrayList<ThongKeSanPhamBanChayDTO> getThongKeSanPhamBanChay(int thang, int nam) {
@@ -62,7 +58,7 @@ public class ThongKeBUS {
     public ArrayList<ThongKeNccDTO> getAllNhaCungCap() {
         return thongkeDAO.getThongKeNhaCungCap("", new Date(0), new Date(System.currentTimeMillis()));
     }
-    
+
     public ArrayList<ThongKeNccDTO> locNhaCungCap(String text, Date start, Date end) {
         return thongkeDAO.getThongKeNhaCungCap(text, start, end);
     }
@@ -70,7 +66,7 @@ public class ThongKeBUS {
     public ArrayList<ThongKeTrongThangDTO> getThongKeTungNgayTrongThang(int thang, int nam) {
         return thongkeDAO.getThongKeTungNgayTrongThang(thang, nam);
     }
-    
+
     public ArrayList<ThongKeTrongThangDTO> getThongKeTuNgayDenNgay(String Start, String End) {
         return thongkeDAO.getThongKeTuNgayDenNgay(Start, End);
     }

@@ -14,12 +14,15 @@
         <group>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/SanPhamDAO.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/NhapExcel.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeTongQuan.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/XuatExcel.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/SuaSanPham.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/ThemSanPham.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/ThongKeDAO.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/BUS/SanPhamBUS.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/ThongKeHeThong/ThongKeSanPhamBanChay.java</file>
             <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/GUI/SPham/ChiTietSanPham.java</file>
+            <file>file:/C:/Users/phatl/OneDrive/Máy%20tính/JavaApplication2/src/DAO/ThuongHieuDAO.java</file>
         </group>
     </open-files>
 </project-private>

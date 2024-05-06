@@ -60,53 +60,14 @@ public class ThongKeDAO {
         return listThongSP;
     }
 
-    public ArrayList<ThongKeSanPhamBanChayDTO> getListSanPhamBanChay() {
-        Connection con = MySQLConnection.getConnection();
-        ArrayList<ThongKeSanPhamBanChayDTO> listThongSP = new ArrayList<>();
-        String sql = "SELECT sp.masp, sp.tensp, SUM(ct.soluong) AS soluong_ban "
-                + "FROM sanpham sp "
-                + "JOIN ctphieuxuat ct ON sp.masp = ct.masp "
-                + "GROUP BY sp.tensp "
-                + "ORDER BY soluong_ban DESC ";
-
-        try {
-            PreparedStatement pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                String tensp = rs.getString("tensp");
-                int soluongBan = rs.getInt("soluong_ban");
-
-                ThongKeSanPhamBanChayDTO thongKeSanPhamBanChayDTO = new ThongKeSanPhamBanChayDTO(tensp, soluongBan);
-                listThongSP.add(thongKeSanPhamBanChayDTO);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // In ra thông báo lỗi
-            // Ghi log hoặc xử lý exception theo nhu cầu của bạn
-        } finally {
-            // Đóng kết nối sau khi sử dụng xong
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace(); // Xử lý exception khi đóng kết nối
-            }
-        }
-        return listThongSP;
-    }
-
     public ArrayList<ThongKeSanPhamBanChayDTO> getListSanPhamBanChay(int thang, int nam) {
         Connection con = MySQLConnection.getConnection();
         ArrayList<ThongKeSanPhamBanChayDTO> listThongSP = new ArrayList<>();
         String sql = "SELECT sp.masp, sp.tensp, SUM(ct.soluong) AS soluong_ban "
-                + "FROM sanpham sp "
-                + "JOIN ctphieuxuat ct ON sp.masp = ct.masp "
-                + "JOIN phieuxuat px ON ct.maphieuxuat = px.maphieuxuat "
-                + "WHERE MONTH(px.thoigian) = ? AND YEAR(px.thoigian) = ? "
+                + "FROM sanpham sp, ctphieuxuat ct, phieuxuat px "
+                + "WHERE ct.masp = sp.masp AND px.maphieuxuat = ct.maphieuxuat AND MONTH(px.thoigian) = ? AND YEAR(px.thoigian) = ? "
                 + "GROUP BY sp.tensp "
                 + "ORDER BY soluong_ban DESC ";
-
         try {
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, thang); // Thiết lập tháng
@@ -116,7 +77,6 @@ public class ThongKeDAO {
             while (rs.next()) {
                 String tensp = rs.getString("tensp");
                 int soluongBan = rs.getInt("soluong_ban");
-
                 ThongKeSanPhamBanChayDTO thongKeSanPhamBanChayDTO = new ThongKeSanPhamBanChayDTO(tensp, soluongBan);
                 listThongSP.add(thongKeSanPhamBanChayDTO);
             }
