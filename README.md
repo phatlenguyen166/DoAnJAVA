@@ -18,5 +18,5 @@ This is a Java desktop application developed as a university project to manage i
 - 🗃️ **Database:** MySQL
 - 🧩 **Modeling:** ERD diagram included in `ERD-QuanLyKhoGiay.pdf`
 
-## 🏗️ Project Structure
+
 
